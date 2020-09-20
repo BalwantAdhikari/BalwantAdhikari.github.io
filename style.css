@@ -123,3 +123,7 @@ footer .container, .container-fluid, .container-lg, .container-md, .container-sm
 .contact-footer a {
     color: #212531;
 }
+
+footer h4 {
+    color: #05386B;
+}
