@@ -109,6 +109,11 @@ footer .container, .container-fluid, .container-lg, .container-md, .container-sm
 
 .list-group-item {
     background-color: #5CDB95;
+    padding: 0.4rem 1.25rem;
+}
+
+.list-group-flush>.list-group-item {
+    border-width: 0 0;
 }
 
 .list-group-item-action{
@@ -126,6 +131,7 @@ footer .container, .container-fluid, .container-lg, .container-md, .container-sm
 
 #footer h4 {
     color: #05386B;
+    text-transform: uppercase;
 }
 
 .fixed-height {
@@ -140,3 +146,38 @@ footer .container, .container-fluid, .container-lg, .container-md, .container-sm
     display: block;
     margin: auto;
 }
+
+.carousel-caption h5{
+    color: #fff;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+@media only screen and (min-width: 768px) {
+    
+    .carousel-caption {
+        margin-bottom: 5%;
+    }
+    
+    .carousel-caption p {
+        font-size: 1.25em;
+    }
+
+    .carousel-caption h5 {
+        font-size: 1.5em;
+    }
+
+    .carousel-caption button {
+        font-size: 16px;
+        padding: .375rem .75rem;
+    }
+}
+
+.carousel-caption button:hover {
+    color: #5CDB95;
+    background-color: #fff;
+    border-color: #5CDB95;
+}
+
