@@ -97,7 +97,7 @@ export default class Game extends Phaser.Scene
 
         // add Score text
         const style = { color: '#000', fontSize: 24 }
-        this.carrotsCollectedText = this.add.text(240, 10, 'Carrots: 0', style)
+        this.carrotsCollectedText = this.add.text(this.scale.width/2, 10, 'Carrots: 0', style)
             .setScrollFactor(0)
             .setOrigin(0.5, 0)
 
