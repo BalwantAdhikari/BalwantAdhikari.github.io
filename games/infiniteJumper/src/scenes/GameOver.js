@@ -12,7 +12,7 @@ export default class GameOver extends Phaser.Scene
         const width = this.scale.width
         const height = this.scale.height
 
-        this.add.text(this.scale.width/2, this.scale.height/2, 'Game Over\nPress and Hold\nto Restart', {
+        this.add.text(this.scale.width/2, this.scale.height/2, 'Game Over\nClick\nto Restart', {
             fontSize: 48,
             align: 'center'
         })
