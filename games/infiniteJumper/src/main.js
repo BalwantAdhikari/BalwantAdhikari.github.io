@@ -12,9 +12,9 @@ window.mobileAndTabletCheck = function() {
 console.log(window.mobileAndTabletCheck())
 
 export default new Phaser.Game({
-    type: Phaser.AUTO,
-    width: window.mobileAndTabletCheck() ? document.window.width : 480,
-    height: window.mobileAndTabletCheck() ? document.window.height : 640,
+    type: Phaser.CANVAS,
+    width: window.mobileAndTabletCheck() ? window.innerWidth * window.devicePixelRatio : 480,
+    height: window.mobileAndTabletCheck() ? window.innerHeight * window.devicePixelRatio : 640,
     scene: [Game, GameOver],
     physics: {
         default: 'arcade',
