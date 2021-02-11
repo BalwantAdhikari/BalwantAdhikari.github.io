@@ -13,8 +13,8 @@ console.log(window.mobileAndTabletCheck())
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
-    width: window.mobileAndTabletCheck() ? window.innerWidth * window.devicePixelRatio : 480,
-    height: window.mobileAndTabletCheck() ? window.innerHeight * window.devicePixelRatio : 640,
+    width: window.mobileAndTabletCheck() ? window.innerWidth : 480,
+    height: window.mobileAndTabletCheck() ? window.innerHeight : 640,
     scene: [Game, GameOver],
     physics: {
         default: 'arcade',
