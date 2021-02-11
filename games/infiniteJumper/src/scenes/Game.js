@@ -160,7 +160,18 @@ export default class Game extends Phaser.Scene
         }
 
         // left and right input logic
-        if (this.cursors.left.isDown && !touchingDown)
+        if (this.input.pointer1.isDown && !touchingDown)
+        {
+            if(this.input.pointer1.x < (this.scale.width/2))
+            {
+                this.player.setVelocityX(-200)
+            }
+            else
+            {
+                this.player.setVelocityX(200)
+            }
+        }
+        else if (this.cursors.left.isDown && !touchingDown)
         {
             this.player.setVelocityX(-200)
         }
