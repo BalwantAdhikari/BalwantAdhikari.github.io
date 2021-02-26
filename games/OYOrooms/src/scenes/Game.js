@@ -25,6 +25,7 @@ export default class Game extends Phaser.Scene
         this.leftRoad = this.add.image(0, 0, 'left-road').setScale(0.35)
         this.rightRoad = this.add.image(0, 0, 'right-road').setScale(0.35)
         this.hrRule = this.add.image(0, 0, 'hr-rule')
+        this.hrRule.setScale(0.2)
         this.cloud = this.add.image(0, 0, 'cloud')
         this.cloud.setScale(0.08)
         this.cloud.flipX = true
@@ -50,7 +51,7 @@ export default class Game extends Phaser.Scene
         this.rightRoad.angle +=15
 
         this.aGrid.placeAt(5, 3.4, this.hrRule)
-        Align.scaleToGameW(this.hrRule, 0.5)
+        
 
         // set bounds 
         this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
