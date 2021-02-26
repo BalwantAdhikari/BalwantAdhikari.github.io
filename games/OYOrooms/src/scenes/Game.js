@@ -21,17 +21,16 @@ export default class Game extends Phaser.Scene
     create()
     {
         this.cameras.main.setBackgroundColor('#FFF')
-        this.sky = this.add.image(0, 0, 'sky').setScale(0.4)
-        this.leftRoad = this.add.image(0, 0, 'left-road').setScale(0.35)
-        this.rightRoad = this.add.image(0, 0, 'right-road').setScale(0.35)
+        this.sky = this.add.image(0, 0, 'sky')
+        this.leftRoad = this.add.image(0, 0, 'left-road')
+        this.rightRoad = this.add.image(0, 0, 'right-road')
         this.hrRule = this.add.image(0, 0, 'hr-rule')
-        this.hrRule.setScale(0.03)
+        this.hrRule.setScale(0.1)
         this.cloud = this.add.image(0, 0, 'cloud')
-        this.cloud.setScale(0.08)
         this.cloud.flipX = true
         
-        this.add.image(0, 0, 'cloud').setScale(0.08)
-        this.bike = this.physics.add.sprite(0, 0, 'bike').setScale(0.3)
+        this.add.image(0, 0, 'cloud')
+        this.bike = this.physics.add.sprite(0, 0, 'bike')
 
         this.aGrid = new AlignGrid({scene:this, rows:11, cols:11})
         // this.aGrid.showNumbers()
