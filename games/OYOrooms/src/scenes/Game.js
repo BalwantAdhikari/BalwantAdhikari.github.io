@@ -19,15 +19,26 @@ export default class Game extends Phaser.Scene
     {
         this.cameras.main.setBackgroundColor('#FFF')
         this.add.image(240, 150, 'sky').setScale(0.4)
-        this.bike = this.add.image(240, 470, 'bike').setScale(0.3)
         this.add.image(100, 400, 'left-road').setScale(0.35)
         this.add.image(380, 400, 'right-road').setScale(0.35)
         this.add.image(240, 260, 'hr-rule').setScale(0.07)
         this.cloud = this.add.image(100, 150, 'cloud')
         this.cloud.setScale(0.08)
         this.cloud.flipX = true
-
+        
         this.add.image(200, 150, 'cloud').setScale(0.08)
+        this.bike = this.physics.add.sprite(240, 470, 'bike').setScale(0.3)
+
+        // set bounds 
+        this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
+
+        // so the bike does'nt go out of road while stering
+        this.bike.setCollideWorldBounds()
+
+        // so the bike does not fall in y axis
+        this.physics.world.gravity.y = 0
+
+        this.cursors = this.input.keyboard.createCursorKeys()
     }
 
     update()
@@ -51,6 +62,27 @@ export default class Game extends Phaser.Scene
                 this.bike.y -= 2
                 this.flag = true
             }
+        }
+
+        // left and right input logic
+        if (this.input.pointer1.isDown)
+        {
+            if(this.input.pointer1.x < (this.scale.width/2))
+            {
+                this.bike.x -= 2
+            }
+            else
+            {
+                this.bike.x += 2
+            }
+        }
+        else if (this.cursors.left.isDown)
+        {
+            this.bike.x -= 2
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.bike.x += 2
         }
 
     }
