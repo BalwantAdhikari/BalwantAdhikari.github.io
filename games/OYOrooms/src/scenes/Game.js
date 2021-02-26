@@ -25,7 +25,7 @@ export default class Game extends Phaser.Scene
         this.leftRoad = this.add.image(0, 0, 'left-road').setScale(0.35)
         this.rightRoad = this.add.image(0, 0, 'right-road').setScale(0.35)
         this.hrRule = this.add.image(0, 0, 'hr-rule')
-        this.hrRule.setScale(0.05)
+        this.hrRule.setScale(0.02)
         this.cloud = this.add.image(0, 0, 'cloud')
         this.cloud.setScale(0.08)
         this.cloud.flipX = true
