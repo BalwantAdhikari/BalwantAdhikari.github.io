@@ -1,5 +1,8 @@
 import Phaser from '../lib/phaser.js'
 
+import AlignGrid from '../lib/util/alignGrid.js'
+import Align from '../lib/util/align.js'
+
 export default class Game extends Phaser.Scene
 {
     flag = true
@@ -18,16 +21,36 @@ export default class Game extends Phaser.Scene
     create()
     {
         this.cameras.main.setBackgroundColor('#FFF')
-        this.add.image(240, 150, 'sky').setScale(0.4)
-        this.add.image(100, 400, 'left-road').setScale(0.35)
-        this.add.image(380, 400, 'right-road').setScale(0.35)
-        this.add.image(240, 260, 'hr-rule').setScale(0.07)
-        this.cloud = this.add.image(100, 150, 'cloud')
+        this.sky = this.add.image(0, 0, 'sky').setScale(0.4)
+        this.leftRoad = this.add.image(0, 0, 'left-road').setScale(0.35)
+        this.rightRoad = this.add.image(0, 0, 'right-road').setScale(0.35)
+        this.hrRule = this.add.image(0, 0, 'hr-rule')
+        this.cloud = this.add.image(0, 0, 'cloud')
         this.cloud.setScale(0.08)
         this.cloud.flipX = true
         
-        this.add.image(200, 150, 'cloud').setScale(0.08)
-        this.bike = this.physics.add.sprite(240, 470, 'bike').setScale(0.3)
+        this.add.image(0, 0, 'cloud').setScale(0.08)
+        this.bike = this.physics.add.sprite(0, 0, 'bike').setScale(0.3)
+
+        this.aGrid = new AlignGrid({scene:this, rows:11, cols:11})
+        // this.aGrid.showNumbers()
+
+        this.aGrid.placeAtIndex(93, this.bike)
+        Align.scaleToGameW(this.bike, .25)
+
+        this.aGrid.placeAtIndex(27, this.sky)
+        Align.scaleToGameW(this.sky, 1.1)
+
+        this.aGrid.placeAtIndex(68, this.leftRoad)
+        Align.scaleToGameW(this.leftRoad, 0.6)
+        this.leftRoad.angle -=15
+
+        this.aGrid.placeAtIndex(74, this.rightRoad)
+        Align.scaleToGameW(this.rightRoad, 0.6)
+        this.rightRoad.angle +=15
+
+        this.aGrid.placeAt(5, 3.4, this.hrRule)
+        Align.scaleToGameW(this.hrRule, 2.3)
 
         // set bounds 
         this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
