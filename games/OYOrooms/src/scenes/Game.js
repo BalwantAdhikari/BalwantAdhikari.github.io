@@ -50,7 +50,7 @@ export default class Game extends Phaser.Scene
         this.rightRoad.angle +=15
 
         this.aGrid.placeAt(5, 3.4, this.hrRule)
-        Align.scaleToGameW(this.hrRule, 1)
+        Align.scaleToGameW(this.hrRule, 0.5)
 
         // set bounds 
         this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
