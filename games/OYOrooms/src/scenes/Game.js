@@ -23,33 +23,35 @@ export default class Game extends Phaser.Scene
         this.cameras.main.setBackgroundColor('#FFF')
         this.sky = this.add.image(0, 0, 'sky')
         this.leftRoad = this.add.image(0, 0, 'left-road')
+        this.leftRoad.setOrigin(1, 0)
         this.rightRoad = this.add.image(0, 0, 'right-road')
-        this.hrRule = this.add.image(0, 0, 'hr-rule')
-        this.hrRule.setScale(0.1)
-        this.cloud = this.add.image(0, 0, 'cloud')
-        this.cloud.flipX = true
+        this.rightRoad.setOrigin(0, 0)
+        // this.hrRule = this.add.image(0, 0, 'hr-rule')
+        // this.hrRule.setScale(0.1)
+        // this.cloud = this.add.image(0, 0, 'cloud')
+        // this.cloud.flipX = true
         
-        this.add.image(0, 0, 'cloud')
+        // this.add.image(0, 0, 'cloud')
         this.bike = this.physics.add.sprite(0, 0, 'bike')
 
-        this.aGrid = new AlignGrid({scene:this, rows:11, cols:11})
+        this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
         // this.aGrid.showNumbers()
 
-        this.aGrid.placeAtIndex(93, this.bike)
+        this.aGrid.placeAtIndex(112, this.bike)
         Align.scaleToGameW(this.bike, .25)
 
-        this.aGrid.placeAtIndex(27, this.sky)
+        this.aGrid.placeAtIndex(40, this.sky)
         Align.scaleToGameW(this.sky, 1.1)
 
-        this.aGrid.placeAtIndex(68, this.leftRoad)
+        this.aGrid.placeAtIndex(66, this.leftRoad)
         Align.scaleToGameW(this.leftRoad, 0.6)
         this.leftRoad.angle -=15
 
-        this.aGrid.placeAtIndex(74, this.rightRoad)
+        this.aGrid.placeAtIndex(68, this.rightRoad)
         Align.scaleToGameW(this.rightRoad, 0.6)
         this.rightRoad.angle +=15
 
-        this.aGrid.placeAt(5, 3.4, this.hrRule)
+        // this.aGrid.placeAt(5, 3.4, this.hrRule)
         
 
         // set bounds 
