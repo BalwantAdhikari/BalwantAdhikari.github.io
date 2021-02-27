@@ -16,6 +16,7 @@ export default class Game extends Phaser.Scene
         this.load.image('right-road', 'assets/object-27.png')
         this.load.image('hr-rule', 'assets/object-32.png')
         this.load.image('cloud', 'assets/object-29.png')
+        this.load.image('traffic-light', 'assets/object-11.png')
     }
 
     create()
@@ -26,12 +27,16 @@ export default class Game extends Phaser.Scene
         this.leftRoad.setOrigin(1, 0)
         this.rightRoad = this.add.image(0, 0, 'right-road')
         this.rightRoad.setOrigin(0, 0)
+        
         // this.hrRule = this.add.image(0, 0, 'hr-rule')
         // this.hrRule.setScale(0.1)
-        // this.cloud = this.add.image(0, 0, 'cloud')
-        // this.cloud.flipX = true
+        this.cloud = this.add.image(0, 0, 'cloud')
+        this.cloud.flipX = true
         
-        // this.add.image(0, 0, 'cloud')
+        this.cloud1 = this.add.image(0, 0, 'cloud')
+        this.cloud2 = this.add.image(0, 0, 'cloud')
+        this.cloud3 = this.add.image(0, 0, 'cloud')
+        this.trafficLight = this.add.image(0, 0, 'traffic-light')
         this.bike = this.physics.add.sprite(0, 0, 'bike')
 
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
@@ -52,7 +57,21 @@ export default class Game extends Phaser.Scene
         this.rightRoad.angle +=15
 
         // this.aGrid.placeAt(5, 3.4, this.hrRule)
+
+        this.aGrid.placeAtIndex(37, this.cloud)
+        Align.scaleToGameW(this.cloud, 0.17)
+
+        this.aGrid.placeAtIndex(30, this.cloud1)
+        Align.scaleToGameW(this.cloud1, 0.14)
         
+        this.aGrid.placeAtIndex(40, this.cloud2)
+        Align.scaleToGameW(this.cloud2, 0.1)
+
+        this.aGrid.placeAtIndex(42, this.cloud3)
+        Align.scaleToGameW(this.cloud3, 0.14)
+
+        this.aGrid.placeAtIndex(57, this.trafficLight)
+        Align.scaleToGameW(this.trafficLight, 0.3)
 
         // set bounds 
         this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
