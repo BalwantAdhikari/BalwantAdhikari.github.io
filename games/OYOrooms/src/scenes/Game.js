@@ -8,13 +8,19 @@ import Align from '../lib/util/align.js'
 
 export default class Game extends Phaser.Scene
 {
-    flag = true
-    count = 0
+    flag
+    count
     countdown
 
     constructor()
     {
         super('game')
+    }
+
+    init()
+    {
+        this.flag = true
+        this.count = 0
     }
     
     preload()
@@ -30,6 +36,7 @@ export default class Game extends Phaser.Scene
         this.load.image('road-sign', 'assets/object-3.png')
         this.load.image('trees', 'assets/object-4.png')
         this.load.image('breaker', 'assets/object-10.png')
+        this.load.image('car', 'assets/object-5.png')
 
         this.load.image('hotel', 'assets/object-16.png')
     }
@@ -58,7 +65,10 @@ export default class Game extends Phaser.Scene
         this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
         this.trafficLightGreen.setVisible(false)
-        this.breaker = this.physics.add.image()
+        // this.breaker = this.physics.add.sprite(0, 0, 'breaker')
+        // this.breaker.setOrigin(0.5)
+        // this.car = this.physics.add.sprite(0, 0, 'car')
+        // this.car.setOrigin(0.5)
         this.bike = this.physics.add.sprite(0, 0, 'bike')
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
@@ -115,6 +125,12 @@ export default class Game extends Phaser.Scene
         this.aGrid.placeAtIndex(62, this.trees2)
         Align.scaleToGameW(this.trees2, 0.1)
 
+        // this.aGrid.placeAtIndex(58, this.car)
+        // Align.scaleToGameW(this.car, 0.05)
+        // this.car.setVisible(false)
+
+        
+
         const timerLabel = this.add.text(this.scale.width * 0.5, 50, '39 sec',{font: 'bold 24px Arial', fill: '#EB0303'})
                 .setOrigin(0.5)
 
@@ -138,8 +154,6 @@ export default class Game extends Phaser.Scene
         this.countdown = new CountdownController(this, timerLabel, remainingTimeLabel, this.progressBar)
         this.countdown.start(this.handleCountdownFinished.bind(this))
 
-        
-
         // set bounds 
         this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
 
@@ -155,7 +169,7 @@ export default class Game extends Phaser.Scene
 
     handleCountdownFinished()
     {
-
+        this.scene.start('game-over')
     }
 
     update()
@@ -246,6 +260,14 @@ export default class Game extends Phaser.Scene
 
 
         // }
+        // if(this.count > 350)
+        // {
+        //     // scale and move car
+        //     this.car.setVisible(true)
+        //     this.car.x += 0.12
+        //     this.car.y += 0.5
+        //     Align.scaleToGameW(this.car, 0.05 + this.count/5000)
+        // }
 
         if(this.count == 450)
         {
@@ -289,6 +311,11 @@ export default class Game extends Phaser.Scene
             this.roadSign.y += 0.15
 
             Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
+
+            // scale and move car
+            // this.car.x += 0.12
+            // this.car.y += 0.5
+            // Align.scaleToGameW(this.car, 0.05 + (this.count - 100)/5000)
             
         }
 
