@@ -64,7 +64,7 @@ export default class CountdownController
         if(passedSeconds.toFixed(0) == 1)
         {
             this.progressBar.fillStyle(0xEB0303, 1)
-            this.progressBar.fillRoundedRect(this.scene.scale.width/4, 70, this.scene.scale.width/2 * (passedSeconds.toFixed(0)/39), 10, 4)
+            this.progressBar.fillRoundedRect(this.scene.scale.width/4, 70, this.scene.scale.width/2 * (passedSeconds.toFixed(0)/39), 10, 3)
         }
         else if(passedSeconds.toFixed(0) > 1)
         {
