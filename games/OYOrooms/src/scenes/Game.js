@@ -11,6 +11,11 @@ export default class Game extends Phaser.Scene
     flag = true
     count = 0
     countdown
+
+    constructor()
+    {
+        super('game')
+    }
     
     preload()
     {
