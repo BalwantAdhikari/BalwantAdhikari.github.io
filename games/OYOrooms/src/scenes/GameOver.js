@@ -23,7 +23,7 @@ export default class GameOver extends Phaser.Scene
 
         this.clickButton = this.add.graphics().setInteractive(new Phaser.Geom.Rectangle(0, 0, 200, 80), Phaser.Geom.Rectangle.Contains)
 
-        this.clickButton.fillStyle(0x000000, 0.2)
+        this.clickButton.fillStyle(0x000000, 0)
         this.clickButton.fillRoundedRect(0, 0, 200, 80)
         
 
