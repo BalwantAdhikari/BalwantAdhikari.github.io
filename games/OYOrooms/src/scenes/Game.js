@@ -71,6 +71,7 @@ export default class Game extends Phaser.Scene
         this.trafficLightGreen.setVisible(false)
         this.breaker = this.physics.add.sprite(0, 0, 'breaker')
         this.breaker.setOrigin(0.5)
+        this.breaker.setVisible(false)
         this.pothole = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole.setOrigin(0, 0.5)
         this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
