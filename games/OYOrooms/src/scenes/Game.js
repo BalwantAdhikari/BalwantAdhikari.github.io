@@ -22,6 +22,9 @@ export default class Game extends Phaser.Scene
         this.load.image('cloud', 'assets/object-29.png')
         this.load.image('traffic-light-red', 'assets/object-33.png')
         this.load.image('traffic-light-green', 'assets/object-34.png')
+        this.load.image('road-sign', 'assets/object-3.png')
+        this.load.image('trees', 'assets/object-4.png')
+        this.load.image('breaker', 'assets/object-10.png')
 
         this.load.image('hotel', 'assets/object-16.png')
     }
@@ -43,12 +46,20 @@ export default class Game extends Phaser.Scene
         this.cloud1 = this.add.image(0, 0, 'cloud')
         this.cloud2 = this.add.image(0, 0, 'cloud')
         this.cloud3 = this.add.image(0, 0, 'cloud')
+        
+        this.trees1 = this.add.image(0, 0, 'trees')
+        this.trees2 = this.add.image(0, 0, 'trees')
         this.hotel = this.add.image(0, 0, 'hotel')
-        this.hotel.setOrigin(0.5, 1)
         this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
         this.trafficLightGreen.setVisible(false)
+        this.breaker = this.physics.add.image()
         this.bike = this.physics.add.sprite(0, 0, 'bike')
+        this.roadSign = this.add.image(0, 0, 'road-sign')
+        this.roadSign.setOrigin(1, 0.5)
+        
+
+        this.hotel.setOrigin(0.5, 1)
 
         this.graphics = this.add.graphics()
         this.graphics1 = this.add.graphics()
@@ -89,6 +100,15 @@ export default class Game extends Phaser.Scene
 
         this.aGrid.placeAtIndex(65, this.hotel)
         Align.scaleToGameW(this.hotel, 0.1)
+
+        this.aGrid.placeAtIndex(69, this.roadSign)
+        Align.scaleToGameW(this.roadSign, 0.05)
+
+        this.aGrid.placeAtIndex(55, this.trees1)
+        Align.scaleToGameW(this.trees1, 0.1)
+
+        this.aGrid.placeAtIndex(62, this.trees2)
+        Align.scaleToGameW(this.trees2, 0.1)
 
         const timerLabel = this.add.text(this.scale.width * 0.5, 50, '39 sec',{font: 'bold 24px Arial', fill: '#EB0303'})
                 .setOrigin(0.5)
@@ -159,13 +179,25 @@ export default class Game extends Phaser.Scene
         // left and right input logic
         if (this.input.pointer1.isDown)
         {
-            if(this.input.pointer1.x < (this.scale.width/2))
+            // if(this.input.pointer1.x < (this.scale.width/2))
+            // {
+            //     this.bike.x -= 2
+            // }
+            // else
+            // {
+            //     this.bike.x += 2
+            // }
+
+            if (this.input.pointer1.getDistanceX() > 30)
             {
-                this.bike.x -= 2
-            }
-            else
-            {
-                this.bike.x += 2
+                if(this.input.pointer1.downX > this.input.pointer1.upX)
+                {
+                    this.bike.x -= 15
+                }
+                else
+                {
+                    this.bike.x += 15
+                }
             }
         }
         else if (this.cursors.left.isDown)
@@ -191,6 +223,12 @@ export default class Game extends Phaser.Scene
             this.trafficLightRed.y += 0.3
     
             Align.scaleToGameW(this.trafficLightRed, 0.3 + this.count/1000)
+
+            // scale and move road sign
+            this.roadSign.x += 0.09
+            this.roadSign.y += 0.05
+
+            Align.scaleToGameW(this.roadSign, 0.05 + this.count/5000)
         }
 
         // if(this.count > 350 && this.count < 450)
@@ -240,6 +278,12 @@ export default class Game extends Phaser.Scene
                 this.trafficLightGreen.destroy()
                 this.trafficLightRed.destroy()
             }
+
+            // scale and move road sign
+            this.roadSign.x += 0.20
+            this.roadSign.y += 0.15
+
+            Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
             
         }
 
