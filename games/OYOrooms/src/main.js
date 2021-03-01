@@ -1,6 +1,7 @@
 import Phaser from './lib/phaser.js'
 
 import Game from './scenes/Game.js'
+import LoadingScene from './scenes/LoadingScene.js'
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
@@ -15,5 +16,6 @@ export default new Phaser.Game({
             },
             debug: false
         }
-    }
+    },
+    scene: [LoadingScene, Game],
 })
