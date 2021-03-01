@@ -194,7 +194,8 @@ export default class Game extends Phaser.Scene
 
         this.pauseGame = true
 
-        this.time.delayedCall(3000, this.handleCountdownFinished, [], this)        
+        this.countdown.stop()
+        this.time.delayedCall(1500, this.handleCountdownFinished, [], this) 
 
         // this.scene.start('game-over')
     }
