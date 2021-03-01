@@ -1,12 +1,16 @@
 import Phaser from '../lib/phaser.js'
 
+import CountdownController from './CountdownController.js'
+
 import AlignGrid from '../lib/util/alignGrid.js'
 import Align from '../lib/util/align.js'
+
 
 export default class Game extends Phaser.Scene
 {
     flag = true
     count = 0
+    countdown
     
     preload()
     {
@@ -46,6 +50,9 @@ export default class Game extends Phaser.Scene
         this.trafficLightGreen.setVisible(false)
         this.bike = this.physics.add.sprite(0, 0, 'bike')
 
+        this.graphics = this.add.graphics()
+        this.graphics1 = this.add.graphics()
+
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
         // this.aGrid.showNumbers()
 
@@ -83,6 +90,31 @@ export default class Game extends Phaser.Scene
         this.aGrid.placeAtIndex(65, this.hotel)
         Align.scaleToGameW(this.hotel, 0.1)
 
+        const timerLabel = this.add.text(this.scale.width * 0.5, 50, '39 sec',{font: 'bold 24px Arial', fill: '#EB0303'})
+                .setOrigin(0.5)
+
+        const remainingTimeLabel = this.add.text(
+            this.scale.width * 0.5,
+            100,
+            '39 seconds left to reach',
+            {
+                font: '10px Arial',
+                fill: '#000'
+            })
+            .setOrigin(0.5)
+
+        
+        this.progressBox = this.graphics1
+        this.progressBar = this.graphics
+
+        this.progressBox.fillStyle(0x000000, 0.2)
+        this.progressBox.fillRoundedRect(this.scale.width/4, 70, this.scale.width/2, 10, 5);
+
+        this.countdown = new CountdownController(this, timerLabel, remainingTimeLabel, this.progressBar)
+        this.countdown.start(this.handleCountdownFinished.bind(this))
+
+        
+
         // set bounds 
         this.physics.world.setBounds(this.scale.width/6.4, 0, this.scale.width/1.43, this.scale.height);
 
@@ -93,6 +125,12 @@ export default class Game extends Phaser.Scene
         this.physics.world.gravity.y = 0
 
         this.cursors = this.input.keyboard.createCursorKeys()
+
+    }
+
+    handleCountdownFinished()
+    {
+
     }
 
     update()
@@ -142,14 +180,14 @@ export default class Game extends Phaser.Scene
         if(this.count < 350)
         {
             // scale and move hotel
-            this.hotel.x -= 0.05
-            this.hotel.y += 0.05
+            this.hotel.x -= 0.01
+            this.hotel.y += 0.01
     
-            Align.scaleToGameW(this.hotel, 0.2 + this.count/7000)
+            Align.scaleToGameW(this.hotel, 0.2 + this.count/10000)
     
     
             // scale and move traffic light
-            this.trafficLightRed.x -= 0.1  
+            this.trafficLightRed.x -= 0.12 
             this.trafficLightRed.y += 0.3
     
             Align.scaleToGameW(this.trafficLightRed, 0.3 + this.count/1000)
@@ -178,13 +216,13 @@ export default class Game extends Phaser.Scene
 
         }
 
-        if(this.count > 450 && this.count < 700)
+        if(this.count > 450 && this.count < 2200)
         {
             // scale and move hotel
-            this.hotel.x -= 0.05
-            this.hotel.y += 0.05
+            this.hotel.x -= 0.02
+            this.hotel.y += 0.01
     
-            Align.scaleToGameW(this.hotel, 0.2 + (this.count - 100)/7000)
+            Align.scaleToGameW(this.hotel, 0.2 + (this.count - 100)/9000)
     
             if(this.count > 550)
             {
@@ -192,12 +230,20 @@ export default class Game extends Phaser.Scene
             }
     
             // scale and move traffic light
-            this.trafficLightGreen.x -= 0.1  
+            this.trafficLightGreen.x -= 0.12
             this.trafficLightGreen.y += 0.3
     
             Align.scaleToGameW(this.trafficLightGreen, 0.3 + (this.count - 100)/1000)
+
+            if(this.count == 699)
+            {
+                this.trafficLightGreen.destroy()
+                this.trafficLightRed.destroy()
+            }
             
         }
+
+        this.countdown.update()
 
 
 
