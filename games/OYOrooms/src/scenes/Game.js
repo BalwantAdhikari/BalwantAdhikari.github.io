@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene
     flag
     count
     countdown
+    pauseGame
 
     constructor()
     {
@@ -21,6 +22,7 @@ export default class Game extends Phaser.Scene
     {
         this.flag = true
         this.count = 0
+        this.pauseGame = false
     }
     
     preload()
@@ -37,6 +39,8 @@ export default class Game extends Phaser.Scene
         this.load.image('trees', 'assets/object-4.png')
         this.load.image('breaker', 'assets/object-10.png')
         this.load.image('car', 'assets/object-5.png')
+        this.load.image('pothole', 'assets/object-8.png')
+        this.load.image('crashSign', 'assets/object-35.png')
 
         this.load.image('hotel', 'assets/object-16.png')
     }
@@ -65,11 +69,15 @@ export default class Game extends Phaser.Scene
         this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
         this.trafficLightGreen.setVisible(false)
-        // this.breaker = this.physics.add.sprite(0, 0, 'breaker')
-        // this.breaker.setOrigin(0.5)
-        // this.car = this.physics.add.sprite(0, 0, 'car')
-        // this.car.setOrigin(0.5)
+        this.breaker = this.physics.add.sprite(0, 0, 'breaker')
+        this.breaker.setOrigin(0.5)
+        this.pothole = this.physics.add.sprite(0, 0, 'pothole')
+        this.pothole.setOrigin(0, 0.5)
+        this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+        this.car = this.physics.add.sprite(0, 0, 'car')
+        this.car.setOrigin(0.5)
         this.bike = this.physics.add.sprite(0, 0, 'bike')
+        this.bike.setSize(this.bike.width * 0.5, this.bike.height * 0.5)
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
         
@@ -125,11 +133,13 @@ export default class Game extends Phaser.Scene
         this.aGrid.placeAtIndex(62, this.trees2)
         Align.scaleToGameW(this.trees2, 0.1)
 
-        // this.aGrid.placeAtIndex(58, this.car)
-        // Align.scaleToGameW(this.car, 0.05)
-        // this.car.setVisible(false)
+        this.aGrid.placeAtIndex(66, this.pothole)
+        Align.scaleToGameW(this.pothole, 0.1)
+        this.pothole.setVisible(false)
 
-        
+        this.aGrid.placeAtIndex(67, this.car)
+        Align.scaleToGameW(this.car, 0.05)
+        this.car.setVisible(false)
 
         const timerLabel = this.add.text(this.scale.width * 0.5, 50, '39 sec',{font: 'bold 24px Arial', fill: '#EB0303'})
                 .setOrigin(0.5)
@@ -165,7 +175,29 @@ export default class Game extends Phaser.Scene
 
         this.cursors = this.input.keyboard.createCursorKeys()
 
+        this.physics.add.collider(
+            this.bike,
+            this.pothole,
+            this.handleOverlapPothole,
+            undefined,
+            this
+        )
+
     }
+
+    handleOverlapPothole()
+    {
+        this.crashSign = this.add.image(this.bike.x, this.bike.y - 50, 'crashSign')
+        Align.scaleToGameW(this.crashSign, 0.5)
+        
+
+        this.pauseGame = true
+
+        this.time.delayedCall(3000, this.handleCountdownFinished, [], this)        
+
+        // this.scene.start('game-over')
+    }
+
 
     handleCountdownFinished()
     {
@@ -181,7 +213,7 @@ export default class Game extends Phaser.Scene
 
         this.count += 1
 
-        if(this.count % 4 == 0)
+        if(this.count % 4 == 0 && !this.pauseGame)
         {
             if(this.flag)
             {
@@ -196,17 +228,8 @@ export default class Game extends Phaser.Scene
         }
 
         // left and right input logic
-        if (this.input.pointer1.isDown)
+        if (this.input.pointer1.isDown && !this.pauseGame)
         {
-            // if(this.input.pointer1.x < (this.scale.width/2))
-            // {
-            //     this.bike.x -= 2
-            // }
-            // else
-            // {
-            //     this.bike.x += 2
-            // }
-
             if (Math.abs(this.input.pointer1.x - this.input.pointer1.downX) > 50)
             {
                 if(this.input.pointer1.downX > this.input.pointer1.x)
@@ -219,11 +242,11 @@ export default class Game extends Phaser.Scene
                 }
             }
         }
-        else if (this.cursors.left.isDown)
+        else if (this.cursors.left.isDown && !this.pauseGame)
         {
             this.bike.x -= 2
         }
-        else if (this.cursors.right.isDown)
+        else if (this.cursors.right.isDown && !this.pauseGame)
         {
             this.bike.x += 2
         }
@@ -250,16 +273,6 @@ export default class Game extends Phaser.Scene
             Align.scaleToGameW(this.roadSign, 0.05 + this.count/5000)
         }
 
-        // if(this.count > 350 && this.count < 450)
-        // {
-        //     this.trafficLightRed.setVisible(false)
-
-        //     this.trafficLightGreen.setVisible(true)
-        //     // this.trafficLightGreen.x = this.trafficLightRed.x
-        //     // this.trafficLightGreen.y = this.trafficLightRed.y
-
-
-        // }
         // if(this.count > 350)
         // {
         //     // scale and move car
@@ -281,7 +294,7 @@ export default class Game extends Phaser.Scene
 
         }
 
-        if(this.count > 450 && this.count < 2200)
+        if((this.count > 450 && this.count < 2200) && !this.pauseGame)
         {
             // scale and move hotel
             this.hotel.x -= 0.02
@@ -313,9 +326,25 @@ export default class Game extends Phaser.Scene
             Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
 
             // scale and move car
-            // this.car.x += 0.12
-            // this.car.y += 0.5
-            // Align.scaleToGameW(this.car, 0.05 + (this.count - 100)/5000)
+            // this.car.setVisible(true)
+            // this.car.x += 0.2
+            // this.car.y += 0.6
+            // Align.scaleToGameW(this.car, (this.count * 2)/3000)
+
+            if(this.count > 500)
+            {
+                this.pothole.setVisible(true)
+                this.pothole.x -= 0.2
+                this.pothole.y += 0.6
+                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/4000)
+            }
+
+            if(this.count > 800)
+            {
+                this.pothole.x -= 0.25
+                this.pothole.y += 0.7
+                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/4000)
+            }
             
         }
 
