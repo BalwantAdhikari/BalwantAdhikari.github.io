@@ -188,9 +188,9 @@ export default class Game extends Phaser.Scene
             //     this.bike.x += 2
             // }
 
-            if (this.input.pointer1.getDistanceX() > 30)
+            if (Math.abs(this.input.pointer1.x - this.input.pointer1.downX) > 50)
             {
-                if(this.input.pointer1.downX > this.input.pointer1.upX)
+                if(this.input.pointer1.downX > this.input.pointer1.x)
                 {
                     this.bike.x -= 15
                 }
