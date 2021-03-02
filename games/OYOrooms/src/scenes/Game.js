@@ -12,6 +12,7 @@ export default class Game extends Phaser.Scene
     count
     countdown
     pauseGame
+    redlight
 
     constructor()
     {
@@ -24,6 +25,7 @@ export default class Game extends Phaser.Scene
         this.count = 0
         this.pauseGame = false
         this.anims.resumeAll()
+        this.redlight = false
     }
     
     preload()
@@ -39,9 +41,9 @@ export default class Game extends Phaser.Scene
         this.load.image('road-sign', 'assets/object-3.png')
         this.load.image('trees', 'assets/object-4.png')
         this.load.image('breaker', 'assets/object-10.png')
-        this.load.image('car', 'assets/object-5.png')
         this.load.image('pothole', 'assets/object-8.png')
         this.load.image('crashSign', 'assets/object-35.png')
+        this.load.image('dustbin', 'assets/object-15.png')
 
         this.load.image('hotel', 'assets/object-16.png')
 
@@ -75,6 +77,11 @@ export default class Game extends Phaser.Scene
         
         this.trees1 = this.add.image(0, 0, 'trees')
         this.trees2 = this.add.image(0, 0, 'trees')
+        this.trees3 = this.add.image(0, 0, 'trees')
+        this.trees4 = this.add.image(0, 0, 'trees')
+        this.trees5 = this.add.image(0, 0, 'trees')
+        this.trees6 = this.add.image(0, 0, 'trees')
+
         this.hotel = this.add.image(0, 0, 'hotel')
         this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
@@ -83,18 +90,29 @@ export default class Game extends Phaser.Scene
         this.breaker.setOrigin(0.5)
         this.breaker.setVisible(false)
         this.pothole = this.physics.add.sprite(0, 0, 'pothole')
-        this.pothole.setOrigin(0.5, 0.5)
+        this.pothole.setOrigin(0.5)
         this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+
+        this.pothole1 = this.physics.add.sprite(0, 0, 'pothole')
+        this.pothole1.setOrigin(0)
+        this.pothole1.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+
+        this.pothole2 = this.physics.add.sprite(0, 0, 'pothole')
+        this.pothole2.setOrigin(0.5, 0.5)
+        this.pothole2.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+
+        this.dustbin = this.add.image(0, 0, 'dustbin')
+        this.dustbin.setOrigin(0.5)
+        
+        this.roadSign = this.add.image(0, 0, 'road-sign')
+        this.roadSign.setOrigin(1, 0.5)
+
         this.dog = this.physics.add.sprite(0, 0, 'dog')
         this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
 
-
-        this.car = this.physics.add.sprite(0, 0, 'car')
-        this.car.setOrigin(0.5)
         this.bike = this.physics.add.sprite(0, 0, 'bike')
         this.bike.setSize(this.bike.width * 0.5, this.bike.height * 0.5)
-        this.roadSign = this.add.image(0, 0, 'road-sign')
-        this.roadSign.setOrigin(1, 0.5)
+
         
 
         this.hotel.setOrigin(0.5, 1)
@@ -138,6 +156,7 @@ export default class Game extends Phaser.Scene
 
         this.aGrid.placeAtIndex(65, this.hotel)
         Align.scaleToGameW(this.hotel, 0.1)
+        this.hotel.setVisible(false)
 
         this.aGrid.placeAtIndex(69, this.roadSign)
         Align.scaleToGameW(this.roadSign, 0.05)
@@ -145,16 +164,35 @@ export default class Game extends Phaser.Scene
         this.aGrid.placeAtIndex(55, this.trees1)
         Align.scaleToGameW(this.trees1, 0.1)
 
-        this.aGrid.placeAtIndex(62, this.trees2)
+        this.aGrid.placeAtIndex(61, this.trees2)
         Align.scaleToGameW(this.trees2, 0.1)
+
+        this.aGrid.placeAtIndex(54, this.trees3)
+        Align.scaleToGameW(this.trees3, 0.1)
+
+        this.aGrid.placeAtIndex(62, this.trees4)
+        Align.scaleToGameW(this.trees4, 0.1)
+
+        this.aGrid.placeAtIndex(63, this.trees5)
+        Align.scaleToGameW(this.trees5, 0.1)
+
+        this.aGrid.placeAtIndex(71, this.trees6)
+        Align.scaleToGameW(this.trees6, 0.1)
 
         this.aGrid.placeAtIndex(67, this.pothole)
         Align.scaleToGameW(this.pothole, 0.1)
         this.pothole.setVisible(false)
 
-        this.aGrid.placeAtIndex(67, this.car)
-        Align.scaleToGameW(this.car, 0.05)
-        this.car.setVisible(false)
+        this.aGrid.placeAtIndex(67, this.pothole1)
+        Align.scaleToGameW(this.pothole1, 0.1)
+        this.pothole1.setVisible(false)
+
+        this.aGrid.placeAtIndex(68, this.pothole2)
+        Align.scaleToGameW(this.pothole2, 0.1)
+        this.pothole2.setVisible(false)
+
+        this.aGrid.placeAtIndex(78, this.dustbin)
+        Align.scaleToGameW(this.dustbin, 0.1)
 
         const timerLabel = this.add.text(this.scale.width * 0.5, 50, '39 sec',{font: 'bold 24px Arial', fill: '#EB0303'})
                 .setOrigin(0.5)
@@ -200,6 +238,22 @@ export default class Game extends Phaser.Scene
 
         this.physics.add.collider(
             this.bike,
+            this.pothole1,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+
+        this.physics.add.collider(
+            this.bike,
+            this.pothole2,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+
+        this.physics.add.collider(
+            this.bike,
             this.dog,
             this.handleOverlap,
             undefined,
@@ -218,7 +272,7 @@ export default class Game extends Phaser.Scene
                 prefix: 'Dogwalk',
                 suffix: '.png'
             }),
-            frameRate: 10,
+            frameRate: 15,
             repeat: -1 // -1 to loop forever
         })
 
@@ -254,7 +308,7 @@ export default class Game extends Phaser.Scene
 
         this.count += 1
 
-        if(this.count % 4 == 0 && !this.pauseGame)
+        if((this.count % 4 == 0 && !this.pauseGame) && !this.redlight)
         {
             if(this.flag)
             {
@@ -269,7 +323,7 @@ export default class Game extends Phaser.Scene
         }
 
         // left and right input logic
-        if (this.input.pointer1.isDown && !this.pauseGame)
+        if ((this.input.pointer1.isDown && !this.pauseGame) && !this.redlight)
         {
             if (Math.abs(this.input.pointer1.x - this.input.pointer1.downX) > 50)
             {
@@ -292,14 +346,14 @@ export default class Game extends Phaser.Scene
             this.bike.x += 2
         }
 
-        if(this.count < 350)
+        if(this.count < 350 && !this.pauseGame)
         {
             // scale and move hotel
+            this.hotel.setVisible(true)
             this.hotel.x -= 0.01
             this.hotel.y += 0.01
     
             Align.scaleToGameW(this.hotel, 0.2 + this.count/10000)
-    
     
             // scale and move traffic light
             this.trafficLightRed.x -= 0.12 
@@ -312,16 +366,28 @@ export default class Game extends Phaser.Scene
             this.roadSign.y += 0.05
 
             Align.scaleToGameW(this.roadSign, 0.05 + this.count/5000)
+
+            // scale and move dustbin
+            this.dustbin.x += 0.09
+            this.dustbin.y += 0.05
+
+            Align.scaleToGameW(this.dustbin, 0.05 + this.count/5000)
+
         }
 
-        // if(this.count > 350)
-        // {
-        //     // scale and move car
-        //     this.car.setVisible(true)
-        //     this.car.x += 0.12
-        //     this.car.y += 0.5
-        //     Align.scaleToGameW(this.car, 0.05 + this.count/5000)
-        // }
+        if(this.pothole1.y < (this.scale.height + 100))
+        {
+            // scale and move pothole
+            this.pothole1.setVisible(true)
+            this.pothole1.x -= 0.1
+            this.pothole1.y += 1.1
+            Align.scaleToGameW(this.pothole1, 0.1 + (this.count)/1500)
+        }
+
+        if(this.count == 350)
+        {
+            this.redlight = true
+        }
 
         if(this.count == 450)
         {
@@ -333,6 +399,8 @@ export default class Game extends Phaser.Scene
 
             Align.scaleToGameW(this.trafficLightGreen, 0.3 + (this.count - 100)/1000)
 
+            this.redlight = false
+
         }
 
         if((this.count > 450 && this.count < 2200) && !this.pauseGame)
@@ -342,6 +410,7 @@ export default class Game extends Phaser.Scene
             this.hotel.y += 0.01
     
             Align.scaleToGameW(this.hotel, 0.2 + (this.count - 100)/9000)
+            console.log(this.hotel.x)
     
             if(this.count > 550)
             {
@@ -369,32 +438,89 @@ export default class Game extends Phaser.Scene
 
             Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
 
-            // scale and move car
-            // this.car.setVisible(true)
-            // this.car.x += 0.2
-            // this.car.y += 0.6
-            // Align.scaleToGameW(this.car, (this.count * 2)/3000)
+            // scale and move dustbin
+            this.dustbin.x += 0.20
+            this.dustbin.y += 0.15
+
+            Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
+
 
             if(this.dog.visible == true)
             {
-                this.dog.x += 0.5
-                this.dog.y += 0.25
+                this.dog.x += 1
+                this.dog.y += 0.5
                 Align.scaleToGameW(this.dog, 0.1 + (this.count)/6000)
             }
 
             if(this.count > 500)
             {
                 this.pothole.setVisible(true)
-                this.pothole.x -= 0.0
-                this.pothole.y += 0.6
-                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/2900)
+                this.pothole.x -= 0.2
+                this.pothole.y += 1
+                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/3900)
+
             }
 
             if(this.count > 800)
             {
-                this.pothole.x -= 0.0
-                this.pothole.y += 0.7
-                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/2900)
+                this.pothole.x -= 0.2
+                this.pothole.y += 1
+                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/3900)
+            }
+
+        }
+
+        if(!this.pauseGame && !this.redlight)
+        {
+            this.trees1.x -= 0.2
+            this.trees1.y += 0.2
+            this.trees2.x += 0.2
+            this.trees2.y += 0.2
+            this.trees3.x -= 0.2
+            this.trees3.y += 0.2
+            this.trees4.x += 0.2
+            this.trees4.y += 0.2
+            this.trees5.x -= 0.2
+            this.trees5.y += 0.2
+            this.trees6.x += 0.2
+            this.trees6.y += 0.2
+
+            if(this.trees6.x > this.scale.width+20)
+            {
+                this.aGrid.placeAtIndex(61, this.trees6)
+
+            }
+            if(this.trees2.x > this.scale.width+20)
+            {
+                this.aGrid.placeAtIndex(61, this.trees2)
+
+            }
+            if(this.trees4.x > this.scale.width+20)
+            {
+                this.aGrid.placeAtIndex(61, this.trees4)
+
+            }
+
+            if(this.trees5.x < -20)
+            {
+                this.aGrid.placeAtIndex(55, this.trees5)
+            }
+
+            if(this.trees3.x < -20)
+            {
+                this.aGrid.placeAtIndex(55, this.trees3)
+            }
+
+            if(this.trees1.x < -20)
+            {
+                this.aGrid.placeAtIndex(55, this.trees1)
+            }
+
+            if(this.hotel.x < 94)
+            {
+                this.trees5.setVisible(false)
+                this.trees3.setVisible(false)
+                this.trees1.setVisible(false)
             }
             
         }
