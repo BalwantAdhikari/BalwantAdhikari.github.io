@@ -44,6 +44,7 @@ export default class Game extends Phaser.Scene
         this.load.image('pothole', 'assets/object-8.png')
         this.load.image('crashSign', 'assets/object-35.png')
         this.load.image('dustbin', 'assets/object-15.png')
+        this.load.image('grass', 'assets/object-9.png')
 
         this.load.image('hotel', 'assets/object-16.png')
 
@@ -375,7 +376,7 @@ export default class Game extends Phaser.Scene
 
         }
 
-        if(this.pothole1.y < (this.scale.height + 100))
+        if((this.pothole1.y < (this.scale.height + 100)) && !this.pauseGame)
         {
             // scale and move pothole
             this.pothole1.setVisible(true)
