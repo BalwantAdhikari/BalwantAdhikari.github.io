@@ -23,6 +23,7 @@ export default class Game extends Phaser.Scene
         this.flag = true
         this.count = 0
         this.pauseGame = false
+        this.anims.resumeAll()
     }
     
     preload()
@@ -43,6 +44,11 @@ export default class Game extends Phaser.Scene
         this.load.image('crashSign', 'assets/object-35.png')
 
         this.load.image('hotel', 'assets/object-16.png')
+
+        this.load.image('dog1', 'assets/dog-1.png')
+        this.load.image('dog2', 'assets/dog-2.png')
+        this.load.image('dog3', 'assets/dog-3.png')
+        this.load.image('dog4', 'assets/dog-4.png')
     }
 
     create()
@@ -73,8 +79,12 @@ export default class Game extends Phaser.Scene
         this.breaker.setOrigin(0.5)
         this.breaker.setVisible(false)
         this.pothole = this.physics.add.sprite(0, 0, 'pothole')
-        this.pothole.setOrigin(0, 0.5)
+        this.pothole.setOrigin(0.5, 0.5)
         this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+        this.dog4 = this.physics.add.sprite(0, 0, 'dog4')
+        this.dog4.setSize(this.dog4.width * 0.3, this.dog4.height * 0.3)
+
+
         this.car = this.physics.add.sprite(0, 0, 'car')
         this.car.setOrigin(0.5)
         this.bike = this.physics.add.sprite(0, 0, 'bike')
@@ -134,7 +144,7 @@ export default class Game extends Phaser.Scene
         this.aGrid.placeAtIndex(62, this.trees2)
         Align.scaleToGameW(this.trees2, 0.1)
 
-        this.aGrid.placeAtIndex(66, this.pothole)
+        this.aGrid.placeAtIndex(67, this.pothole)
         Align.scaleToGameW(this.pothole, 0.1)
         this.pothole.setVisible(false)
 
@@ -179,27 +189,54 @@ export default class Game extends Phaser.Scene
         this.physics.add.collider(
             this.bike,
             this.pothole,
-            this.handleOverlapPothole,
+            this.handleOverlap,
             undefined,
             this
         )
 
+        this.physics.add.collider(
+            this.bike,
+            this.dog4,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+
+        // dog animation
+        
+        this.anims.create({
+            key: 'dog-walk',
+            frames: [
+                { key: 'dog1' },
+                { key: 'dog2' },
+                { key: 'dog3' },
+                { key: 'dog4', duration: 50 }
+            ],
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.aGrid.placeAtIndex(80, this.dog4)
+        Align.scaleToGameW(this.dog4, 0.1)
+        this.dog4.setVisible(false)
+
     }
 
-    handleOverlapPothole()
+    handleOverlap()
     {
         this.crashSign = this.add.image(this.bike.x, this.bike.y - 50, 'crashSign')
         Align.scaleToGameW(this.crashSign, 0.5)
-        
 
         this.pauseGame = true
+        this.anims.pauseAll()
 
         this.countdown.stop()
-        this.time.delayedCall(1500, this.handleCountdownFinished, [], this) 
+        this.time.delayedCall(1500, () => {
+            this.scene.start('game-over')
+        }, [], this) 
 
         // this.scene.start('game-over')
     }
-
 
     handleCountdownFinished()
     {
@@ -208,10 +245,6 @@ export default class Game extends Phaser.Scene
 
     update()
     {
-        // this.bike.y -= 1
-        // this.bike_scale -= 0.001
-        // if(this.bike_scale > 0.015)
-        //     this.bike.setScale(this.bike_scale)
 
         this.count += 1
 
@@ -319,6 +352,9 @@ export default class Game extends Phaser.Scene
             {
                 this.trafficLightGreen.destroy()
                 this.trafficLightRed.destroy()
+                this.dog4.setVisible(true)
+                this.dog4.play('dog-walk')
+
             }
 
             // scale and move road sign
@@ -333,26 +369,31 @@ export default class Game extends Phaser.Scene
             // this.car.y += 0.6
             // Align.scaleToGameW(this.car, (this.count * 2)/3000)
 
+            if(this.dog4.visible == true)
+            {
+                this.dog4.x -= 0.5
+                this.dog4.y += 0.25
+                Align.scaleToGameW(this.dog4, 0.1 + (this.count)/6000)
+            }
+
             if(this.count > 500)
             {
                 this.pothole.setVisible(true)
-                this.pothole.x -= 0.2
+                this.pothole.x -= 0.0
                 this.pothole.y += 0.6
-                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/4000)
+                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/2900)
             }
 
             if(this.count > 800)
             {
-                this.pothole.x -= 0.25
+                this.pothole.x -= 0.0
                 this.pothole.y += 0.7
-                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/4000)
+                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/2900)
             }
             
         }
 
         this.countdown.update()
-
-
 
     }
 
