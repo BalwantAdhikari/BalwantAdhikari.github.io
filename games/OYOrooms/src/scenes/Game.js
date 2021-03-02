@@ -402,6 +402,7 @@ export default class Game extends Phaser.Scene
         }
         else if(!this.pauseGame)
         {
+            Align.scaleToGameW(this.pothole1, 0.1)
             this.aGrid.placeAtIndex(67, this.pothole1)
         }
 
@@ -483,6 +484,7 @@ export default class Game extends Phaser.Scene
                 }
                 else
                 {
+                    Align.scaleToGameW(this.pothole, 0.1)
                     this.aGrid.placeAtIndex(67, this.pothole)
                 }
 
