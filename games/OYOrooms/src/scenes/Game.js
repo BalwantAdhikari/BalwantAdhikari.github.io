@@ -46,6 +46,8 @@ export default class Game extends Phaser.Scene
         this.load.image('dustbin', 'assets/object-15.png')
         this.load.image('grass', 'assets/object-9.png')
 
+        this.load.audio('level-audio', 'assets/level-audio.wav')
+
         this.load.image('hotel', 'assets/object-16.png')
 
         this.load.image('dog', 'assets/dog.png')
@@ -66,6 +68,18 @@ export default class Game extends Phaser.Scene
         this.leftRoad.setOrigin(1, 0)
         this.rightRoad = this.add.image(0, 0, 'right-road')
         this.rightRoad.setOrigin(0, 0)
+
+        this.music = this.sound.add('level-audio', {
+                mute: false,
+                volume: 1,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay: 0
+        })
+
+        this.music.play()
         
         // this.hrRule = this.add.image(0, 0, 'hr-rule')
         // this.hrRule.setScale(0.1)
@@ -95,7 +109,7 @@ export default class Game extends Phaser.Scene
         this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
 
         this.pothole1 = this.physics.add.sprite(0, 0, 'pothole')
-        this.pothole1.setOrigin(0)
+        this.pothole1.setOrigin(0.5, 0.5)
         this.pothole1.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
 
         this.pothole2 = this.physics.add.sprite(0, 0, 'pothole')
@@ -188,7 +202,7 @@ export default class Game extends Phaser.Scene
         Align.scaleToGameW(this.pothole1, 0.1)
         this.pothole1.setVisible(false)
 
-        this.aGrid.placeAtIndex(68, this.pothole2)
+        this.aGrid.placeAtIndex(67, this.pothole2)
         Align.scaleToGameW(this.pothole2, 0.1)
         this.pothole2.setVisible(false)
 
@@ -292,6 +306,7 @@ export default class Game extends Phaser.Scene
         this.anims.pauseAll()
 
         this.countdown.stop()
+        this.music.stop()
         this.time.delayedCall(1500, () => {
             this.scene.start('game-over')
         }, [], this) 
@@ -301,6 +316,7 @@ export default class Game extends Phaser.Scene
 
     handleCountdownFinished()
     {
+        this.music.stop()
         this.scene.start('game-over')
     }
 
@@ -376,13 +392,17 @@ export default class Game extends Phaser.Scene
 
         }
 
-        if((this.pothole1.y < (this.scale.height + 100)) && !this.pauseGame)
+        if((this.pothole1.y < (this.scale.height + 700)) && !this.pauseGame)
         {
             // scale and move pothole
             this.pothole1.setVisible(true)
-            this.pothole1.x -= 0.1
-            this.pothole1.y += 1.1
-            Align.scaleToGameW(this.pothole1, 0.1 + (this.count)/1500)
+            // this.pothole1.x -= 0.1
+            this.pothole1.y += 1.2
+            Align.scaleToGameW(this.pothole1, 0.1 * this.pothole1.y/200)
+        }
+        else if(!this.pauseGame)
+        {
+            this.aGrid.placeAtIndex(67, this.pothole1)
         }
 
         if(this.count == 350)
@@ -411,7 +431,6 @@ export default class Game extends Phaser.Scene
             this.hotel.y += 0.01
     
             Align.scaleToGameW(this.hotel, 0.2 + (this.count - 100)/9000)
-            console.log(this.hotel.x)
     
             if(this.count > 550)
             {
@@ -455,18 +474,26 @@ export default class Game extends Phaser.Scene
 
             if(this.count > 500)
             {
-                this.pothole.setVisible(true)
-                this.pothole.x -= 0.2
-                this.pothole.y += 1
-                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/3900)
+                if(this.pothole.y < this.scale.height + 600)
+                {
+                    this.pothole.setVisible(true)
+                    this.pothole.x -= 0.4
+                    this.pothole.y += 1
+                    Align.scaleToGameW(this.pothole, 0.1 * this.pothole.y/200)
+                }
+                else
+                {
+                    this.aGrid.placeAtIndex(67, this.pothole)
+                }
 
             }
 
-            if(this.count > 800)
+            if(this.count > 1200)
             {
-                this.pothole.x -= 0.2
-                this.pothole.y += 1
-                Align.scaleToGameW(this.pothole, 0.1 + (this.count)/3900)
+                this.pothole2.setVisible(true)
+                this.pothole2.x += 0.4
+                this.pothole2.y += 1
+                Align.scaleToGameW(this.pothole2, 0.1 * this.pothole2.y/200)
             }
 
         }
