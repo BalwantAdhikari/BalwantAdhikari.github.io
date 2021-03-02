@@ -13,6 +13,7 @@ export default class Game extends Phaser.Scene
     countdown
     pauseGame
     redlight
+    winanimation
 
     constructor()
     {
@@ -26,6 +27,7 @@ export default class Game extends Phaser.Scene
         this.pauseGame = false
         this.anims.resumeAll()
         this.redlight = false
+        this.winanimation = false
     }
     
     preload()
@@ -45,6 +47,10 @@ export default class Game extends Phaser.Scene
         this.load.image('crashSign', 'assets/object-35.png')
         this.load.image('dustbin', 'assets/object-15.png')
         this.load.image('grass', 'assets/object-9.png')
+        this.load.image('flag-red', 'assets/object-17.png')
+        this.load.image('sparkle1', 'assets/object-18.png')
+        this.load.image('sparkle2', 'assets/object-19.png')
+        this.load.image('sparkle3', 'assets/object-31.png')
 
         this.load.audio('level-audio', 'assets/level-audio.wav')
 
@@ -317,7 +323,10 @@ export default class Game extends Phaser.Scene
     handleCountdownFinished()
     {
         this.music.stop()
-        this.scene.start('game-over')
+        
+        this.pauseGame = true
+
+        this.winanimation = true
     }
 
     update()
@@ -546,7 +555,7 @@ export default class Game extends Phaser.Scene
                 this.aGrid.placeAtIndex(55, this.trees1)
             }
 
-            if(this.hotel.x < 94)
+            if(this.hotel.x < (this.scale.width/4.45))
             {
                 this.trees5.setVisible(false)
                 this.trees3.setVisible(false)
@@ -555,8 +564,50 @@ export default class Game extends Phaser.Scene
             
         }
 
+        if(this.winanimation && (this.count < 2500))
+        {
+            this.winner()
+            this.bike.x -= 0.5
+            this.bike.y -= 1
+
+            this.bike.scale -= 0.001
+        }
+
         this.countdown.update()
 
+    }
+
+    winner()
+    {
+        this.add.image(
+            this.hotel.x + (this.hotel.width * this.hotel.scale)/4,
+            this.hotel.y - (this.hotel.height * this.hotel.scale),
+            'flag-red')
+            .setOrigin(0.5, 1)
+            .setScale(0.3)
+
+        this.add.image(
+            this.hotel.x - (this.hotel.width * this.hotel.scaleX)/3,
+            this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
+            'sparkle1')
+            .setOrigin(1, 0.5)
+            .setScale(0.3)
+
+        this.add.image(
+            this.hotel.x + (this.hotel.width * this.hotel.scaleX)/3,
+            this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
+            'sparkle2')
+            .setOrigin(0, 0.5)
+            .setScale(0.3)
+
+        this.add.image(
+            this.hotel.x,
+            this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
+            'sparkle3')
+            .setOrigin(0.5)
+            .setScale(0.3)
+
+        console.log(this.hotel.x, (this.hotel.height * this.hotel.scale))
     }
 
 }
