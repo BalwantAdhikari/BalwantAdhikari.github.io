@@ -14,6 +14,7 @@ export default class Game extends Phaser.Scene
     pauseGame
     redlight
     winanimation
+    showSplash = true
 
     constructor()
     {
@@ -51,6 +52,8 @@ export default class Game extends Phaser.Scene
         this.load.image('sparkle1', 'assets/object-18.png')
         this.load.image('sparkle2', 'assets/object-19.png')
         this.load.image('sparkle3', 'assets/object-31.png')
+        this.load.image('swipe-left', 'assets/swipe-left.png')
+        this.load.image('swipe-right', 'assets/swipe-right.png')
 
         this.load.audio('level-audio', 'assets/level-audio.wav')
 
@@ -297,10 +300,15 @@ export default class Game extends Phaser.Scene
             repeat: -1 // -1 to loop forever
         })
 
-        this.aGrid.placeAtIndex(72, this.dog)
+        this.aGrid.placeAtIndex(81, this.dog)
         Align.scaleToGameW(this.dog, 0.1)
         this.dog.setVisible(false)
 
+        this.controlBoard = this.add.graphics()
+        if(this.showSplash)
+        {
+            this.showControl()
+        }
     }
 
     handleOverlap()
@@ -333,6 +341,15 @@ export default class Game extends Phaser.Scene
     {
 
         this.count += 1
+
+        if(this.count == 60)
+        {
+            this.controlBoard.setVisible(false)
+            this.leftText.setVisible(false)
+            this.rightText.setVisible(false)
+            this.leftImg.setVisible(false)
+            this.rightImg.setVisible(false)
+        }
 
         if((this.count % 4 == 0 && !this.pauseGame) && !this.redlight)
         {
@@ -477,7 +494,7 @@ export default class Game extends Phaser.Scene
 
             if(this.dog.visible == true)
             {
-                this.dog.x += 1
+                this.dog.x += 1.5
                 this.dog.y += 0.5
                 Align.scaleToGameW(this.dog, 0.1 + (this.count)/6000)
             }
@@ -608,6 +625,25 @@ export default class Game extends Phaser.Scene
             .setScale(0.3)
 
         console.log(this.hotel.x, (this.hotel.height * this.hotel.scale))
+    }
+
+    showControl()
+    {
+        const x = this.scale.width
+        const y = this.scale.height
+        this.controlBoard.fillStyle(0x000, 0.9)
+        this.controlBoard.fillRect(0, 0, x, y)
+
+        this.leftText = this.add.text(x/4, y/2, 'SWIPE LEFT\nTO MOVE LEFT',{font: 'bold 16px Arial'})
+                .setOrigin(0.5)
+
+        this.rightText = this.add.text(x* 3/4, y/2, 'SWIPE RIGHT\nTO MOVE RIGHT',{font: 'bold 16px Arial'})
+        .setOrigin(0.5)
+
+        this.leftImg = this.add.image(x/4, (y/4 + y/2)/2, 'swipe-left').setScale(0.1)
+        this.rightImg = this.add.image(x * 3/4, (y/4 + y/2)/2, 'swipe-right').setScale(0.1)
+
+        this.showSplash = false
     }
 
 }
