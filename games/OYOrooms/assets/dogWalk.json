@@ -1,0 +1,92 @@
+{"frames": {
+
+"Dogwalk1.png":
+{
+	"frame": {"x":0,"y":0,"w":112,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":64},
+	"sourceSize": {"w":112,"h":64}
+},
+"Dogwalk2.png":
+{
+	"frame": {"x":0,"y":64,"w":112,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":70},
+	"sourceSize": {"w":112,"h":70}
+},
+"Dogwalk3.png":
+{
+	"frame": {"x":0,"y":134,"w":112,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":70},
+	"sourceSize": {"w":112,"h":70}
+},
+"Dogwalk4.png":
+{
+	"frame": {"x":0,"y":204,"w":112,"h":68},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":68},
+	"sourceSize": {"w":112,"h":68}
+},
+"Dogwalk5.png":
+{
+	"frame": {"x":0,"y":272,"w":112,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":66},
+	"sourceSize": {"w":112,"h":66}
+},
+"Dogwalk6.png":
+{
+	"frame": {"x":0,"y":338,"w":112,"h":67},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":67},
+	"sourceSize": {"w":112,"h":67}
+},
+"Dogwalk7.png":
+{
+	"frame": {"x":0,"y":405,"w":112,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":66},
+	"sourceSize": {"w":112,"h":66}
+},
+"Dogwalk8.png":
+{
+	"frame": {"x":0,"y":471,"w":112,"h":68},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":68},
+	"sourceSize": {"w":112,"h":68}
+},
+"Dogwalk9.png":
+{
+	"frame": {"x":0,"y":539,"w":112,"h":73},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":73},
+	"sourceSize": {"w":112,"h":73}
+},
+"Dogwalk10.png":
+{
+	"frame": {"x":0,"y":612,"w":112,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":112,"h":65},
+	"sourceSize": {"w":112,"h":65}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "dogWalk.png",
+	"format": "RGBA8888",
+	"size": {"w":112,"h":677},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:31e4a37a6dbc0b28b94efd10474c9755:051a802c7898951eb280883b7723c17f:5ce8427bce96e82991bb3ac2022478de$"
+}
+}

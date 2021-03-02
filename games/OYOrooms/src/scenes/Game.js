@@ -45,10 +45,14 @@ export default class Game extends Phaser.Scene
 
         this.load.image('hotel', 'assets/object-16.png')
 
-        this.load.image('dog1', 'assets/dog-1.png')
-        this.load.image('dog2', 'assets/dog-2.png')
-        this.load.image('dog3', 'assets/dog-3.png')
-        this.load.image('dog4', 'assets/dog-4.png')
+        this.load.image('dog', 'assets/dog.png')
+
+        // load as an atlas
+        this.load.atlas(
+            'dogwalk',
+            'assets/dogWalk.png',
+            'assets/dogWalk.json'
+        )
     }
 
     create()
@@ -81,8 +85,8 @@ export default class Game extends Phaser.Scene
         this.pothole = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole.setOrigin(0.5, 0.5)
         this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
-        this.dog4 = this.physics.add.sprite(0, 0, 'dog4')
-        this.dog4.setSize(this.dog4.width * 0.3, this.dog4.height * 0.3)
+        this.dog = this.physics.add.sprite(0, 0, 'dog')
+        this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
 
 
         this.car = this.physics.add.sprite(0, 0, 'car')
@@ -196,29 +200,31 @@ export default class Game extends Phaser.Scene
 
         this.physics.add.collider(
             this.bike,
-            this.dog4,
+            this.dog,
             this.handleOverlap,
             undefined,
             this
         )
 
         // dog animation
-        
-        this.anims.create({
-            key: 'dog-walk',
-            frames: [
-                { key: 'dog1' },
-                { key: 'dog2' },
-                { key: 'dog3' },
-                { key: 'dog4', duration: 50 }
-            ],
-            frameRate: 10,
-            repeat: -1
-        });
 
-        this.aGrid.placeAtIndex(80, this.dog4)
-        Align.scaleToGameW(this.dog4, 0.1)
-        this.dog4.setVisible(false)
+        // create the run animation
+        this.anims.create({
+            key: 'dog-walk', // name of this animation
+            // helper to generate frames
+            frames: this.anims.generateFrameNames('dogwalk', {
+                start: 1,
+                end: 10,
+                prefix: 'Dogwalk',
+                suffix: '.png'
+            }),
+            frameRate: 10,
+            repeat: -1 // -1 to loop forever
+        })
+
+        this.aGrid.placeAtIndex(72, this.dog)
+        Align.scaleToGameW(this.dog, 0.1)
+        this.dog.setVisible(false)
 
     }
 
@@ -352,8 +358,8 @@ export default class Game extends Phaser.Scene
             {
                 this.trafficLightGreen.destroy()
                 this.trafficLightRed.destroy()
-                this.dog4.setVisible(true)
-                this.dog4.play('dog-walk')
+                this.dog.setVisible(true)
+                this.dog.play('dog-walk')
 
             }
 
@@ -369,11 +375,11 @@ export default class Game extends Phaser.Scene
             // this.car.y += 0.6
             // Align.scaleToGameW(this.car, (this.count * 2)/3000)
 
-            if(this.dog4.visible == true)
+            if(this.dog.visible == true)
             {
-                this.dog4.x -= 0.5
-                this.dog4.y += 0.25
-                Align.scaleToGameW(this.dog4, 0.1 + (this.count)/6000)
+                this.dog.x += 0.5
+                this.dog.y += 0.25
+                Align.scaleToGameW(this.dog, 0.1 + (this.count)/6000)
             }
 
             if(this.count > 500)
