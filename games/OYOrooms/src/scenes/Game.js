@@ -155,7 +155,7 @@ export default class Game extends Phaser.Scene
         this.graphics1 = this.add.graphics()
 
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
-        this.aGrid.showNumbers()
+        // this.aGrid.showNumbers()
 
         this.aGrid.placeAtIndex(112, this.bike)
         Align.scaleToGameW(this.bike, .25)
