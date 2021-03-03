@@ -115,15 +115,15 @@ export default class Game extends Phaser.Scene
         this.breaker.setVisible(false)
         this.pothole = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole.setOrigin(0.5)
-        this.pothole.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+        this.pothole.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
 
         this.pothole1 = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole1.setOrigin(0.5, 0.5)
-        this.pothole1.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+        this.pothole1.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
 
         this.pothole2 = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole2.setOrigin(0.5, 0.5)
-        this.pothole2.setSize(this.pothole.width * 0.3, this.pothole.height * 0.3)
+        this.pothole2.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
 
         this.dustbin = this.add.image(0, 0, 'dustbin')
         this.dustbin.setOrigin(0.5)
@@ -133,7 +133,7 @@ export default class Game extends Phaser.Scene
 
         this.car = this.physics.add.sprite(0, 0, 'car')
         this.car.setOrigin(0.5)
-        this.car.setSize(this.car.width * 0.3, this.car.height * 0.3)
+        this.car.setSize(this.car.width * 0.9, this.car.height * 0.5)
 
         this.dog = this.physics.add.sprite(0, 0, 'dog')
         this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
@@ -287,6 +287,14 @@ export default class Game extends Phaser.Scene
         this.physics.add.collider(
             this.bike,
             this.dog,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+
+        this.physics.add.collider(
+            this.bike,
+            this.car,
             this.handleOverlap,
             undefined,
             this
