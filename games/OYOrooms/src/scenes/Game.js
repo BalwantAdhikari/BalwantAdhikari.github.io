@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene
     
     preload()
     {
-        this.load.image('bike', 'assets/object-13.png')
+        this.load.image('bike', 'assets/object-13.svg')
         this.load.image('sky', 'assets/object-20.png')
         this.load.image('left-road', 'assets/object-25.png')
         this.load.image('right-road', 'assets/object-27.png')
@@ -47,6 +47,9 @@ export default class Game extends Phaser.Scene
         this.load.image('crashSign', 'assets/object-35.png')
         this.load.image('dustbin', 'assets/object-15.png')
         this.load.image('grass', 'assets/object-9.png')
+        this.load.image('leaf', 'assets/object-2.png')
+        this.load.image('flower', 'assets/object-6.png')
+
         this.load.image('flag-red', 'assets/object-17.png')
         this.load.image('sparkle1', 'assets/object-18.png')
         this.load.image('sparkle2', 'assets/object-19.png')
