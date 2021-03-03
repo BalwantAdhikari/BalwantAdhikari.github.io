@@ -138,16 +138,14 @@ export default class Game extends Phaser.Scene
 
         this.dog = this.physics.add.sprite(0, 0, 'dog')
         this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
+        
+        this.car = this.physics.add.sprite(0, 0, 'car')
+        this.car.setOrigin(0.5)
+        this.car.setSize(this.car.width * 0.7, this.car.height * 0.9)
 
         this.bike = this.physics.add.sprite(0, 0, 'bike')
         this.bike.setSize(this.bike.width * 0.5, this.bike.height * 0.5)
 
-        this.car = this.physics.add.sprite(0, 0, 'car')
-        this.car.setOrigin(0.5)
-        this.car.setSize(this.car.width * 0.7, this.car.height * 0.9)
-        this.car.setOffset(this.car.width * 0.1, this.car.height * 0.4)
-
-        
 
         this.hotel.setOrigin(0.5, 1)
 
