@@ -25,7 +25,6 @@ export default class LoadingScene extends Phaser.Scene
 
         this.clickButton.fillStyle(0x000000, 0)
         this.clickButton.fillRoundedRect(0, 0, 200, 80)
-        
 
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
         // this.aGrid.showNumbers()

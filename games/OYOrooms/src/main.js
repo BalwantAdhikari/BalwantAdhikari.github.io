@@ -1,6 +1,7 @@
 import Phaser from './lib/phaser.js'
 
 import Game from './scenes/Game.js'
+import SplashScreen from './scenes/SplashScreen.js'
 import LoadingScene from './scenes/LoadingScene.js'
 import GameOver from './scenes/GameOver.js'
 
@@ -18,5 +19,5 @@ export default new Phaser.Game({
             debug: false
         }
     },
-    scene: [LoadingScene, Game, GameOver],
+    scene: [LoadingScene, Game, SplashScreen, GameOver],
 })
