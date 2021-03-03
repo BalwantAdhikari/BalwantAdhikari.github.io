@@ -14,6 +14,7 @@ export default class Game extends Phaser.Scene
     redlight
     winanimation
     showSplash = true
+    flipflop
 
     constructor()
     {
@@ -110,39 +111,41 @@ export default class Game extends Phaser.Scene
         this.trees6 = this.add.image(0, 0, 'trees')
 
         this.hotel = this.add.image(0, 0, 'hotel')
-        this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
-        this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
-        this.trafficLightGreen.setVisible(false)
         this.breaker = this.physics.add.sprite(0, 0, 'breaker')
         this.breaker.setOrigin(0.5)
         this.breaker.setVisible(false)
         this.pothole = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole.setOrigin(0.5)
         this.pothole.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
-
+        
         this.pothole1 = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole1.setOrigin(0.5, 0.5)
         this.pothole1.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
-
+        
         this.pothole2 = this.physics.add.sprite(0, 0, 'pothole')
         this.pothole2.setOrigin(0.5, 0.5)
         this.pothole2.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
-
+        
+        this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
+        this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
+        this.trafficLightGreen.setVisible(false)
+        
         this.dustbin = this.add.image(0, 0, 'dustbin')
         this.dustbin.setOrigin(0.5)
         
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
 
-        this.car = this.physics.add.sprite(0, 0, 'car')
-        this.car.setOrigin(0.5)
-        this.car.setSize(this.car.width * 0.9, this.car.height * 0.5)
-
         this.dog = this.physics.add.sprite(0, 0, 'dog')
         this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
 
         this.bike = this.physics.add.sprite(0, 0, 'bike')
         this.bike.setSize(this.bike.width * 0.5, this.bike.height * 0.5)
+
+        this.car = this.physics.add.sprite(0, 0, 'car')
+        this.car.setOrigin(0.5)
+        this.car.setSize(this.car.width * 0.7, this.car.height * 0.9)
+        this.car.setOffset(this.car.width * 0.1, this.car.height * 0.4)
 
         
 
@@ -375,20 +378,37 @@ export default class Game extends Phaser.Scene
         }
 
         // left and right input logic
+        if(!this.input.pointer1.isDown)
+        {
+            this.flipflop = false
+        }
+
         if ((this.input.pointer1.isDown && !this.pauseGame) && !this.redlight)
         {
             if (Math.abs(this.input.pointer1.x - this.input.pointer1.downX) > 50)
             {
-                if(this.input.pointer1.downX > this.input.pointer1.x)
+                if(!this.flipflop)
                 {
-                    this.bike.x -= 15
-                }
-                else
-                {
-                    this.bike.x += 15
+                    if(this.input.pointer1.downX > this.input.pointer1.x)
+                    {
+                        if(this.bike.x > this.physics.world.bounds.width/4)
+                        {
+                            this.bike.x -= this.physics.world.bounds.width/3
+                        }
+                        this.flipflop = true
+                    }
+                    else
+                    {
+                        if(this.bike.x < this.physics.world.bounds.width * 3/4)
+                        {
+                            this.bike.x += this.physics.world.bounds.width/3
+                        }
+                        this.flipflop = true
+                    }
                 }
             }
         }
+
         else if (this.cursors.left.isDown && !this.pauseGame)
         {
             this.bike.x -= 2
@@ -397,6 +417,7 @@ export default class Game extends Phaser.Scene
         {
             this.bike.x += 2
         }
+
 
         if(this.count < 350 && !this.pauseGame)
         {
@@ -479,7 +500,7 @@ export default class Game extends Phaser.Scene
     
             Align.scaleToGameW(this.trafficLightGreen, 0.3 + (this.count - 100)/1000)
 
-            if(this.count == 699)
+            if(this.count == 750)
             {
                 this.trafficLightGreen.destroy()
                 this.trafficLightRed.destroy()
@@ -530,7 +551,7 @@ export default class Game extends Phaser.Scene
                 this.car.setVisible(true)
                 this.car.x -= 0.3
                 this.car.y += 1
-                this.car.scale += 0.001
+                this.car.scale += 0.0007
             }
 
             if(this.count > 1500)
