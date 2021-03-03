@@ -129,6 +129,9 @@ export default class Game extends Phaser.Scene
         this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
         this.trafficLightGreen.setVisible(false)
+
+        this.grass = this.add.image(0, 0, 'grass')
+        this.grass.setOrigin(0.3, 1)
         
         this.dustbin = this.add.image(0, 0, 'dustbin')
         this.dustbin.setOrigin(0.5)
@@ -146,14 +149,13 @@ export default class Game extends Phaser.Scene
         this.bike = this.physics.add.sprite(0, 0, 'bike')
         this.bike.setSize(this.bike.width * 0.5, this.bike.height * 0.5)
 
-
         this.hotel.setOrigin(0.5, 1)
 
         this.graphics = this.add.graphics()
         this.graphics1 = this.add.graphics()
 
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
-        // this.aGrid.showNumbers()
+        this.aGrid.showNumbers()
 
         this.aGrid.placeAtIndex(112, this.bike)
         Align.scaleToGameW(this.bike, .25)
@@ -185,6 +187,9 @@ export default class Game extends Phaser.Scene
 
         this.aGrid.placeAtIndex(57, this.trafficLightRed)
         Align.scaleToGameW(this.trafficLightRed, 0.3)
+
+        this.aGrid.placeAtIndex(82, this.grass)
+        Align.scaleToGameW(this.grass, 0.15)
 
         this.aGrid.placeAtIndex(65, this.hotel)
         Align.scaleToGameW(this.hotel, 0.1)
@@ -444,7 +449,13 @@ export default class Game extends Phaser.Scene
 
             Align.scaleToGameW(this.dustbin, 0.05 + this.count/5000)
 
+            // scale and move grass
+            this.grass.x -= 0.3
+            this.grass.y += 0.6
+            this.grass.scale += 0.0001
+
         }
+
 
         if((this.pothole1.y < (this.scale.height + 700)) && !this.pauseGame)
         {
@@ -518,6 +529,17 @@ export default class Game extends Phaser.Scene
             this.dustbin.y += 0.15
 
             Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
+
+            // scale and move grass
+            this.grass.x -= 0.32
+            this.grass.y += 0.6
+            this.grass.scale += 0.0001
+
+            if(this.grass.x < -30)
+            {
+                this.aGrid.placeAtIndex(74, this.grass)
+                Align.scaleToGameW(this.grass, 0.1)
+            }
 
 
             if(this.dog.visible == true)
