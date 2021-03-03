@@ -5,7 +5,6 @@ import CountdownController from './CountdownController.js'
 import AlignGrid from '../lib/util/alignGrid.js'
 import Align from '../lib/util/align.js'
 
-
 export default class Game extends Phaser.Scene
 {
     flag
@@ -304,7 +303,6 @@ export default class Game extends Phaser.Scene
         Align.scaleToGameW(this.dog, 0.1)
         this.dog.setVisible(false)
 
-        this.controlBoard = this.add.graphics()
         if(this.showSplash)
         {
             this.showControl()
@@ -341,15 +339,6 @@ export default class Game extends Phaser.Scene
     {
 
         this.count += 1
-
-        if(this.count == 60)
-        {
-            this.controlBoard.setVisible(false)
-            this.leftText.setVisible(false)
-            this.rightText.setVisible(false)
-            this.leftImg.setVisible(false)
-            this.rightImg.setVisible(false)
-        }
 
         if((this.count % 4 == 0 && !this.pauseGame) && !this.redlight)
         {
@@ -629,21 +618,10 @@ export default class Game extends Phaser.Scene
 
     showControl()
     {
-        const x = this.scale.width
-        const y = this.scale.height
-        this.controlBoard.fillStyle(0x000, 0.9)
-        this.controlBoard.fillRect(0, 0, x, y)
-
-        this.leftText = this.add.text(x/4, y/2, 'SWIPE LEFT\nTO MOVE LEFT',{font: 'bold 16px Arial'})
-                .setOrigin(0.5)
-
-        this.rightText = this.add.text(x* 3/4, y/2, 'SWIPE RIGHT\nTO MOVE RIGHT',{font: 'bold 16px Arial'})
-        .setOrigin(0.5)
-
-        this.leftImg = this.add.image(x/4, (y/4 + y/2)/2, 'swipe-left').setScale(0.1)
-        this.rightImg = this.add.image(x * 3/4, (y/4 + y/2)/2, 'swipe-right').setScale(0.1)
-
         this.showSplash = false
+        this.scene.launch('splash-screen')
+        this.scene.pause()
+        
     }
 
 }
