@@ -130,14 +130,26 @@ export default class Game extends Phaser.Scene
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
         this.trafficLightGreen.setVisible(false)
 
-        this.grass = this.add.image(0, 0, 'grass')
-        this.grass.setOrigin(0.3, 1)
-        
-        this.dustbin = this.add.image(0, 0, 'dustbin')
-        this.dustbin.setOrigin(0.5)
-        
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
+
+        this.grass = this.add.image(0, 0, 'grass')
+        this.grass.setOrigin(0.3, 1)
+        this.grass1 = this.add.image(0, 0, 'grass')
+        this.grass1.setOrigin(0.9, 1)
+
+        this.grass2 = this.add.image(0, 0, 'grass')
+        this.grass2.setOrigin(0.3, 1)
+        this.grass3 = this.add.image(0, 0, 'grass')
+        this.grass3.setOrigin(0.9, 1)
+
+        this.flower = this.add.image(0, 0, 'flower')
+        this.flower.setOrigin(0.7, 1)
+        
+        // this.dustbin = this.add.image(0, 0, 'dustbin')
+        // this.dustbin.setOrigin(0.5)
+        
+        
 
         this.dog = this.physics.add.sprite(0, 0, 'dog')
         this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
@@ -190,6 +202,13 @@ export default class Game extends Phaser.Scene
 
         this.aGrid.placeAtIndex(82, this.grass)
         Align.scaleToGameW(this.grass, 0.15)
+        this.aGrid.placeAtIndex(88, this.grass1)
+        Align.scaleToGameW(this.grass1, 0.15)
+
+        this.aGrid.placeAtIndex(99, this.grass2)
+        Align.scaleToGameW(this.grass2, 0.15)
+        this.aGrid.placeAtIndex(107, this.grass3)
+        Align.scaleToGameW(this.grass3, 0.15) 
 
         this.aGrid.placeAtIndex(65, this.hotel)
         Align.scaleToGameW(this.hotel, 0.1)
@@ -228,8 +247,8 @@ export default class Game extends Phaser.Scene
         Align.scaleToGameW(this.pothole2, 0.1)
         this.pothole2.setVisible(false)
 
-        this.aGrid.placeAtIndex(78, this.dustbin)
-        Align.scaleToGameW(this.dustbin, 0.1)
+        // this.aGrid.placeAtIndex(78, this.dustbin)
+        // Align.scaleToGameW(this.dustbin, 0.1)
 
         this.aGrid.placeAtIndex(58, this.car)
         Align.scaleToGameW(this.car, 0.07)
@@ -444,15 +463,10 @@ export default class Game extends Phaser.Scene
             Align.scaleToGameW(this.roadSign, 0.05 + this.count/5000)
 
             // scale and move dustbin
-            this.dustbin.x += 0.09
-            this.dustbin.y += 0.05
+            // this.dustbin.x += 0.09
+            // this.dustbin.y += 0.05
 
-            Align.scaleToGameW(this.dustbin, 0.05 + this.count/5000)
-
-            // scale and move grass
-            this.grass.x -= 0.3
-            this.grass.y += 0.6
-            this.grass.scale += 0.0001
+            // Align.scaleToGameW(this.dustbin, 0.05 + this.count/5000)
 
         }
 
@@ -463,7 +477,7 @@ export default class Game extends Phaser.Scene
             this.pothole1.setVisible(true)
             // this.pothole1.x -= 0.1
             this.pothole1.y += 1.2
-            Align.scaleToGameW(this.pothole1, 0.1 * this.pothole1.y/200)
+            this.pothole1.scale += 0.0025
         }
         else if(!this.pauseGame)
         {
@@ -525,21 +539,10 @@ export default class Game extends Phaser.Scene
             Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
 
             // scale and move dustbin
-            this.dustbin.x += 0.20
-            this.dustbin.y += 0.15
+            // this.dustbin.x += 0.20
+            // this.dustbin.y += 0.15
 
-            Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
-
-            // scale and move grass
-            this.grass.x -= 0.32
-            this.grass.y += 0.6
-            this.grass.scale += 0.0001
-
-            if(this.grass.x < -30)
-            {
-                this.aGrid.placeAtIndex(74, this.grass)
-                Align.scaleToGameW(this.grass, 0.1)
-            }
+            // Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
 
 
             if(this.dog.visible == true)
@@ -636,6 +639,51 @@ export default class Game extends Phaser.Scene
                 this.trees3.setVisible(false)
                 this.trees1.setVisible(false)
             }
+
+
+            // scale and move grass
+            this.grass.x -= 0.35
+            this.grass.y += 0.6
+            this.grass.scale += 0.0001
+
+            this.grass2.x -= 0.35
+            this.grass2.y += 0.6
+            this.grass2.scale += 0.0001
+
+            this.grass1.x += 0.35
+            this.grass1.y += 0.6
+            this.grass1.scale += 0.0001
+
+            this.grass3.x += 0.35
+            this.grass3.y += 0.6
+            this.grass3.scale += 0.0001
+
+            if(this.grass.x < -30)
+            {
+                this.aGrid.placeAtIndex(74, this.grass)
+                Align.scaleToGameW(this.grass, 0.1)
+            }
+
+            if(this.grass2.x < -30)
+            {
+                this.aGrid.placeAtIndex(74, this.grass2)
+                Align.scaleToGameW(this.grass2, 0.1)
+            }
+
+            if(this.grass1.x > this.scale.width + 30)
+            {
+                this.aGrid.placeAtIndex(69, this.grass1)
+                Align.scaleToGameW(this.grass1, 0.1)
+            }
+
+            if(this.grass3.x > this.scale.width + 30)
+            {
+                this.aGrid.placeAtIndex(69, this.grass3)
+                Align.scaleToGameW(this.grass3, 0.1)
+            }
+
+
+            
             
         }
 
