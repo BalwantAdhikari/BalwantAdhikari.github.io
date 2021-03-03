@@ -53,6 +53,7 @@ export default class Game extends Phaser.Scene
         this.load.image('sparkle3', 'assets/object-31.png')
         this.load.image('swipe-left', 'assets/swipe-left.png')
         this.load.image('swipe-right', 'assets/swipe-right.png')
+        this.load.image('car', 'assets/object-5.png')
 
         this.load.audio('level-audio', 'assets/level-audio.wav')
 
@@ -130,6 +131,10 @@ export default class Game extends Phaser.Scene
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
 
+        this.car = this.physics.add.sprite(0, 0, 'car')
+        this.car.setOrigin(0.5)
+        this.car.setSize(this.car.width * 0.3, this.car.height * 0.3)
+
         this.dog = this.physics.add.sprite(0, 0, 'dog')
         this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
 
@@ -202,20 +207,24 @@ export default class Game extends Phaser.Scene
         this.aGrid.placeAtIndex(71, this.trees6)
         Align.scaleToGameW(this.trees6, 0.1)
 
-        this.aGrid.placeAtIndex(67, this.pothole)
+        this.aGrid.placeAtIndex(58, this.pothole)
         Align.scaleToGameW(this.pothole, 0.1)
         this.pothole.setVisible(false)
 
-        this.aGrid.placeAtIndex(67, this.pothole1)
+        this.aGrid.placeAtIndex(58, this.pothole1)
         Align.scaleToGameW(this.pothole1, 0.1)
         this.pothole1.setVisible(false)
 
-        this.aGrid.placeAtIndex(67, this.pothole2)
+        this.aGrid.placeAtIndex(58, this.pothole2)
         Align.scaleToGameW(this.pothole2, 0.1)
         this.pothole2.setVisible(false)
 
         this.aGrid.placeAtIndex(78, this.dustbin)
         Align.scaleToGameW(this.dustbin, 0.1)
+
+        this.aGrid.placeAtIndex(58, this.car)
+        Align.scaleToGameW(this.car, 0.07)
+        this.car.setVisible(false)
 
         const timerLabel = this.add.text(this.scale.width * 0.5, 50, '39 sec',{font: 'bold 24px Arial', fill: '#EB0303'})
                 .setOrigin(0.5)
@@ -418,7 +427,7 @@ export default class Game extends Phaser.Scene
         else if(!this.pauseGame)
         {
             Align.scaleToGameW(this.pothole1, 0.1)
-            this.aGrid.placeAtIndex(67, this.pothole1)
+            this.aGrid.placeAtIndex(58, this.pothole1)
         }
 
         if(this.count == 350)
@@ -500,12 +509,20 @@ export default class Game extends Phaser.Scene
                 else
                 {
                     Align.scaleToGameW(this.pothole, 0.1)
-                    this.aGrid.placeAtIndex(67, this.pothole)
+                    this.aGrid.placeAtIndex(58, this.pothole)
                 }
 
             }
 
             if(this.count > 1200)
+            {
+                this.car.setVisible(true)
+                this.car.x -= 0.3
+                this.car.y += 1
+                this.car.scale += 0.001
+            }
+
+            if(this.count > 1500)
             {
                 this.pothole2.setVisible(true)
                 this.pothole2.x += 0.4
@@ -612,8 +629,6 @@ export default class Game extends Phaser.Scene
             'sparkle3')
             .setOrigin(0.5)
             .setScale(0.3)
-
-        console.log(this.hotel.x, (this.hotel.height * this.hotel.scale))
     }
 
     showControl()
