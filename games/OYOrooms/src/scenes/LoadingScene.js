@@ -12,7 +12,7 @@ export default class LoadingScene extends Phaser.Scene
 
     preload()
     {
-        this.load.image('loadingScreen', 'assets/gameStart.png')
+        this.load.image('loadingScreen', 'assets/gameStart.svg')
     }
 
     create()
