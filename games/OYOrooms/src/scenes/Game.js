@@ -510,7 +510,7 @@ export default class Game extends Phaser.Scene
 
             if(this.count > 500)
             {
-                if(this.pothole.y < this.scale.height + 600)
+                if(this.pothole.y < this.scale.height + 700)
                 {
                     this.pothole.setVisible(true)
                     this.pothole.x -= 0.4
