@@ -511,7 +511,7 @@ export default class Game extends Phaser.Scene
 
         }
 
-        if((this.count > 450 && this.count < 2200) && !this.pauseGame)
+        if((this.count > 450 && this.count < 2500) && !this.pauseGame)
         {
             // scale and move hotel
             this.hotel.x -= 0.02
