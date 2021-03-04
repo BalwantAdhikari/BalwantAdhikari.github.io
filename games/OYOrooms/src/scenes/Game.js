@@ -552,7 +552,7 @@ export default class Game extends Phaser.Scene
             // Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
 
 
-            if(this.dog.visible == true)
+            if(this.dog.visible == true && count < 2000)
             {
                 if(this.dog.x < this.scale.width + 1500)
                 {
