@@ -552,7 +552,7 @@ export default class Game extends Phaser.Scene
             // Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
 
 
-            if(this.dog.visible == true && count < 2000)
+            if(this.dog.visible == true && this.count < 2000)
             {
                 if(this.dog.x < this.scale.width + 1500)
                 {
@@ -706,14 +706,18 @@ export default class Game extends Phaser.Scene
                 Align.scaleToGameW(this.grass3, 0.05)
             }
 
-
-            
             
         }
 
         if(this.winanimation && (this.count < 2500))
         {
             this.winner()
+            this.pothole.setVisible(false)
+            this.pothole1.setVisible(false)
+            this.pothole2.setVisible(false)
+            this.pothole.destroy()
+            this.pothole1.destroy()
+            this.pothole2.destroy()
             this.bike.x -= 0.5
             this.bike.y -= 1
 
