@@ -129,10 +129,7 @@ export default class Game extends Phaser.Scene
         this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
         this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
         this.trafficLightGreen.setVisible(false)
-
-        this.roadSign = this.add.image(0, 0, 'road-sign')
-        this.roadSign.setOrigin(1, 0.5)
-
+        
         this.grass = this.add.image(0, 0, 'grass')
         this.grass.setOrigin(0.3, 1)
         this.grass1 = this.add.image(0, 0, 'grass')
@@ -145,6 +142,10 @@ export default class Game extends Phaser.Scene
 
         this.flower = this.add.image(0, 0, 'flower')
         this.flower.setOrigin(0.7, 1)
+
+        this.roadSign = this.add.image(0, 0, 'road-sign')
+        this.roadSign.setOrigin(1, 0.5)
+
         
         // this.dustbin = this.add.image(0, 0, 'dustbin')
         // this.dustbin.setOrigin(0.5)
