@@ -41,7 +41,7 @@ export default class Game extends Phaser.Scene
         this.load.image('cloud', 'assets/object-29.png')
         this.load.image('traffic-light-red', 'assets/object-33.png')
         this.load.image('traffic-light-green', 'assets/object-34.png')
-        this.load.image('road-sign', 'assets/object-3.png')
+        this.load.image('road-sign', 'assets/object-3.svg')
         this.load.image('trees', 'assets/object-4.png')
         this.load.image('breaker', 'assets/object-10.png')
         this.load.image('pothole', 'assets/object-8.png')
@@ -61,7 +61,7 @@ export default class Game extends Phaser.Scene
 
         this.load.audio('level-audio', 'assets/level-audio.wav')
 
-        this.load.image('hotel', 'assets/object-16.png')
+        this.load.image('hotel', 'assets/object-16.svg')
 
         this.load.image('dog', 'assets/dog.png')
 
@@ -126,22 +126,26 @@ export default class Game extends Phaser.Scene
         this.pothole2.setOrigin(0.5, 0.5)
         this.pothole2.setSize(this.pothole.width * 0.4, this.pothole.height * 0.3)
         
-        this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
-        this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
-        this.trafficLightGreen.setVisible(false)
         
         this.grass = this.add.image(0, 0, 'grass')
         this.grass.setOrigin(0.3, 1)
         this.grass1 = this.add.image(0, 0, 'grass')
         this.grass1.setOrigin(0.9, 1)
-
+        
         this.grass2 = this.add.image(0, 0, 'grass')
         this.grass2.setOrigin(0.3, 1)
         this.grass3 = this.add.image(0, 0, 'grass')
         this.grass3.setOrigin(0.9, 1)
 
+        this.trafficLightRed = this.add.image(0, 0, 'traffic-light-red')
+        this.trafficLightGreen = this.add.image(0, 0, 'traffic-light-green')
+        this.trafficLightGreen.setVisible(false)
+
         this.flower = this.add.image(0, 0, 'flower')
         this.flower.setOrigin(0.7, 1)
+
+        this.dog = this.physics.add.sprite(0, 0, 'dog')
+        this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
 
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
@@ -152,8 +156,6 @@ export default class Game extends Phaser.Scene
         
         
 
-        this.dog = this.physics.add.sprite(0, 0, 'dog')
-        this.dog.setSize(this.dog.width * 0.3, this.dog.height * 0.3)
         
         this.car = this.physics.add.sprite(0, 0, 'car')
         this.car.setOrigin(0.5)
@@ -346,7 +348,7 @@ export default class Game extends Phaser.Scene
         })
 
         this.aGrid.placeAtIndex(81, this.dog)
-        Align.scaleToGameW(this.dog, 0.1)
+        Align.scaleToGameW(this.dog, 0.2)
         this.dog.setVisible(false)
 
         if(this.showSplash)
@@ -375,6 +377,7 @@ export default class Game extends Phaser.Scene
     handleCountdownFinished()
     {
         this.music.stop()
+        this.anims.pauseAll()
         
         this.pauseGame = true
 
@@ -452,14 +455,14 @@ export default class Game extends Phaser.Scene
             Align.scaleToGameW(this.hotel, 0.2 + this.count/10000)
     
             // scale and move traffic light
-            this.trafficLightRed.x -= 0.12 
-            this.trafficLightRed.y += 0.3
+            this.trafficLightRed.x -= 0.14 
+            this.trafficLightRed.y += 0.25
     
             Align.scaleToGameW(this.trafficLightRed, 0.3 + this.count/1000)
 
             // scale and move road sign
             this.roadSign.x += 0.09
-            this.roadSign.y += 0.05
+            this.roadSign.y += 0.1
 
             Align.scaleToGameW(this.roadSign, 0.05 + this.count/5000)
 
@@ -472,18 +475,21 @@ export default class Game extends Phaser.Scene
         }
 
 
-        if((this.pothole1.y < (this.scale.height + 700)) && !this.pauseGame)
+        if(!this.redlight && !this.pauseGame)
         {
-            // scale and move pothole
-            this.pothole1.setVisible(true)
-            // this.pothole1.x -= 0.1
-            this.pothole1.y += 1.2
-            this.pothole1.scale += 0.0025
-        }
-        else if(!this.pauseGame)
-        {
-            Align.scaleToGameW(this.pothole1, 0.1)
-            this.aGrid.placeAtIndex(58, this.pothole1)
+            if((this.pothole1.y < (this.scale.height + 350)))
+            {
+                // scale and move pothole
+                this.pothole1.setVisible(true)
+                // this.pothole1.x -= 0.1
+                this.pothole1.y += 2
+                this.pothole1.scale += 0.0025
+            }
+            else
+            {
+                Align.scaleToGameW(this.pothole1, 0.1)
+                this.aGrid.placeAtIndex(58, this.pothole1)
+            }
         }
 
         if(this.count == 350)
@@ -534,8 +540,8 @@ export default class Game extends Phaser.Scene
             }
 
             // scale and move road sign
-            this.roadSign.x += 0.20
-            this.roadSign.y += 0.15
+            this.roadSign.x += 0.25
+            this.roadSign.y += 0.3
 
             Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
 
@@ -548,19 +554,27 @@ export default class Game extends Phaser.Scene
 
             if(this.dog.visible == true)
             {
-                this.dog.x += 1.5
-                this.dog.y += 0.5
-                Align.scaleToGameW(this.dog, 0.1 + (this.count)/6000)
+                if(this.dog.x < this.scale.width + 1500)
+                {
+                    this.dog.x += 2.5
+                    this.dog.y += 0.7
+                    this.dog.scale += 0.002
+                }
+                else
+                {
+                    this.aGrid.placeAtIndex(81, this.dog)
+                    Align.scaleToGameW(this.dog, 0.2)
+                }
             }
 
-            if(this.count > 500)
+            if(this.count > 600)
             {
-                if(this.pothole.y < this.scale.height + 900)
+                if(this.pothole.y < this.scale.height + 400)
                 {
                     this.pothole.setVisible(true)
-                    this.pothole.x -= 0.45
-                    this.pothole.y += 1.2
-                    Align.scaleToGameW(this.pothole, 0.1 * this.pothole.y/200)
+                    this.pothole.x -= 0.6
+                    this.pothole.y += 2
+                    this.pothole.scale += 0.0025
                 }
                 else
                 {
@@ -570,38 +584,47 @@ export default class Game extends Phaser.Scene
 
             }
 
-            if(this.count > 1200)
+            if(this.count > 1150)
             {
                 this.car.setVisible(true)
-                this.car.x -= 0.3
-                this.car.y += 1
-                this.car.scale += 0.0007
+                this.car.x += 0.5
+                this.car.y += 1.5
+                this.car.scale += 0.0009
             }
 
-            if(this.count > 1500)
+            if(this.count > 700)
             {
-                this.pothole2.setVisible(true)
-                this.pothole2.x += 0.35
-                this.pothole2.y += 1.2
-                Align.scaleToGameW(this.pothole2, 0.1 * this.pothole2.y/200)
+                if(this.pothole.y < this.scale.height + 500)
+                {
+                    this.pothole2.setVisible(true)
+                    this.pothole2.x += 0.6
+                    this.pothole2.y += 2
+                    this.pothole2.scale += 0.0025
+                    
+                }
+                else
+                {
+                    Align.scaleToGameW(this.pothole2, 0.1)
+                    this.aGrid.placeAtIndex(58, this.pothole2)
+                }
             }
 
         }
 
         if(!this.pauseGame && !this.redlight)
         {
-            this.trees1.x -= 0.2
-            this.trees1.y += 0.2
-            this.trees2.x += 0.2
-            this.trees2.y += 0.2
-            this.trees3.x -= 0.2
-            this.trees3.y += 0.2
-            this.trees4.x += 0.2
-            this.trees4.y += 0.2
-            this.trees5.x -= 0.2
-            this.trees5.y += 0.2
-            this.trees6.x += 0.2
-            this.trees6.y += 0.2
+            this.trees1.x -= 0.4
+            this.trees1.y += 0.4
+            this.trees2.x += 0.4
+            this.trees2.y += 0.4
+            this.trees3.x -= 0.4
+            this.trees3.y += 0.4
+            this.trees4.x += 0.4
+            this.trees4.y += 0.4
+            this.trees5.x -= 0.4
+            this.trees5.y += 0.4
+            this.trees6.x += 0.4
+            this.trees6.y += 0.4
 
             if(this.trees6.x > this.scale.width+20)
             {
@@ -643,44 +666,44 @@ export default class Game extends Phaser.Scene
 
 
             // scale and move grass
-            this.grass.x -= 0.35
-            this.grass.y += 0.6
-            this.grass.scale += 0.0001
+            this.grass.x -= 0.6
+            this.grass.y += 1
+            this.grass.scale += 0.0005
 
-            this.grass2.x -= 0.35
-            this.grass2.y += 0.6
-            this.grass2.scale += 0.0001
+            this.grass2.x -= 0.6
+            this.grass2.y += 1
+            this.grass2.scale += 0.0005
 
-            this.grass1.x += 0.35
-            this.grass1.y += 0.6
-            this.grass1.scale += 0.0001
+            this.grass1.x += 0.5
+            this.grass1.y += 1
+            this.grass1.scale += 0.0005
 
-            this.grass3.x += 0.35
-            this.grass3.y += 0.6
-            this.grass3.scale += 0.0001
+            this.grass3.x += 0.5
+            this.grass3.y += 1
+            this.grass3.scale += 0.0005
 
             if(this.grass.x < -30)
             {
                 this.aGrid.placeAtIndex(74, this.grass)
-                Align.scaleToGameW(this.grass, 0.1)
+                Align.scaleToGameW(this.grass, 0.05)
             }
 
             if(this.grass2.x < -30)
             {
                 this.aGrid.placeAtIndex(74, this.grass2)
-                Align.scaleToGameW(this.grass2, 0.1)
+                Align.scaleToGameW(this.grass2, 0.05)
             }
 
             if(this.grass1.x > this.scale.width + 30)
             {
                 this.aGrid.placeAtIndex(69, this.grass1)
-                Align.scaleToGameW(this.grass1, 0.1)
+                Align.scaleToGameW(this.grass1, 0.05)
             }
 
             if(this.grass3.x > this.scale.width + 30)
             {
                 this.aGrid.placeAtIndex(69, this.grass3)
-                Align.scaleToGameW(this.grass3, 0.1)
+                Align.scaleToGameW(this.grass3, 0.05)
             }
 
 
