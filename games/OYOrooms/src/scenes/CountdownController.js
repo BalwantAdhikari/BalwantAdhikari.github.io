@@ -58,7 +58,14 @@ export default class CountdownController
         const passedSeconds = elapsed/ 1000
 
         this.label.text = passedSeconds.toFixed(0) + ' sec'
-        this.remainingTimeLabel.text = seconds.toFixed(0) + ' SECONDS LEFT TO REACH'
+        if(seconds.toFixed(0) == 0)
+        {
+            this.remainingTimeLabel.text = 'YOU HAVE ARRIVED'   
+        }
+        else
+        {
+            this.remainingTimeLabel.text = seconds.toFixed(0) + ' SECONDS LEFT TO REACH'
+        }
 
         this.progressBar.clear();
         if(passedSeconds.toFixed(0) == 1)
