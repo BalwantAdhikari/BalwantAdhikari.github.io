@@ -747,7 +747,8 @@ export default class Game extends Phaser.Scene
             //     // ease: 'Linear'
             // });
 
-            this.wonImage.setScale(0.6)
+            // this.wonImage.setScale(0.6)
+            Align.scaleToGameW(this.wonImage, 1)
 
         }
 
