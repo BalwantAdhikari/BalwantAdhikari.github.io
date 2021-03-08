@@ -65,6 +65,8 @@ export default class Game extends Phaser.Scene
 
         this.load.image('dog', 'assets/dog.png')
 
+        this.load.image('won', 'assets/won.png')
+
         // load as an atlas
         this.load.atlas(
             'dogwalk',
@@ -269,7 +271,6 @@ export default class Game extends Phaser.Scene
                 fill: '#000'
             })
             .setOrigin(0.5)
-
         
         this.progressBox = this.graphics1
         this.progressBar = this.graphics
@@ -331,6 +332,14 @@ export default class Game extends Phaser.Scene
             this
         )
 
+        this.physics.add.overlap(
+            this.pothole1,
+            this.car,
+            this.hidePothole,
+            undefined,
+            this
+        )
+
         // dog animation
 
         // create the run animation
@@ -354,6 +363,14 @@ export default class Game extends Phaser.Scene
         if(this.showSplash)
         {
             this.showControl()
+        }
+    }
+
+    hidePothole()
+    {
+        if(this.pothole1.y > this.scale.height/2)
+        {
+            this.pothole1.scale = 0
         }
     }
 
@@ -461,8 +478,8 @@ export default class Game extends Phaser.Scene
             Align.scaleToGameW(this.trafficLightRed, 0.3 + this.count/1000)
 
             // scale and move road sign
-            this.roadSign.x += 0.09
-            this.roadSign.y += 0.1
+            this.roadSign.x += 0.25
+            this.roadSign.y += 0.3
 
             Align.scaleToGameW(this.roadSign, 0.05 + this.count/5000)
 
@@ -475,15 +492,15 @@ export default class Game extends Phaser.Scene
         }
 
 
-        if(!this.redlight && !this.pauseGame)
+        if(!this.redlight && !this.pauseGame && this.count > 100)
         {
-            if((this.pothole1.y < (this.scale.height + 350)))
+            if((this.pothole1.y < (this.scale.height + 600)))
             {
                 // scale and move pothole
                 this.pothole1.setVisible(true)
                 // this.pothole1.x -= 0.1
-                this.pothole1.y += 2
-                this.pothole1.scale += 0.0025
+                this.pothole1.y += this.scale.height * 0.004
+                this.pothole1.scale += 0.004
             }
             else
             {
@@ -567,14 +584,14 @@ export default class Game extends Phaser.Scene
                 }
             }
 
-            if(this.count > 600)
+            if(this.count > 450)
             {
-                if(this.pothole.y < this.scale.height + 400)
+                if(this.pothole.y < this.scale.height + 500)
                 {
                     this.pothole.setVisible(true)
-                    this.pothole.x -= 0.6
-                    this.pothole.y += 2
-                    this.pothole.scale += 0.0025
+                    this.pothole.x -= 1
+                    this.pothole.y += this.scale.height * 0.004
+                    this.pothole.scale += 0.004
                 }
                 else
                 {
@@ -584,22 +601,22 @@ export default class Game extends Phaser.Scene
 
             }
 
-            if(this.count > 1150)
+            if(this.count > 1200)
             {
                 this.car.setVisible(true)
-                this.car.x += 0.5
-                this.car.y += 1.5
-                this.car.scale += 0.0009
+                this.car.x += 0.75
+                this.car.y += this.scale.height * 0.0033
+                this.car.scale += 0.002
             }
 
             if(this.count > 700)
             {
-                if(this.pothole.y < this.scale.height + 500)
+                if(this.pothole2.y < this.scale.height + 600)
                 {
                     this.pothole2.setVisible(true)
-                    this.pothole2.x += 0.6
-                    this.pothole2.y += 2
-                    this.pothole2.scale += 0.0025
+                    this.pothole2.x += 1
+                    this.pothole2.y += this.scale.height * 0.004
+                    this.pothole2.scale += 0.004
                     
                 }
                 else
@@ -613,18 +630,18 @@ export default class Game extends Phaser.Scene
 
         if(!this.pauseGame && !this.redlight)
         {
-            this.trees1.x -= 0.4
-            this.trees1.y += 0.4
-            this.trees2.x += 0.4
-            this.trees2.y += 0.4
-            this.trees3.x -= 0.4
-            this.trees3.y += 0.4
-            this.trees4.x += 0.4
-            this.trees4.y += 0.4
-            this.trees5.x -= 0.4
-            this.trees5.y += 0.4
-            this.trees6.x += 0.4
-            this.trees6.y += 0.4
+            this.trees1.x -= 0.6
+            this.trees1.y += 0.6
+            this.trees2.x += 0.6
+            this.trees2.y += 0.6
+            this.trees3.x -= 0.6
+            this.trees3.y += 0.6
+            this.trees4.x += 0.6
+            this.trees4.y += 0.6
+            this.trees5.x -= 0.6
+            this.trees5.y += 0.6
+            this.trees6.x += 0.6
+            this.trees6.y += 0.6
 
             if(this.trees6.x > this.scale.width+20)
             {
@@ -666,41 +683,41 @@ export default class Game extends Phaser.Scene
 
 
             // scale and move grass
-            this.grass.x -= 0.6
-            this.grass.y += 1
-            this.grass.scale += 0.0005
+            this.grass.x -= 0.9
+            this.grass.y += 1.5
+            this.grass.scale += 0.001
 
-            this.grass2.x -= 0.6
-            this.grass2.y += 1
-            this.grass2.scale += 0.0005
+            this.grass2.x -= 0.9
+            this.grass2.y += 1.5
+            this.grass2.scale += 0.001
 
-            this.grass1.x += 0.5
-            this.grass1.y += 1
-            this.grass1.scale += 0.0005
+            this.grass1.x += 0.9
+            this.grass1.y += 1.5
+            this.grass1.scale += 0.001
 
-            this.grass3.x += 0.5
-            this.grass3.y += 1
-            this.grass3.scale += 0.0005
+            this.grass3.x += 0.9
+            this.grass3.y += 1.5
+            this.grass3.scale += 0.001
 
-            if(this.grass.x < -30)
+            if(this.grass.x < -45)
             {
                 this.aGrid.placeAtIndex(74, this.grass)
                 Align.scaleToGameW(this.grass, 0.05)
             }
 
-            if(this.grass2.x < -30)
+            if(this.grass2.x < -45)
             {
                 this.aGrid.placeAtIndex(74, this.grass2)
                 Align.scaleToGameW(this.grass2, 0.05)
             }
 
-            if(this.grass1.x > this.scale.width + 30)
+            if(this.grass1.x > this.scale.width + 45)
             {
                 this.aGrid.placeAtIndex(69, this.grass1)
                 Align.scaleToGameW(this.grass1, 0.05)
             }
 
-            if(this.grass3.x > this.scale.width + 30)
+            if(this.grass3.x > this.scale.width + 45)
             {
                 this.aGrid.placeAtIndex(69, this.grass3)
                 Align.scaleToGameW(this.grass3, 0.05)
@@ -722,6 +739,16 @@ export default class Game extends Phaser.Scene
             this.bike.y -= 1
 
             this.bike.scale -= 0.001
+
+            // this.tweens.add({
+            //     targets: this.wonImage,
+            //     scale: 0.7,
+            //     duration: 500,
+            //     // ease: 'Linear'
+            // });
+
+            this.wonImage.setScale(0.6)
+
         }
 
         this.countdown.update()
@@ -757,6 +784,9 @@ export default class Game extends Phaser.Scene
             'sparkle3')
             .setOrigin(0.5)
             .setScale(0.3)
+
+        this.wonImage = this.add.image(this.scale.width/2, this.scale.height/2, 'won').setScale(0)
+        
     }
 
     showControl()
