@@ -601,7 +601,7 @@ export default class Game extends Phaser.Scene
 
             }
 
-            if(this.count > 1200)
+            if(this.count > 1250)
             {
                 this.car.setVisible(true)
                 this.car.x += 0.75
