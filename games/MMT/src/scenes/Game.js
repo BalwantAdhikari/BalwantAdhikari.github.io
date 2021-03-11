@@ -28,7 +28,7 @@ export default class Game extends Phaser.Scene{
     create()
     {
         this.tickSound = this.sound.add('tickSound', {
-            volume: 0.3
+            volume: 1
         })
 
         this.applaudeSound = this.sound.add('applaude', {
@@ -42,10 +42,10 @@ export default class Game extends Phaser.Scene{
         this.playButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/11), 'play-button')
         Align.scaleToGameW(this.playButton, 1.3)
         this.rightCoin = this.add.image(this.scale.width/4 + this.scale.width/10, this.scale.height/2 + this.scale.height/5, 'coin').setOrigin(0.5)
-        Align.scaleToGameW(this.rightCoin, 0.3)
+        Align.scaleToGameW(this.rightCoin, 0.7)
         this.rightCoin.setVisible(false)
         this.leftCoin = this.add.image(this.scale.width* 3/4 - this.scale.width/10, this.scale.height/2 + this.scale.height/5, 'coin').setOrigin(0.5).setFlipX(true)
-        Align.scaleToGameW(this.leftCoin, 0.3)
+        Align.scaleToGameW(this.leftCoin, 0.7)
         this.leftCoin.setVisible(false)
         this.wheel = this.physics.add.image(this.scale.width/2, this.scale.height/2, 'wheel').setOrigin(0.5)
         Align.scaleToGameW(this.wheel, 0.9)
