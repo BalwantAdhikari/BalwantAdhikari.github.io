@@ -25,6 +25,8 @@ export default class Game extends Phaser.Scene{
         this.load.image('endCoin', 'assets/coin-end.png')
         this.load.audio('tickSound', 'assets/ding.mp3')
         this.load.audio('applaude', 'assets/applaude.mp3')
+        this.load.image('spark0', 'assets/blue.png');
+        this.load.image('spark1', 'assets/red.png');
     }
 
     create()
@@ -60,6 +62,42 @@ export default class Game extends Phaser.Scene{
         Align.scaleToGameW(this.endCoin, 1)
         this.endCoin.setVisible(false)
 
+        this.emitter0 = this.add.particles('spark0').createEmitter({
+            x: 400,
+            y: 300,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.5, end: 0 },
+            blendMode: 'SCREEN',
+            active: false,
+            lifespan: 600,
+            gravityY: 800
+        });
+    
+        this.emitter1 = this.add.particles('spark1').createEmitter({
+            x: 400,
+            y: 300,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.3, end: 0 },
+            blendMode: 'SCREEN',
+            active: false,
+            lifespan: 300,
+            gravityY: 800
+        });
+    
+        // this.input.on('pointerdown', function (pointer) {
+        //     emitter0.resume()
+        //     emitter1.resume()
+        //     emitter0.setPosition(pointer.x, pointer.y);
+        //     emitter1.setPosition(pointer.x, pointer.y);
+        //     for(let i=0; i<20; i++)
+        //     {
+        //         emitter0.explode();
+        //         emitter1.explode();
+        //     }
+        // });
+    
         // this.displayPrize = this.add.graphics()
         // this.displayPrize.fillRect(0, 0, this.scale.width, this.scale.height);
 
@@ -148,6 +186,20 @@ export default class Game extends Phaser.Scene{
                                 this.rightCoin.setVisible(false)
                                 this.endText.setVisible(true)
                                 this.endCoin.setVisible(true)
+
+                                this.emitter0.resume()
+                                this.emitter1.resume()
+
+                                for(let j=0; j<20; j++)
+                                {
+                                    this.emitter0.setPosition(this.scale.width/2, this.scale.height/2);
+                                    this.emitter1.setPosition(this.scale.width/2, this.scale.height/2);
+                                    for(let i=0; i<20; i++)
+                                    {
+                                        this.emitter0.explode();
+                                        this.emitter1.explode();
+                                    }
+                                }
                             }, [], this) 
 
 
