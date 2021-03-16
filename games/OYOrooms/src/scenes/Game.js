@@ -340,6 +340,15 @@ export default class Game extends Phaser.Scene
             this
         )
 
+        this.physics.add.overlap(
+            this.pothole,
+            this.pothole2,
+            this.hidePothole2,
+            undefined,
+            this
+        )
+
+
         // dog animation
 
         // create the run animation
@@ -371,6 +380,14 @@ export default class Game extends Phaser.Scene
         if(this.pothole1.y > this.scale.height/2)
         {
             this.pothole1.scale = 0
+        }
+    }
+
+    hidePothole2()
+    {
+        if(this.count > 1250)
+        {
+            this.pothole2.x = this.scale.width
         }
     }
 
