@@ -387,7 +387,7 @@ export default class Game extends Phaser.Scene
     {
         if(this.count > 1250)
         {
-            this.pothole2.x = this.scale.width
+            this.pothole.x = 0
         }
     }
 
@@ -511,7 +511,7 @@ export default class Game extends Phaser.Scene
 
         if(!this.redlight && !this.pauseGame && this.count > 100)
         {
-            if((this.pothole1.y < (this.scale.height + 600)))
+            if((this.pothole1.y < (this.scale.height * 1.815)))
             {
                 // scale and move pothole
                 this.pothole1.setVisible(true)
@@ -603,7 +603,7 @@ export default class Game extends Phaser.Scene
 
             if(this.count > 450)
             {
-                if(this.pothole.y < this.scale.height + 500)
+                if(this.pothole.y < this.scale.height * 1.68)
                 {
                     this.pothole.setVisible(true)
                     this.pothole.x -= 1
@@ -628,7 +628,7 @@ export default class Game extends Phaser.Scene
 
             if(this.count > 700)
             {
-                if(this.pothole2.y < this.scale.height + 600)
+                if(this.pothole2.y < this.scale.height * 1.815)
                 {
                     this.pothole2.setVisible(true)
                     this.pothole2.x += 1
