@@ -740,16 +740,20 @@ export default class Game extends Phaser.Scene
 
             this.bike.scale -= 0.001
 
-            // this.tweens.add({
-            //     targets: this.wonImage,
-            //     scale: 0.7,
-            //     duration: 500,
-            //     // ease: 'Linear'
-            // });
+            
+        }
+        
+        if(this.winanimation && (this.count > 2500))
+        {
+            this.tweens.add({
+                targets: this.wonImage,
+                scale: window.innerWidth/this.wonImage.width,
+                duration: 500,
+                ease: 'Linear'
+            });
 
             // this.wonImage.setScale(0.6)
-            Align.scaleToGameW(this.wonImage, 1)
-
+            // Align.scaleToGameW(this.wonImage, 1)
         }
 
         this.countdown.update()

@@ -12,7 +12,7 @@ export default class LoadingScene extends Phaser.Scene
 
     preload()
     {
-        this.load.image('loadingScreen', 'assets/gameStart.svg')
+        this.load.image('loadingScreen', 'assets/gameStart.png')
     }
 
     create()
@@ -30,7 +30,6 @@ export default class LoadingScene extends Phaser.Scene
         // this.aGrid.showNumbers()
 
         this.aGrid.placeAtIndex(72, this.clickButton)
-
 
         this.clickButton.on('pointerup', function(pointer, localX, localY, event){
             this.scene.start('game')
