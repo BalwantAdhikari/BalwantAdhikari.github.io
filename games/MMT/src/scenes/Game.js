@@ -21,7 +21,8 @@ export default class Game extends Phaser.Scene{
         this.load.image('wheel', 'assets/wheel.png')
         this.load.image('stopper', 'assets/Wheel_Stoper.png')
         this.load.image('coin', 'assets/coin.png')
-        this.load.image('endText', 'assets/end-slate-text.png')
+        this.load.image('endText', 'assets/end-text.png')
+        this.load.image('download-button', 'assets/download_button.png')
         this.load.image('endCoin', 'assets/coin-end.png')
         this.load.audio('tickSound', 'assets/ding.mp3')
         this.load.audio('applaude', 'assets/applaude.mp3')
@@ -58,6 +59,9 @@ export default class Game extends Phaser.Scene{
         this.endText = this.add.image(this.scale.width/2, this.scale.height/2, 'endText')
         Align.scaleToGameW(this.endText, 0.7)
         this.endText.setVisible(false)
+        this.downloadButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/3), 'download-button')
+        Align.scaleToGameW(this.downloadButton, 0.65)
+        this.downloadButton.setVisible(false)
         this.endCoin = this.add.image(this.scale.width/2, this.scale.height/2, 'endCoin')
         Align.scaleToGameW(this.endCoin, 1)
         this.endCoin.setVisible(false)
@@ -175,8 +179,6 @@ export default class Game extends Phaser.Scene{
                             this.leftCoin.setVisible(true)
                             this.rightCoin.setVisible(true)
 
-                            
-
                             this.time.delayedCall(1000, () => {
                                 this.wheel.setVisible(false)
                                 this.stopper.setVisible(false)
@@ -186,6 +188,7 @@ export default class Game extends Phaser.Scene{
                                 this.rightCoin.setVisible(false)
                                 this.endText.setVisible(true)
                                 this.endCoin.setVisible(true)
+                                this.downloadButton.setVisible(true)
 
                                 this.emitter0.resume()
                                 this.emitter1.resume()
