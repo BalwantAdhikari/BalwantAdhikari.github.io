@@ -189,6 +189,9 @@ export default class Game extends Phaser.Scene{
                                 this.endText.setVisible(true)
                                 this.endCoin.setVisible(true)
                                 this.downloadButton.setVisible(true)
+                                this.downloadButton.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+                                    FbPlayableAd.onCTAClick()
+                                }, this);
 
                                 this.emitter0.resume()
                                 this.emitter1.resume()
