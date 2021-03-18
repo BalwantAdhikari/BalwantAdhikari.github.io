@@ -387,7 +387,7 @@ export default class Game extends Phaser.Scene
     {
         if(this.count > 1250)
         {
-            this.pothole.x = 0
+            this.pothole.x = - this.pothole.width/2
         }
     }
 
@@ -420,7 +420,6 @@ export default class Game extends Phaser.Scene
 
     update()
     {
-
         this.count += 1
 
         if((this.count % 4 == 0 && !this.pauseGame) && !this.redlight)
@@ -517,12 +516,22 @@ export default class Game extends Phaser.Scene
                 this.pothole1.setVisible(true)
                 // this.pothole1.x -= 0.1
                 this.pothole1.y += this.scale.height * 0.004
-                this.pothole1.scale += 0.004
+                
+                if(this.car.visible == false)
+                    this.pothole1.scale += 0.004
+                else
+                    this.pothole1.scale += 0
             }
             else
             {
-                Align.scaleToGameW(this.pothole1, 0.1)
+                if(this.car.visible == false)
+                    Align.scaleToGameW(this.pothole1, 0.1)
+                else
+                    Align.scaleToGameW(this.pothole1, 0)
                 this.aGrid.placeAtIndex(58, this.pothole1)
+                
+                
+
             }
         }
 
@@ -624,6 +633,10 @@ export default class Game extends Phaser.Scene
                 this.car.x += 0.75
                 this.car.y += this.scale.height * 0.0033
                 this.car.scale += 0.002
+                if(this.car.y > this.scale.height + this.car.height/2)
+                {
+                    this.car.setVisible(false)
+                }
             }
 
             if(this.count > 700)
@@ -765,7 +778,7 @@ export default class Game extends Phaser.Scene
             this.tweens.add({
                 targets: this.wonImage,
                 scale: window.innerWidth/this.wonImage.width,
-                duration: 500,
+                duration: 400,
                 ease: 'Linear'
             });
 
