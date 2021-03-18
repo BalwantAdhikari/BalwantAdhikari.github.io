@@ -15,6 +15,7 @@ export default class Game extends Phaser.Scene{
     preload()
     {
         this.load.image('background', 'assets/Background.png')
+        this.load.image('logo', 'assets/Logo.png')
         this.load.image('wheel-reflection', 'assets/Wheel_Reflection.png')
         this.load.image('header-text', 'assets/header.png')
         this.load.image('play-button', 'assets/Play_Button.png')
@@ -42,7 +43,9 @@ export default class Game extends Phaser.Scene{
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, 'background').setScale(1)
         this.wheelReflection = this.add.image(this.scale.width/2, this.scale.height/2, 'wheel-reflection')
         Align.scaleToGameW(this.wheelReflection, 1.5)
-        this.headerText = this.add.image(this.scale.width/2, this.scale.height/11, 'header-text')
+        this.logo = this.add.image(this.scale.width/2, this.scale.height/12, 'logo')
+        Align.scaleToGameW(this.logo, 0.3)
+        this.headerText = this.add.image(this.scale.width/2, this.scale.height/5.5, 'header-text')
         Align.scaleToGameW(this.headerText, 0.75)
         this.playButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/11), 'play-button')
         Align.scaleToGameW(this.playButton, 0.5)
