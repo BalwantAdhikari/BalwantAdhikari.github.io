@@ -21,14 +21,15 @@ export default class Game extends Phaser.Scene{
         this.load.image('play-button', 'assets/Play_Button.png')
         this.load.image('wheel', 'assets/wheel.png')
         this.load.image('stopper', 'assets/Wheel_Stoper.png')
-        this.load.image('coin', 'assets/coin.png')
+        // this.load.image('coin', 'assets/coin.png')
         this.load.image('endText', 'assets/end-text2.png')
         this.load.image('download-button', 'assets/download_button.png')
-        this.load.image('endCoin', 'assets/coin-end.png')
+        // this.load.image('endCoin', 'assets/coin-end.png')
         this.load.audio('tickSound', 'assets/ding.mp3')
         this.load.audio('applaude', 'assets/applaude.mp3')
-        this.load.image('spark0', 'assets/blue.png');
-        this.load.image('spark1', 'assets/red.png');
+        this.load.image('spark0', 'assets/blue.png')
+        this.load.image('spark1', 'assets/red.png')
+        this.load.image('coin1', 'assets/coin1.png')
     }
 
     create()
@@ -49,16 +50,16 @@ export default class Game extends Phaser.Scene{
         Align.scaleToGameW(this.headerText, 0.75)
         this.playButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/11), 'play-button')
         Align.scaleToGameW(this.playButton, 0.5)
-        this.rightCoin = this.add.image(this.scale.width/4 + this.scale.width/10, this.scale.height * 7.5/11, 'coin').setOrigin(0.5)
-        Align.scaleToGameW(this.rightCoin, 0.7)
-        this.rightCoin.setVisible(false)
-        this.leftCoin = this.add.image(this.scale.width* 3/4 - this.scale.width/10, this.scale.height * 7.5/11, 'coin').setOrigin(0.5).setFlipX(true)
-        Align.scaleToGameW(this.leftCoin, 0.7)
-        this.leftCoin.setVisible(false)
+        // this.rightCoin = this.add.image(this.scale.width/4 + this.scale.width/10, this.scale.height * 7.5/11, 'coin').setOrigin(0.5)
+        // Align.scaleToGameW(this.rightCoin, 0.7)
+        // this.rightCoin.setVisible(false)
+        // this.leftCoin = this.add.image(this.scale.width* 3/4 - this.scale.width/10, this.scale.height * 7.5/11, 'coin').setOrigin(0.5).setFlipX(true)
+        // Align.scaleToGameW(this.leftCoin, 0.7)
+        // this.leftCoin.setVisible(false)
         this.wheel = this.add.image(this.scale.width/2, this.scale.height/2, 'wheel').setOrigin(0.5)
         Align.scaleToGameW(this.wheel, 0.9)
-        this.stopper = this.add.image(this.scale.width/2, this.scale.height/2 - this.wheel.height * this.wheel.scale/2, 'stopper').setOrigin(0.5, 0.1)
-        Align.scaleToGameW(this.stopper, 1)
+        // this.stopper = this.add.image(this.scale.width/2, this.scale.height/2 - this.wheel.height * this.wheel.scale/2, 'stopper').setOrigin(0.5, 0.1)
+        // Align.scaleToGameW(this.stopper, 1)
         this.endText = this.add.image(this.scale.width/2, this.scale.height/2, 'endText')
         Align.scaleToGameW(this.endText, 0.7)
         this.endText.setVisible(false)
@@ -69,15 +70,31 @@ export default class Game extends Phaser.Scene{
         Align.scaleToGameW(this.endCoin, 1)
         this.endCoin.setVisible(false)
 
+        this.coins = this.add.particles('coin1').createEmitter(
+            {
+                x: this.scale.width/2,
+                y: this.scale.height + 20,
+                angle: { min: 250, max: 290 },
+                speed: { min: 200, max: 600},
+                gravityY: 250,
+                lifespan: 5000,
+                blendMode: 'NORMAL',
+                duration: 10,
+                active: false,
+                quantity: 20,
+                // scale: { min: 0.05, max: 0.05}
+                scale: 0.25
+        });
+
         this.emitter0 = this.add.particles('spark0').createEmitter({
             x: 400,
             y: 300,
             speed: { min: -800, max: 800 },
             angle: { min: 0, max: 360 },
             scale: { start: 0.5, end: 0 },
-            blendMode: 'SCREEN',
+            blendMode: 'ADD',
             active: false,
-            lifespan: 600,
+            lifespan: 1000,
             gravityY: 800
         });
     
@@ -87,59 +104,40 @@ export default class Game extends Phaser.Scene{
             speed: { min: -800, max: 800 },
             angle: { min: 0, max: 360 },
             scale: { start: 0.3, end: 0 },
-            blendMode: 'SCREEN',
+            blendMode: 'ADD',
             active: false,
-            lifespan: 300,
+            lifespan: 1000,
             gravityY: 800
         });
-    
-        // this.input.on('pointerdown', function (pointer) {
-        //     emitter0.resume()
-        //     emitter1.resume()
-        //     emitter0.setPosition(pointer.x, pointer.y);
-        //     emitter1.setPosition(pointer.x, pointer.y);
-        //     for(let i=0; i<20; i++)
-        //     {
-        //         emitter0.explode();
-        //         emitter1.explode();
-        //     }
-        // });
-    
-        // this.displayPrize = this.add.graphics()
-        // this.displayPrize.fillRect(0, 0, this.scale.width, this.scale.height);
 
-        // this.prizeText = this.add.text(this.scale.width/2, this.scale.height/2, "", {
-        //     font: "bold 32px Arial",
-        //     align: "center",
-        //     color: "white",
-        //     wordWrap: {width: this.scale.width}
-        // });
+        var shape1 = new Phaser.Geom.Circle(0, 0, this.scale.width*0.84/2);
+        this.emitter = this.add.particles('spark0').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            scale: { start: 0.5, end: 0 },
+            blendMode: 'ADD',
+            radial: true,
+            delay: 10,
+            // radial: true,
+            angle: { min: 0, max: 360 },
+            emitZone: { type: 'edge', source: shape1, quantity: 27, yoyo: false,  }
+        });
 
-        // this.prizeText.setOrigin(0.5)
+        this.wheelRef1 = this.tweens.add({
+            targets: this.wheelReflection,
+            angle: 360,
+            loop: -1,  
+            duration: 1500,
+            // ease: 'Cubic.InOut'
+        });
 
-        // prize names, starting from 12 o'clock going clockwise
-        // this.slicePrizes = [
-        //     "12% off on 5 star Hotels",
-        //     "1 Night Free Stay at Atlantis Hotel (jackpot)",
-        //     "12% off on flights",
-        //     "Flights at 50% off",
-        //     "Free stay for two at Hilton Ras Al Khaimah Beach Resort",
-        //     "Better luck next time!",
-        //     ]
- 
-        // so the wheel does not fall in y axis
-        // this.physics.world.gravity.y = 0
+        this.stopper = this.add.image(this.scale.width/2, this.scale.height/2 - this.wheel.height * this.wheel.scale/2, 'stopper').setOrigin(0.5, 0.1)
+        Align.scaleToGameW(this.stopper, 1)
 
         this.playButton.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
             if(this.canSpin)
             {
                 this.count = 0
-
-                // if the player play again
-                // this.prizeText.setColor("white")
-                
-                // resetting text field
-                // this.prizeText.setText("");
 
                 // then will rotate by a random number from 0 to 360 degrees. This is the actual spin
                 const degrees = 95;
@@ -147,9 +145,8 @@ export default class Game extends Phaser.Scene{
                 // now the wheel cannot spin because it's already spinning
                 this.canSpin = false;
 
-                // before the wheel ends spinning, we already know the prize according to "degrees" rotation and the number of slices
-                // const prize = 5 - Math.floor(degrees / 60);
-
+                this.wheelRef1.stop()
+                
                 this.tweens.add({
                     targets: this.wheel,
                     // rotation: 6.285,
@@ -175,22 +172,27 @@ export default class Game extends Phaser.Scene{
 
                     },
                     onComplete: tween => {
-                        // console.log(this.slicePrizes[prize])
-                        // if(prize != 5)
-                        // {
-                            this.applaudeSound.play()
-                            this.leftCoin.setVisible(true)
-                            this.rightCoin.setVisible(true)
 
-                            this.time.delayedCall(1000, () => {
+                            // this.wheelRef1.restart()                
+                            this.applaudeSound.play()
+                            // this.leftCoin.setVisible(true)
+                            // this.rightCoin.setVisible(true)
+                            this.coins.resume()
+                            for(let j=0; j<10; j++)
+                            {
+                                this.coins.explode()
+                            }
+
+                            this.time.delayedCall(5000, () => {
+                                this.emitter.stop()
                                 this.wheel.setVisible(false)
                                 this.stopper.setVisible(false)
                                 this.headerText.setVisible(false)
                                 this.playButton.setVisible(false)
-                                this.leftCoin.setVisible(false)
-                                this.rightCoin.setVisible(false)
+                                // this.leftCoin.setVisible(false)
+                                // this.rightCoin.setVisible(false)
                                 this.endText.setVisible(true)
-                                this.endCoin.setVisible(true)
+                                // this.endCoin.setVisible(true)
                                 this.downloadButton.setVisible(true)
                                 this.downloadButton.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
                                     FbPlayableAd.onCTAClick()
@@ -209,33 +211,17 @@ export default class Game extends Phaser.Scene{
                                         this.emitter1.explode();
                                     }
                                 }
-                            }, [], this) 
-
-
-                            // this.displayPrize.fillStyle(0x000000, 0.7)
-                            // displaying prize text
-                            // this.prizeText.setText(this.slicePrizes[prize]);
-                        // }
-                        // else
-                        // {
-                        //     this.canSpin = true
-                        //     this.prizeText.setColor("black")
-                        //     this.prizeText.setText("Try Again!")
-                        // }
-
-
+                            }, [], this)
                     },
                     duration: 3000,
-                    ease: 'Cubic.InOut'
+                    ease: 'Cubic.Out'
                 });
 
                 this.tweens.add({
                     targets: this.wheelReflection,
-                    // rotation: 6.285,
-                    // rotation: 30,
                     angle: 360 * 4,  
-                    duration: 3000,
-                    ease: 'Cubic.InOut'
+                    duration: 8000,
+                    ease: 'Linear'
                 });
                 
             }
