@@ -110,6 +110,18 @@ export default class Game extends Phaser.Scene{
             gravityY: 800
         });
 
+        this.coinEmitter = this.add.particles('coin1').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.3, end: 0 },
+            blendMode: 'ADD',
+            active: false,
+            lifespan: 3000,
+            gravityY: 400
+        });
+
         var shape1 = new Phaser.Geom.Circle(0, 0, this.scale.width*0.84/2);
         this.emitter = this.add.particles('spark0').createEmitter({
             x: this.scale.width/2,
@@ -211,6 +223,19 @@ export default class Game extends Phaser.Scene{
                                         this.emitter1.explode();
                                     }
                                 }
+
+                                this.time.delayedCall(2000, () => {
+                                    this.coinEmitter.resume()
+
+                                    for(let j=0; j<20; j++)
+                                    {
+                                        for(let i=0; i<20; i++)
+                                        {
+                                            this.coinEmitter.explode()
+                                        }
+                                    }
+                                }, [], this)
+
                             }, [], this)
                     },
                     duration: 3000,
