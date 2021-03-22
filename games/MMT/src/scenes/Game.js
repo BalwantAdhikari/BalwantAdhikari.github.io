@@ -27,7 +27,8 @@ export default class Game extends Phaser.Scene{
         this.load.audio('applaude', 'assets/applaude.mp3')
         this.load.image('spark0', 'assets/blue.png')
         this.load.image('spark1', 'assets/red.png')
-        this.load.image('coin1', 'assets/coin1.png')
+        this.load.image('wheelRing', 'assets/ring.png')
+        this.load.image('wheelCenter', 'assets/wheel.png')
     }
 
     create()
@@ -48,8 +49,10 @@ export default class Game extends Phaser.Scene{
         Align.scaleToGameW(this.headerText, 0.75)
         this.playButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/11), 'play-button')
         Align.scaleToGameW(this.playButton, 0.5)
-        this.wheel = this.add.image(this.scale.width/2, this.scale.height/2, 'wheel').setOrigin(0.5)
+        this.wheel = this.add.image(this.scale.width/2, this.scale.height/2, 'wheelCenter').setOrigin(0.5)
         Align.scaleToGameW(this.wheel, 0.9)
+        this.wheelRing = this.add.image(this.scale.width/2, this.scale.height/2, 'wheelRing').setOrigin(0.5)
+        Align.scaleToGameW(this.wheelRing, 0.9)
         this.endText = this.add.image(this.scale.width/2, this.scale.height/2, 'endText')
         Align.scaleToGameW(this.endText, 0.7)
         this.endText.setVisible(false)
@@ -59,21 +62,6 @@ export default class Game extends Phaser.Scene{
         this.endCoin = this.add.image(this.scale.width/2, this.scale.height/2, 'endCoin')
         Align.scaleToGameW(this.endCoin, 1)
         this.endCoin.setVisible(false)
-
-        this.coins = this.add.particles('coin1').createEmitter(
-            {
-                x: this.scale.width/2,
-                y: this.scale.height + 20,
-                angle: { min: 250, max: 290 },
-                speed: { min: 200, max: 600},
-                gravityY: 250,
-                lifespan: 5000,
-                blendMode: 'NORMAL',
-                duration: 10,
-                active: false,
-                quantity: 20,
-                scale: 0.25
-        });
 
         this.emitter0 = this.add.particles('spark0').createEmitter({
             x: 400,
@@ -121,14 +109,14 @@ export default class Game extends Phaser.Scene{
             delay: 10,
             // radial: true,
             angle: { min: 0, max: 360 },
-            emitZone: { type: 'edge', source: shape1, quantity: 27, yoyo: false,  }
+            emitZone: { type: 'edge', source: shape1, quantity: 27, yoyo: false}
         });
 
         this.wheelRef1 = this.tweens.add({
             targets: this.wheelReflection,
             angle: 360,
             loop: -1,  
-            duration: 1500,
+            duration: 2000,
         });
 
         this.stopper = this.add.image(this.scale.width/2, this.scale.height/2 - this.wheel.height * this.wheel.scale/2, 'stopper').setOrigin(0.5, 0.1)
@@ -144,12 +132,9 @@ export default class Game extends Phaser.Scene{
 
                 // now the wheel cannot spin because it's already spinning
                 this.canSpin = false;
-
-                this.wheelRef1.stop()
                 
                 this.tweens.add({
                     targets: this.wheel,
-                    // rotation: 6.285,
                     angle: 360 * 4 + degrees,
                     onUpdate: tween => {
 
@@ -172,17 +157,17 @@ export default class Game extends Phaser.Scene{
 
                     },
                     onComplete: tween => {
-           
-                            this.applaudeSound.play()
-                            this.coins.resume()
-                            for(let j=0; j<10; j++)
-                            {
-                                this.coins.explode()
-                            }
 
-                            this.time.delayedCall(5000, () => {
+                            this.applaudeSound.play()
+
+                            this.time.delayedCall(700, () => {
                                 this.emitter.stop()
+                            }, [], this)
+
+                            this.time.delayedCall(1500, () => {
+                                this.wheelRef1.stop()
                                 this.wheel.setVisible(false)
+                                this.wheelRing.setVisible(false)
                                 this.stopper.setVisible(false)
                                 this.headerText.setVisible(false)
                                 this.playButton.setVisible(false)
@@ -192,31 +177,26 @@ export default class Game extends Phaser.Scene{
                                     FbPlayableAd.onCTAClick()
                                 }, this);
 
-                                this.emitter0.resume()
-                                this.emitter1.resume()
+                                this.time.delayedCall(500, () => {
+                                    this.emitter0.resume()
+                                    this.emitter1.resume()
 
-                                for(let j=0; j<20; j++)
-                                {
-                                    this.emitter0.setPosition(this.scale.width/2, this.scale.height/2);
-                                    this.emitter1.setPosition(this.scale.width/2, this.scale.height/2);
-                                    for(let i=0; i<20; i++)
+                                    for(let j=0; j<20; j++)
                                     {
-                                        this.emitter0.explode();
-                                        this.emitter1.explode();
+                                        this.emitter0.setPosition(this.scale.width/2, this.scale.height/2);
+                                        this.emitter1.setPosition(this.scale.width/2, this.scale.height/2);
+                                        for(let i=0; i<20; i++)
+                                        {
+                                            this.emitter0.explode();
+                                            this.emitter1.explode();
+                                        }
                                     }
-                                }
+                                }, [], this)
 
                             }, [], this)
                     },
                     duration: 3000,
                     ease: 'Cubic.Out'
-                });
-
-                this.tweens.add({
-                    targets: this.wheelReflection,
-                    angle: 360 * 4,  
-                    duration: 8000,
-                    ease: 'Linear'
                 });
                 
             }
