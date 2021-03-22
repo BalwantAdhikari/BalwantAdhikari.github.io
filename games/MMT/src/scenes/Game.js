@@ -21,10 +21,8 @@ export default class Game extends Phaser.Scene{
         this.load.image('play-button', 'assets/Play_Button.png')
         this.load.image('wheel', 'assets/wheel.png')
         this.load.image('stopper', 'assets/Wheel_Stoper.png')
-        // this.load.image('coin', 'assets/coin.png')
         this.load.image('endText', 'assets/end-text2.png')
         this.load.image('download-button', 'assets/download_button.png')
-        // this.load.image('endCoin', 'assets/coin-end.png')
         this.load.audio('tickSound', 'assets/ding.mp3')
         this.load.audio('applaude', 'assets/applaude.mp3')
         this.load.image('spark0', 'assets/blue.png')
@@ -50,16 +48,8 @@ export default class Game extends Phaser.Scene{
         Align.scaleToGameW(this.headerText, 0.75)
         this.playButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/11), 'play-button')
         Align.scaleToGameW(this.playButton, 0.5)
-        // this.rightCoin = this.add.image(this.scale.width/4 + this.scale.width/10, this.scale.height * 7.5/11, 'coin').setOrigin(0.5)
-        // Align.scaleToGameW(this.rightCoin, 0.7)
-        // this.rightCoin.setVisible(false)
-        // this.leftCoin = this.add.image(this.scale.width* 3/4 - this.scale.width/10, this.scale.height * 7.5/11, 'coin').setOrigin(0.5).setFlipX(true)
-        // Align.scaleToGameW(this.leftCoin, 0.7)
-        // this.leftCoin.setVisible(false)
         this.wheel = this.add.image(this.scale.width/2, this.scale.height/2, 'wheel').setOrigin(0.5)
         Align.scaleToGameW(this.wheel, 0.9)
-        // this.stopper = this.add.image(this.scale.width/2, this.scale.height/2 - this.wheel.height * this.wheel.scale/2, 'stopper').setOrigin(0.5, 0.1)
-        // Align.scaleToGameW(this.stopper, 1)
         this.endText = this.add.image(this.scale.width/2, this.scale.height/2, 'endText')
         Align.scaleToGameW(this.endText, 0.7)
         this.endText.setVisible(false)
@@ -82,7 +72,6 @@ export default class Game extends Phaser.Scene{
                 duration: 10,
                 active: false,
                 quantity: 20,
-                // scale: { min: 0.05, max: 0.05}
                 scale: 0.25
         });
 
@@ -140,7 +129,6 @@ export default class Game extends Phaser.Scene{
             angle: 360,
             loop: -1,  
             duration: 1500,
-            // ease: 'Cubic.InOut'
         });
 
         this.stopper = this.add.image(this.scale.width/2, this.scale.height/2 - this.wheel.height * this.wheel.scale/2, 'stopper').setOrigin(0.5, 0.1)
@@ -184,11 +172,8 @@ export default class Game extends Phaser.Scene{
 
                     },
                     onComplete: tween => {
-
-                            // this.wheelRef1.restart()                
+           
                             this.applaudeSound.play()
-                            // this.leftCoin.setVisible(true)
-                            // this.rightCoin.setVisible(true)
                             this.coins.resume()
                             for(let j=0; j<10; j++)
                             {
@@ -201,10 +186,7 @@ export default class Game extends Phaser.Scene{
                                 this.stopper.setVisible(false)
                                 this.headerText.setVisible(false)
                                 this.playButton.setVisible(false)
-                                // this.leftCoin.setVisible(false)
-                                // this.rightCoin.setVisible(false)
                                 this.endText.setVisible(true)
-                                // this.endCoin.setVisible(true)
                                 this.downloadButton.setVisible(true)
                                 this.downloadButton.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
                                     FbPlayableAd.onCTAClick()
@@ -223,18 +205,6 @@ export default class Game extends Phaser.Scene{
                                         this.emitter1.explode();
                                     }
                                 }
-
-                                this.time.delayedCall(2000, () => {
-                                    this.coinEmitter.resume()
-
-                                    for(let j=0; j<20; j++)
-                                    {
-                                        for(let i=0; i<20; i++)
-                                        {
-                                            this.coinEmitter.explode()
-                                        }
-                                    }
-                                }, [], this)
 
                             }, [], this)
                     },
