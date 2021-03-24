@@ -812,7 +812,7 @@ export default class Game extends Phaser.Scene
             this.hotel.x += 0.5
             
             // this.bike.x -= 0.5
-            this.bike.y -= 0.5
+            this.bike.y -= 0.1
 
             this.leftRoad.x += 1
             this.leftRoad.y += 1
