@@ -58,13 +58,14 @@ export default class Game extends Phaser.Scene
         this.load.image('swipe-left', 'assets/swipe-left.png')
         this.load.image('swipe-right', 'assets/swipe-right.png')
         this.load.image('car', 'assets/object-5.png')
+        this.load.image('confetti', 'assets/confetti.png')
+        this.load.image('confetti1', 'assets/confetti1.png')
+        this.load.image('confetti2', 'assets/confetti2.png')
+        this.load.image('confetti3', 'assets/confetti3.png')
 
         this.load.audio('level-audio', 'assets/level-audio.wav')
-
         this.load.image('hotel', 'assets/object-16.svg')
-
         this.load.image('dog', 'assets/dog.png')
-
         this.load.image('won', 'assets/won.png')
 
         // load as an atlas
@@ -95,6 +96,8 @@ export default class Game extends Phaser.Scene
         })
 
         this.music.play()
+
+        
         
         // this.hrRule = this.add.image(0, 0, 'hr-rule')
         // this.hrRule.setScale(0.1)
@@ -152,12 +155,8 @@ export default class Game extends Phaser.Scene
         this.roadSign = this.add.image(0, 0, 'road-sign')
         this.roadSign.setOrigin(1, 0.5)
 
-        
         // this.dustbin = this.add.image(0, 0, 'dustbin')
         // this.dustbin.setOrigin(0.5)
-        
-        
-
         
         this.car = this.physics.add.sprite(0, 0, 'car')
         this.car.setOrigin(0.5)
@@ -373,6 +372,46 @@ export default class Game extends Phaser.Scene
         {
             this.showControl()
         }
+
+        this.events.once('callWinner', this.winner, this);
+        this.events.once('callEndScreen', this.endScreen, this);
+
+        this.confettiEmitterHotel = this.add.particles('confetti').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            rotate: {start: 0, end: 360},
+            scale: { start: 1, end: 0 },
+            // blendMode: 'SCREEN',
+            active: false,
+            lifespan: 1500,
+            gravityY: 800
+        });
+        this.confettiEmitterHotel1 = this.add.particles('confetti1').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            rotate: {start: 0, end: 180},
+            scale: { start: 1, end: 0 },
+            // blendMode: 'SCREEN',
+            active: false,
+            lifespan: 1500,
+            gravityY: 800
+        });
+        this.confettiEmitterHotel2 = this.add.particles('confetti2').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            rotate: {start: 0, end: 270},
+            scale: { start: 1, end: 0 },
+            // blendMode: 'SCREEN',
+            active: false,
+            lifespan: 1500,
+            gravityY: 800
+        });
     }
 
     hidePothole()
@@ -588,13 +627,6 @@ export default class Game extends Phaser.Scene
 
             Align.scaleToGameW(this.roadSign, 0.05 + (this.count - 100)/5000)
 
-            // scale and move dustbin
-            // this.dustbin.x += 0.20
-            // this.dustbin.y += 0.15
-
-            // Align.scaleToGameW(this.dustbin, 0.05 + (this.count - 100)/5000)
-
-
             if(this.dog.visible == true && this.count < 2000)
             {
                 if(this.dog.x < this.scale.width + 1500)
@@ -758,32 +790,53 @@ export default class Game extends Phaser.Scene
 
         if(this.winanimation && (this.count < 2500))
         {
-            this.winner()
+            
             this.pothole.setVisible(false)
             this.pothole1.setVisible(false)
             this.pothole2.setVisible(false)
             this.pothole.destroy()
             this.pothole1.destroy()
             this.pothole2.destroy()
-            this.bike.x -= 0.5
-            this.bike.y -= 1
+            this.dog.destroy()
+            this.grass1.destroy()
+            this.grass2.destroy()
+            this.grass3.destroy()
+            this.grass.destroy()
+            this.trees1.destroy()
+            this.trees2.destroy()
+            this.trees3.destroy()
+            this.trees4.destroy()
+            this.trees5.destroy()
+            this.trees6.destroy()
+            this.hotel.y += 1
+            this.hotel.x += 0.5
+            
+            // this.bike.x -= 0.5
+            this.bike.y -= 0.5
+
+            this.leftRoad.x += 1
+            this.leftRoad.y += 1
+            this.rightRoad.x += 1
+            this.rightRoad.y += 1
 
             this.bike.scale -= 0.001
-
-            
+            this.hotel.scale += 0.001
         }
-        
+
         if(this.winanimation && (this.count > 2500))
         {
-            this.tweens.add({
-                targets: this.wonImage,
-                scale: window.innerWidth/this.wonImage.width,
-                duration: 400,
-                ease: 'Linear'
-            });
-
-            // this.wonImage.setScale(0.6)
-            // Align.scaleToGameW(this.wonImage, 1)
+            // this.showedWinner = true
+            // if(this.showedWinner)
+            // {
+            //     this.winner()
+            //     this.showedWinner = false
+            // }
+            this.events.emit('callWinner');
+        }
+        
+        if(this.winanimation && (this.count > 2600))
+        {
+            this.events.emit('callEndScreen')
         }
 
         this.countdown.update()
@@ -797,31 +850,120 @@ export default class Game extends Phaser.Scene
             this.hotel.y - (this.hotel.height * this.hotel.scale),
             'flag-red')
             .setOrigin(0.5, 1)
-            .setScale(0.3)
+            .setScale(0.5)
 
-        this.add.image(
-            this.hotel.x - (this.hotel.width * this.hotel.scaleX)/3,
-            this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
-            'sparkle1')
-            .setOrigin(1, 0.5)
-            .setScale(0.3)
+        // this.add.image(
+        //     this.hotel.x - (this.hotel.width * this.hotel.scaleX)/3,
+        //     this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
+        //     'sparkle1')
+        //     .setOrigin(1, 0.5)
+        //     .setScale(0.5)
 
-        this.add.image(
-            this.hotel.x + (this.hotel.width * this.hotel.scaleX)/3,
-            this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
-            'sparkle2')
-            .setOrigin(0, 0.5)
-            .setScale(0.3)
+        // this.add.image(
+        //     this.hotel.x + (this.hotel.width * this.hotel.scaleX)/3,
+        //     this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
+        //     'sparkle2')
+        //     .setOrigin(0, 0.5)
+        //     .setScale(0.5)
 
-        this.add.image(
-            this.hotel.x,
-            this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
-            'sparkle3')
-            .setOrigin(0.5)
-            .setScale(0.3)
+        // this.add.image(
+        //     this.hotel.x,
+        //     this.hotel.y - (this.hotel.height * this.hotel.scaleY)/2,
+        //     'sparkle3')
+        //     .setOrigin(0.5)
+        //     .setScale(0.5)
+
+        this.confettiEmitterHotel.setPosition((this.hotel.width * this.hotel.scaleX)/2, (this.hotel.height * this.hotel.scaleY)/2)
+        this.confettiEmitterHotel1.setPosition((this.hotel.width * this.hotel.scaleX)/2, (this.hotel.height * this.hotel.scaleY)/2)
+        this.confettiEmitterHotel2.setPosition((this.hotel.width * this.hotel.scaleX)/2, (this.hotel.height * this.hotel.scaleY)/2)
+        
+        this.time.delayedCall(700, () => {
+            this.confettiEmitterHotel.resume()
+            this.confettiEmitterHotel1.resume()
+            this.confettiEmitterHotel2.resume()
+            for(let j=0; j<15; j++)
+            {
+                for(let i=0; i<30; i++)
+                {
+                    this.confettiEmitterHotel.explode()
+                }
+                for(let i=0; i<5; i++)
+                {
+                    this.confettiEmitterHotel2.explode()
+                }
+
+                this.confettiEmitterHotel1.explode()
+            }
+        }, [], this);
 
         this.wonImage = this.add.image(this.scale.width/2, this.scale.height/2, 'won').setScale(0)
+
+        this.confettiEmitter = this.add.particles('confetti').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            rotate: {start: 0, end: 360},
+            scale: { start: 1, end: 0 },
+            // blendMode: 'SCREEN',
+            active: false,
+            lifespan: 1500,
+            gravityY: 800
+        });
+        this.confettiEmitter1 = this.add.particles('confetti1').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            rotate: {start: 0, end: 180},
+            scale: { start: 1, end: 0 },
+            // blendMode: 'SCREEN',
+            active: false,
+            lifespan: 1500,
+            gravityY: 800
+        });
+        this.confettiEmitter2 = this.add.particles('confetti2').createEmitter({
+            x: this.scale.width/2,
+            y: this.scale.height/2,
+            speed: { min: -800, max: 800 },
+            angle: { min: 0, max: 360 },
+            rotate: {start: 0, end: 270},
+            scale: { start: 1, end: 0 },
+            // blendMode: 'SCREEN',
+            active: false,
+            lifespan: 1500,
+            gravityY: 800
+        });
         
+    }
+
+    endScreen()
+    {
+        this.tweens.add({
+            targets: this.wonImage,
+            scale: window.innerWidth/this.wonImage.width,
+            duration: 1000,
+            ease: 'Linear'
+        });
+
+        this.time.delayedCall(1000, () => {
+            this.confettiEmitter.resume()
+            this.confettiEmitter1.resume()
+            this.confettiEmitter2.resume()
+            for(let j=0; j<15; j++)
+            {
+                for(let i=0; i<40; i++)
+                {
+                    this.confettiEmitter.explode()
+                }
+                for(let i=0; i<5; i++)
+                {
+                    this.confettiEmitter2.explode()
+                }
+
+                this.confettiEmitter1.explode()
+            }
+        }, [], this);
     }
 
     showControl()
@@ -829,7 +971,6 @@ export default class Game extends Phaser.Scene
         this.showSplash = false
         this.scene.launch('splash-screen')
         this.scene.pause()
-        
     }
 
 }

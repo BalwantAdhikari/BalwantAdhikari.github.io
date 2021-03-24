@@ -43,9 +43,9 @@ export default class Game extends Phaser.Scene{
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, 'background').setScale(1)
         this.wheelReflection = this.add.image(this.scale.width/2, this.scale.height/2, 'wheel-reflection')
         Align.scaleToGameW(this.wheelReflection, 1.5)
-        this.logo = this.add.image(this.scale.width/2, this.scale.height/12, 'logo')
+        this.logo = this.add.image(this.scale.width/2, this.scale.height/14, 'logo')
         Align.scaleToGameW(this.logo, 0.3)
-        this.headerText = this.add.image(this.scale.width/2, this.scale.height/5.5, 'header-text')
+        this.headerText = this.add.image(this.scale.width/2, this.scale.height/6, 'header-text')
         Align.scaleToGameW(this.headerText, 0.75)
         this.playButton = this.add.image(this.scale.width/2, this.scale.height - (this.scale.height/11), 'play-button')
         Align.scaleToGameW(this.playButton, 0.5)
@@ -198,7 +198,7 @@ export default class Game extends Phaser.Scene{
                     duration: 3000,
                     ease: 'Cubic.Out'
                 });
-                
+
             }
         }, this);
         
