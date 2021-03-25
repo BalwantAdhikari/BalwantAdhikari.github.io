@@ -1,5 +1,6 @@
 import Phaser from './lib/Phaser.js'
 
+import Preload from './scenes/Preload.js'
 import Game from './scenes/Game.js'
 
 export default new Phaser.Game({
@@ -15,5 +16,5 @@ export default new Phaser.Game({
             debug: false
         }
     },
-    scene: [Game]
+    scene: [Preload, Game]
 })

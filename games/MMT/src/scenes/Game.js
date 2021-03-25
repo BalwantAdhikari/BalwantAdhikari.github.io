@@ -14,21 +14,6 @@ export default class Game extends Phaser.Scene{
 
     preload()
     {
-        this.load.image('background', 'assets/Background.png')
-        this.load.image('logo', 'assets/Logo.png')
-        this.load.image('wheel-reflection', 'assets/Wheel_Reflection.png')
-        this.load.image('header-text', 'assets/first-frame.png')
-        this.load.image('play-button', 'assets/Play_Button.png')
-        this.load.image('wheel', 'assets/wheel.png')
-        this.load.image('stopper', 'assets/Wheel_Stoper.png')
-        this.load.image('endText', 'assets/end-text2.png')
-        this.load.image('download-button', 'assets/download_button.png')
-        this.load.audio('tickSound', 'assets/ding.mp3')
-        this.load.audio('applaude', 'assets/applaude.mp3')
-        this.load.image('spark0', 'assets/blue.png')
-        this.load.image('spark1', 'assets/red.png')
-        this.load.image('wheelRing', 'assets/ring.png')
-        this.load.image('wheelCenter', 'assets/wheel.png')
     }
 
     create()
@@ -190,7 +175,7 @@ export default class Game extends Phaser.Scene{
                                             this.emitter0.explode();
                                             this.emitter1.explode();
                                         }
-                                    }
+                                    }   
                                 }, [], this)
 
                             }, [], this)
