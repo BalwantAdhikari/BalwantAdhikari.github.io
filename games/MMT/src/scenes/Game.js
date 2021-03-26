@@ -13,7 +13,7 @@ export default class Game extends Phaser.Scene{
     }
 
     preload()
-    {
+    {  
     }
 
     create()
@@ -186,7 +186,6 @@ export default class Game extends Phaser.Scene{
 
             }
         }, this);
-        
         
     }
 
