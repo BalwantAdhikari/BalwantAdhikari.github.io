@@ -30,7 +30,7 @@ export default class LoadingScene extends Phaser.Scene
 
         this.clickButton = this.add.graphics().setInteractive(new Phaser.Geom.Rectangle(0, 0, 200, 80), Phaser.Geom.Rectangle.Contains)
 
-        this.clickButton.fillStyle(0x000000, 0)
+        this.clickButton.fillStyle(0x000000, 0.3)
         this.clickButton.fillRoundedRect(0, 0, 200, 80)
 
         
@@ -41,7 +41,7 @@ export default class LoadingScene extends Phaser.Scene
         // console.log(this.loadingScreen.scaleX)
         
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
-        // this.aGrid.showNumbers()
+        this.aGrid.showNumbers()
         this.aGrid.placeAtIndex(105, this.oyoBike)
 
         // this.bikeLight = this.add.graphics()
@@ -54,6 +54,7 @@ export default class LoadingScene extends Phaser.Scene
         this.aGrid.placeAtIndex(96, this.circle)
 
         // this.aGrid.placeAtIndex(96, this.bikeLight)
+        this.aGrid.placeAtIndex(72, this.clickButton)
 
         var darkSmoke = this.add.particles('smoke').createEmitter({
             x: this.oyoBike.x + this.oyoBike.width * this.oyoBike.scaleX/2 - 20,
