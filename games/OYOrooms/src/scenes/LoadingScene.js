@@ -75,20 +75,11 @@ export default class LoadingScene extends Phaser.Scene
 
         
 
-        // this.input.on('pointerdown', function (pointer) {
-        //     this.confettiEmitterHotel.resume()
-        //     this.confettiEmitterHotel1.resume()
-        //     this.confettiEmitterHotel2.resume()
+        
+        
 
-        //     for(let j=0; j<15; j++)
-        //     {
-        //         for(let i=0; i<30; i++)
-        //         {
-        //             this.confettiEmitterHotel.explode()
-        //             this.confettiEmitterHotel1.explode()
-        //             this.confettiEmitterHotel2.explode()
-        //         }
-        //     }
+        // this.input.on('pointerdown', function (pointer) {
+            
         // }, this);
 
     }

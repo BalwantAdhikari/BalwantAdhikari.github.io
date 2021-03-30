@@ -37,19 +37,19 @@ export default class Game extends Phaser.Scene
         this.load.image('sky', 'assets/object-20.png')
         this.load.image('left-road', 'assets/object-25.png')
         this.load.image('right-road', 'assets/object-27.png')
-        // this.load.image('hr-rule', 'assets/object-32.png')
+        this.load.image('hr-rule', 'assets/object-32.png')
         this.load.image('cloud', 'assets/object-29.png')
         this.load.image('traffic-light-red', 'assets/object-33.png')
         this.load.image('traffic-light-green', 'assets/object-34.png')
         this.load.image('road-sign', 'assets/object-3.svg')
         this.load.image('trees', 'assets/object-4.png')
-        // this.load.image('breaker', 'assets/object-10.png')
+        this.load.image('breaker', 'assets/object-10.png')
         this.load.image('pothole', 'assets/object-8.png')
         this.load.image('crashSign', 'assets/object-35.png')
-        // this.load.image('dustbin', 'assets/object-15.png')
+        this.load.image('dustbin', 'assets/object-15.png')
         this.load.image('grass', 'assets/object-9.png')
-        // this.load.image('leaf', 'assets/object-2.png')
-        // this.load.image('flower', 'assets/object-6.png')
+        this.load.image('leaf', 'assets/object-2.png')
+        this.load.image('flower', 'assets/object-6.png')
 
         this.load.image('flag-red', 'assets/object-17.png')
         // this.load.image('sparkle1', 'assets/object-18.png')
@@ -59,6 +59,7 @@ export default class Game extends Phaser.Scene
         this.load.image('swipe-right', 'assets/swipe-right.png')
         this.load.image('car', 'assets/object-5.png')
         this.load.image('confetti', 'assets/confetti.png')
+        this.load.image('confettiLast', 'assets/confettiLast.png')
         // this.load.image('confetti1', 'assets/confetti1.png')
         // this.load.image('confetti2', 'assets/confetti2.png')
         // this.load.image('confetti3', 'assets/confetti3.png')
@@ -938,41 +939,41 @@ export default class Game extends Phaser.Scene
 
         this.wonImage = this.add.image(this.scale.width/2, this.scale.height/2, 'won').setScale(0)
 
-        this.confettiEmitter = this.add.particles('confetti').createEmitter({
+        this.confettiEmitter = this.add.particles('confettiLast').createEmitter({
             x: this.scale.width/2,
-            y: this.scale.height/2,
-            speed: { min: -800, max: 800 },
-            angle: { min: 0, max: 360 },
+            y: 0,
+            speed: { min: 200, max: 500 },
+            angle: { min: 260, max: 280 },
             rotate: {start: 0, end: 360},
-            scale: { start: 1, end: 0 },
+            scale: { start: 0.4, end: 0.6 },
             // blendMode: 'SCREEN',
             active: false,
-            lifespan: 1500,
-            gravityY: 800
+            lifespan: 15000,
+            gravityY: 100,
         });
-        this.confettiEmitter1 = this.add.particles('confetti').createEmitter({
+        this.confettiEmitter1 = this.add.particles('confettiLast').createEmitter({
             x: this.scale.width/2,
-            y: this.scale.height/2,
-            speed: { min: -800, max: 800 },
-            angle: { min: 0, max: 360 },
-            rotate: {start: 0, end: 180},
-            scale: { start: 1, end: 0 },
+            y: 0,
+            speed: { min: 300, max: 600 },
+            angle: { min: 260, max: 280 },
+            rotate: {start: 0, end: 360},
+            scale: { start: 0.4, end: 0.6 },
             // blendMode: 'SCREEN',
             active: false,
-            lifespan: 1500,
-            gravityY: 800
+            lifespan: 15000,
+            gravityY: 150,
         });
-        this.confettiEmitter2 = this.add.particles('confetti').createEmitter({
+        this.confettiEmitter2 = this.add.particles('confettiLast').createEmitter({
             x: this.scale.width/2,
-            y: this.scale.height/2,
-            speed: { min: -800, max: 800 },
-            angle: { min: 0, max: 360 },
-            rotate: {start: 0, end: 270},
-            scale: { start: 1, end: 0 },
+            y: 0,
+            speed: { min: 350, max: 650 },
+            angle: { min: 260, max: 280 },
+            rotate: {start: 0, end: 360},
+            scale: { start: 0.4, end: 0.6 },
             // blendMode: 'SCREEN',
             active: false,
-            lifespan: 1500,
-            gravityY: 800
+            lifespan: 15000,
+            gravityY: 200,
         });
         
     }
@@ -986,24 +987,21 @@ export default class Game extends Phaser.Scene
             ease: 'Linear'
         });
 
-        this.time.delayedCall(1000, () => {
-            // this.confettiEmitter.resume()
-            // this.confettiEmitter1.resume()
-            // this.confettiEmitter2.resume()
-            for(let j=0; j<15; j++)
+        this.confettiEmitter.resume()
+        this.confettiEmitter1.resume()
+        this.confettiEmitter2.resume()
+        for(let j=0; j<15; j++)
+        {
+            for(let i=0; i<20; i++)
             {
-                for(let i=0; i<40; i++)
-                {
-                    // this.confettiEmitter.explode()
-                }
-                for(let i=0; i<5; i++)
-                {
-                    // this.confettiEmitter2.explode()
-                }
-
-                // this.confettiEmitter1.explode()
+                this.confettiEmitter.explode()
+                this.confettiEmitter1.explode()
+                this.confettiEmitter2.explode()
             }
-        }, [], this);
+            
+        }
+        // this.time.delayedCall(1000, () => {
+        // }, [], this);
     }
 
     showControl()
