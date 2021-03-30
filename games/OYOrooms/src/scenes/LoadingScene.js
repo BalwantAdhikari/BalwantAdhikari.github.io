@@ -41,7 +41,7 @@ export default class LoadingScene extends Phaser.Scene
         // console.log(this.loadingScreen.scaleX)
         
         this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
-        this.aGrid.showNumbers()
+        // this.aGrid.showNumbers()
         this.aGrid.placeAtIndex(105, this.oyoBike)
 
         // this.bikeLight = this.add.graphics()
