@@ -15,8 +15,8 @@ export default class LoadingScene extends Phaser.Scene
 
     preload()
     {
-        this.load.image('loadingScreen', 'assets/gameStart3.png')
-        this.load.image('oyoBike', 'assets/oyoBike5.png')
+        this.load.image('loadingScreen', 'assets/gameStart.png')
+        this.load.image('oyoBike', 'assets/oyoBike.png')
         this.load.image('smoke', 'assets/smoke-puff.png')
     }
 
@@ -72,6 +72,24 @@ export default class LoadingScene extends Phaser.Scene
         this.clickButton.on('pointerup', function(pointer, localX, localY, event){
             this.scene.start('game')
         }, this);
+
+        
+
+        // this.input.on('pointerdown', function (pointer) {
+        //     this.confettiEmitterHotel.resume()
+        //     this.confettiEmitterHotel1.resume()
+        //     this.confettiEmitterHotel2.resume()
+
+        //     for(let j=0; j<15; j++)
+        //     {
+        //         for(let i=0; i<30; i++)
+        //         {
+        //             this.confettiEmitterHotel.explode()
+        //             this.confettiEmitterHotel1.explode()
+        //             this.confettiEmitterHotel2.explode()
+        //         }
+        //     }
+        // }, this);
 
     }
 
