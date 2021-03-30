@@ -15,8 +15,8 @@ export default class LoadingScene extends Phaser.Scene
 
     preload()
     {
-        this.load.image('loadingScreen', 'assets/gameStart2.png')
-        this.load.image('oyoBike', 'assets/oyoBike4.png')
+        this.load.image('loadingScreen', 'assets/gameStart3.png')
+        this.load.image('oyoBike', 'assets/oyoBike5.png')
         this.load.image('smoke', 'assets/smoke-puff.png')
     }
 
