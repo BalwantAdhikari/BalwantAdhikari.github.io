@@ -1,4 +1,4 @@
-import Phaser from '../lib/phaser.js'
+import Phaser from '../lib/Phaser.js'
 
 export default class SplashScreen extends Phaser.Scene
 {
