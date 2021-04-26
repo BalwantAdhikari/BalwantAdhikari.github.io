@@ -2,6 +2,7 @@ import Phaser from './lib/Phaser.js'
 
 import Preload from './scenes/Preload.js'
 import Game from './scenes/Game.js'
+import SplashScreen from './scenes/SplashScreen.js'
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
@@ -16,5 +17,5 @@ export default new Phaser.Game({
             debug: false
         }
     },
-    scene: [Preload, Game]
+    scene: [Preload, Game, SplashScreen]
 })

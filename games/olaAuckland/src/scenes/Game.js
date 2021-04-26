@@ -161,6 +161,8 @@ export default class Game extends Phaser.Scene {
                 element.visible = false
             }, this)
         });
+
+        this.showSplashScreen()
         
     }
 
@@ -172,5 +174,11 @@ export default class Game extends Phaser.Scene {
     handleCountdownFinished()
     {
     
+    }
+
+    showSplashScreen()
+    {
+        this.scene.launch('splash-screen')
+        this.scene.pause()
     }
 }

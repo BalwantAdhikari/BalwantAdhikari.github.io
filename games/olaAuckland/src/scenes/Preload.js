@@ -38,6 +38,8 @@ export default class Preload extends Phaser.Scene{
         this.load.image('wallet', 'assets/Wallet.png')
         this.load.image('walletGlow', 'assets/WalletGlow.png')
         this.load.image('logo', 'assets/Logo.png')
+        this.load.image('openingMsg', 'assets/Opening-Msg.png')
+        this.load.image('tapToPlay', 'assets/Tap-to-play.png')
     }
 
     create()
