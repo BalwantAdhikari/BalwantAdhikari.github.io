@@ -28,11 +28,11 @@ export default class Game extends Phaser.Scene {
         // Align.scaleToGameW(this.headphones, 0.12)
         this.headphonesGlow = this.add.image(0, 0, "headphonesGlow")
         Align.scaleToGameW(this.headphonesGlow, 0.12)
-        this.keyHolder = this.add.image(0, 0, "keyHolder").setOrigin(0.5, 0)
+        this.keyHolder = this.add.image(0, 0, "keyHolder")
         Align.scaleToGameW(this.keyHolder, 0.2)
-        // this.keys = this.add.image(0, 0, "keys").setOrigin(0.1, 0)
+        // this.keys = this.add.image(0, 0, "keys")
         // Align.scaleToGameW(this.keys, 0.06)
-        this.keysGlow = this.add.image(0, 0, "keysGlow").setOrigin(0.1, 0)
+        this.keysGlow = this.add.image(0, 0, "keysGlow")
         Align.scaleToGameW(this.keysGlow, 0.06)
         // this.laptop = this.add.image(0, 0, "laptop")
         // Align.scaleToGameW(this.laptop, 0.19)
@@ -42,17 +42,17 @@ export default class Game extends Phaser.Scene {
         // Align.scaleToGameW(this.lunch, 0.12)
         this.lunchGlow = this.add.image(0, 0, "lunchGlow")
         Align.scaleToGameW(this.lunchGlow, 0.12)
-        // this.mask = this.add.image(0, 0, "mask").setOrigin(1, 0)
+        // this.mask = this.add.image(0, 0, "mask")
         // Align.scaleToGameW(this.mask, 0.06)
-        this.maskGlow = this.add.image(0, 0, "maskGlow").setOrigin(1, 0)
+        this.maskGlow = this.add.image(0, 0, "maskGlow")
         Align.scaleToGameW(this.maskGlow, 0.06)
         // this.phone = this.add.image(0, 0, "phone")
         // Align.scaleToGameW(this.phone, 0.12)
         this.phoneGlow = this.add.image(0, 0, "phoneGlow")
         Align.scaleToGameW(this.phoneGlow, 0.12)
-        // this.sanitizer = this.add.image(0, 0, "sanitizer").setOrigin(0.5, 1)
+        // this.sanitizer = this.add.image(0, 0, "sanitizer")
         // Align.scaleToGameW(this.sanitizer, 0.06)
-        this.sanitizerGlow = this.add.image(0, 0, "sanitizerGlow").setOrigin(0.5, 0.35)
+        this.sanitizerGlow = this.add.image(0, 0, "sanitizerGlow")
         Align.scaleToGameW(this.sanitizerGlow, 0.06)
         // this.shades = this.add.image(0, 0, "shades")
         // Align.scaleToGameW(this.shades, 0.1)
@@ -63,12 +63,12 @@ export default class Game extends Phaser.Scene {
         this.walletGlow = this.add.image(0, 0, "walletGlow")
         Align.scaleToGameW(this.walletGlow, 0.12)
 
-        this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
+        // this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
         // this.aGrid.showNumbers()
 
-        this.aGrid.placeAtIndex(47, this.keyHolder)
-        this.aGrid.placeAtIndex(46, this.keysGlow)
-        this.aGrid.placeAtIndex(48, this.maskGlow)
+        // this.aGrid.placeAtIndex(47, this.keyHolder)
+        // this.aGrid.placeAtIndex(46, this.keysGlow)
+        // this.aGrid.placeAtIndex(48, this.maskGlow)
 
         // screen width/height
         this.width = this.scale.width
@@ -77,9 +77,21 @@ export default class Game extends Phaser.Scene {
         this.bgWidth = this.background.scaleX * this.background.width
         this.bgHeight = this.background.scaleX * this.background.width
 
+        // keyHolder
+        this.keyHolder.x = this.bgWidth / 3.5
+        this.keyHolder.y = (this.bgHeight / 4.2) + ((this.height - this.bgHeight) / 2)
+
+        // keys
+        this.keysGlow.x = this.bgWidth / 4.7
+        this.keysGlow.y = (this.bgHeight / 3.6) + ((this.height - this.bgHeight) / 2)
+
+        // mask
+        this.maskGlow.x = this.bgWidth / 2.8
+        this.maskGlow.y = (this.bgHeight / 3.35) + ((this.height - this.bgHeight) / 2)
+
         // sanitizer
         this.sanitizerGlow.x = this.bgWidth / 6.5
-        this.sanitizerGlow.y = (this.bgHeight / 3.15) + ((this.height - this.bgHeight) / 2)
+        this.sanitizerGlow.y = (this.bgHeight / 2.95) + ((this.height - this.bgHeight) / 2)
 
         // shades
         this.shadesGlow.x = this.bgWidth - this.bgWidth / 7
@@ -109,5 +121,24 @@ export default class Game extends Phaser.Scene {
         this.laptopGlow.x = this.bgWidth / 3.2
         this.laptopGlow.y = (this.bgHeight / 2 + this.bgHeight / 4.6) + ((this.height - this.bgHeight) / 2)
 
+        // disapper game object when clicked
+        this.clickableGameObjects = [
+            this.diaryGlow,
+            this.headphonesGlow,
+            this.keysGlow,
+            this.laptopGlow,
+            this.lunchGlow,
+            this.maskGlow,
+            this.phoneGlow,
+            this.sanitizerGlow,
+            this.shadesGlow,
+            this.walletGlow
+        ]
+
+        this.clickableGameObjects.forEach(element => {
+            element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
+                element.visible = false
+            }, this)
+        });
     }
 }
