@@ -145,8 +145,8 @@ export default class Game extends Phaser.Scene {
         // disapper game object when clicked
         this.clickableGameObjects = [
             this.diaryGlow,
-            this.headphonesGlow,
             this.keysGlow,
+            this.headphonesGlow,
             this.laptopGlow,
             this.lunchGlow,
             this.maskGlow,
@@ -157,10 +157,26 @@ export default class Game extends Phaser.Scene {
         ]
 
         this.clickableGameObjects.forEach(element => {
+            element.visible = false
+        });
+
+        this.clickableGameObjects.forEach(element => {
             element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
                 element.visible = false
+                if (this.clickableGameObjects.indexOf(element) < this.clickableGameObjects.length - 1)
+                {
+                    this.clickableGameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(true)
+                }
+                else
+                {
+                    // show winning screen
+                }
             }, this)
         });
+
+        this.time.delayedCall(300, () => {
+            this.diaryGlow.setVisible(true)
+        }, [], this)
 
         this.showSplashScreen()
         
@@ -173,7 +189,7 @@ export default class Game extends Phaser.Scene {
 
     handleCountdownFinished()
     {
-    
+        // show losing screen
     }
 
     showSplashScreen()
