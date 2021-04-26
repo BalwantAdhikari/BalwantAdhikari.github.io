@@ -1,7 +1,8 @@
 import Phaser from '../lib/Phaser.js'
 
+import CountdownController from './CountdownController.js'
+
 import Align from '../lib/util/align.js'
-import AlignGrid from '../lib/util/alignGrid.js'
 
 export default class Game extends Phaser.Scene {
 
@@ -62,6 +63,13 @@ export default class Game extends Phaser.Scene {
         // Align.scaleToGameW(this.wallet, 0.12)
         this.walletGlow = this.add.image(0, 0, "walletGlow")
         Align.scaleToGameW(this.walletGlow, 0.12)
+        this.logo = this.add.image(0, 0, "logo")
+        Align.scaleToGameW(this.logo, 0.17)
+
+        this.graphics = this.add.graphics()
+        this.graphics1 = this.add.graphics()
+        this.progressBox = this.graphics1
+        this.progressBar = this.graphics
 
         // this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
         // this.aGrid.showNumbers()
@@ -121,6 +129,19 @@ export default class Game extends Phaser.Scene {
         this.laptopGlow.x = this.bgWidth / 3.2
         this.laptopGlow.y = (this.bgHeight / 2 + this.bgHeight / 4.6) + ((this.height - this.bgHeight) / 2)
 
+        // logo
+        this.logo.x = this.bgWidth - this.bgWidth / 5
+        this.logo.y = (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2)
+
+        // progress bar
+        this.progressBarHeight = this.logo.scaleY * this.logo.height
+        this.progressBarY = this.logo.y - ((this.logo.scaleY * this.logo.height) / 2)
+        this.progressBox.lineStyle(2, 0x000000, 1)
+        this.progressBox.strokeRect(this.scale.width/8, this.progressBarY, this.scale.width/2, this.progressBarHeight);
+
+        this.countdown = new CountdownController(this, this.progressBar, this.progressBarHeight, this.progressBarY)
+        this.countdown.start(this.handleCountdownFinished.bind(this))
+
         // disapper game object when clicked
         this.clickableGameObjects = [
             this.diaryGlow,
@@ -140,5 +161,16 @@ export default class Game extends Phaser.Scene {
                 element.visible = false
             }, this)
         });
+        
+    }
+
+    update()
+    {
+        this.countdown.update()
+    }
+
+    handleCountdownFinished()
+    {
+    
     }
 }
