@@ -40,6 +40,16 @@ export default class Preload extends Phaser.Scene{
         this.load.image('logo', 'assets/Logo.png')
         this.load.image('openingMsg', 'assets/Opening-Msg.png')
         this.load.image('tapToPlay', 'assets/Tap-to-play.png')
+        this.load.image('TTPblack', 'assets/TTPblack.png')
+        this.load.image('TTPgreen', 'assets/TTPgreen.png')
+        this.load.image('closingBg', 'assets/closing-msg-bg.png')
+        this.load.image('closingRays', 'assets/closing-msg-rays.png')
+        this.load.image('sorryImage', 'assets/sorry-not-sorry-msg.png')
+        this.load.image('sorryMsg', 'assets/Ready-before-msg.png')
+        this.load.image('wonImage', 'assets/congrate.png')
+        this.load.image('wonMsg', 'assets/complete-task-text.png')
+        this.load.image('lines1', 'assets/Lines-1.png')
+        this.load.image('lines2', 'assets/Lines-2.png')
     }
 
     create()

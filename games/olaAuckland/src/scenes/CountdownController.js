@@ -3,13 +3,15 @@ export default class CountdownController
     scene
     timerEvent
     duration
+    progressIndicator
     progressBar
     progressBarHeight
     progressBarY
 
-    constructor(scene, progressBar, progressBarHeight, progressBarY)
+    constructor(scene, progressIndicator, progressBar, progressBarHeight, progressBarY)
     {
         this.scene = scene
+        this.progressIndicator = progressIndicator
         this.progressBar = progressBar
         this.progressBarHeight = progressBarHeight
         this.progressBarY = progressBarY
@@ -58,6 +60,7 @@ export default class CountdownController
         const passedSeconds = elapsed / 1000
 
         this.progressBar.clear();
+        this.progressIndicator.clear();
         // if(passedSeconds.toFixed(0) == 1)
         // {
         //     this.progressBar.fillStyle(0xD7DE1F, 1) // EB0303
@@ -66,7 +69,14 @@ export default class CountdownController
         // else if(passedSeconds.toFixed(0) > 1)
         // {
             this.progressBar.fillStyle(0xD7DE1F, 1)
-            this.progressBar.fillRect(this.scene.width/8, this.progressBarY, this.scene.width/2 * (passedSeconds.toFixed(0)/10), this.progressBarHeight)
+            this.progressBar.fillRect(this.scene.width/11.5, this.progressBarY, this.scene.width/1.8 * (passedSeconds.toFixed(0)/10), this.progressBarHeight)
+
+            if(passedSeconds.toFixed(0) != 10)
+            {
+                this.progressIndicator.fillStyle(0x000000, 1)
+                this.progressIndicator.fillRect(this.scene.width/11.5 + this.scene.width/1.8 * (passedSeconds.toFixed(0)/10), this.progressBarY, 10 , this.progressBarHeight)
+
+            }
         // }
         
     }
