@@ -286,7 +286,10 @@ export default class Game extends Phaser.Scene {
             // else
             //     this.flag = 0
 
-            this.flag = this.increaseFlag(this.flag)
+            if(this.flagArr.includes(true))
+            {
+                this.flag = this.increaseFlag(this.flag)
+            }
 
         }
 
@@ -320,10 +323,15 @@ export default class Game extends Phaser.Scene {
         {
             do
             {
-                if(this.flag < 9)
+                if(this.flagArr.includes(true))
+                {
+                    if(this.flag < 9)
                     this.flag += 1
+                    else
+                        this.flag = 0
+                }
                 else
-                    this.flag = 0
+                    break
             }
             while(!this.flagArr[this.flag])
         
