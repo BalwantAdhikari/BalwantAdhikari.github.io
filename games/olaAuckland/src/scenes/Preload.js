@@ -15,7 +15,8 @@ export default class Preload extends Phaser.Scene{
         this.platform = this;
         this.counter = 0;
 
-        this.load.image('background', 'assets/BG-13.jpg')
+        this.load.image('background', 'assets/Background.jpg')
+        this.load.image('blurredBackground', 'assets/blurredBackground.jpg')
         this.load.image('diary', 'assets/Diary.png')
         this.load.image('diaryGlow', 'assets/DiaryGlow.png')
         this.load.image('headphones', 'assets/Headphones.png')
@@ -38,22 +39,21 @@ export default class Preload extends Phaser.Scene{
         this.load.image('wallet', 'assets/Wallet.png')
         this.load.image('walletGlow', 'assets/WalletGlow.png')
         this.load.image('logo', 'assets/Logo.png')
-        this.load.image('openingMsg', 'assets/Opening-Msg.png')
-        this.load.image('tapToPlay', 'assets/Tap-to-play.png')
+        this.load.image('openingMsg', 'assets/openingMsg.png')
         this.load.image('TTPblack', 'assets/TTPblack.png')
         this.load.image('TTPgreen', 'assets/TTPgreen.png')
-        this.load.image('closingBg', 'assets/closing-msg-bg.png')
-        this.load.image('closingRays', 'assets/closing-msg-rays.png')
-        this.load.image('sorryImage', 'assets/sorry-not-sorry-msg.png')
-        this.load.image('sorryMsg', 'assets/Ready-before-msg.png')
-        this.load.image('wonImage', 'assets/congrate.png')
-        this.load.image('wonMsg', 'assets/complete-task-text.png')
+        this.load.image('sorryMsg', 'assets/sorryMsg.png')
+        this.load.image('tryagainBlack', 'assets/tryagainBlack.png')
+        this.load.image('tryagainGreen', 'assets/tryagainGreen.png')
+        this.load.image('wonImage', 'assets/congrateMsg.png')
+        this.load.image('wonMsg', 'assets/completedMsg.png')
+        this.load.image('lines', 'assets/Lines.png')
         this.load.image('lines1', 'assets/Lines-1.png')
         this.load.image('lines2', 'assets/Lines-2.png')
     }
 
     create()
     {
-        this.scene.start('game')
+        this.scene.start('splash-screen')
     }
 }

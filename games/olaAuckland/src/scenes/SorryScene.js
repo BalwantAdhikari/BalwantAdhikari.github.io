@@ -28,16 +28,21 @@ export default class SorryScreen extends Phaser.Scene
         this.controlBoard.fillStyle(0xF2F2F2, 0.5)
         this.controlBoard.fillRect(0, (this.height - this.bgHeight) / 2, this.bgWidth, this.bgHeight)
 
-        this.lines1 = this.add.image(this.scale.width/2, this.scale.height/2, "lines1")
-        Align.scaleToGameW(this.lines1, 1)
-        this.lines2 = this.add.image(this.scale.width/2, this.scale.height/2, "lines2")
-        Align.scaleToGameW(this.lines2, 1)
-        this.lines2.setVisible(false)
+        this.lines = this.add.image(this.scale.width/2, this.scale.height/2, "lines")
+        Align.scaleToGameW(this.lines, 1)
 
-        this.sorryImage = this.add.image(this.scale.width/2, this.scale.height/2, "sorryImage")
-        Align.scaleToGameW(this.sorryImage, 1)
         this.sorryMsg = this.add.image(this.scale.width/2, this.scale.height/2, "sorryMsg")
         Align.scaleToGameW(this.sorryMsg, 1)
+        this.tryagainBlack = this.add.image(this.scale.width/2, this.scale.height/2, "tryagainBlack")
+        Align.scaleToGameW(this.tryagainBlack, 1)
+        this.tryagainGreen = this.add.image(this.scale.width/2, this.scale.height/2, "tryagainGreen")
+        Align.scaleToGameW(this.tryagainGreen, 1)
+        this.tryagainGreen.setVisible(false)
+
+        this.input.on('pointerup', function(pointer) {
+            this.scene.start('game');
+            this.scene.stop();
+        }, this)
     }
 
     update()
@@ -46,9 +51,8 @@ export default class SorryScreen extends Phaser.Scene
 
         if(this.count % 20 == 0)
         {
-            this.lines1.visible = !this.lines1.visible
-            this.lines2.visible = !this.lines2.visible
+            this.tryagainBlack.visible = !this.tryagainBlack.visible
+            this.tryagainGreen.visible = !this.tryagainGreen.visible
         }
     }
-
 }

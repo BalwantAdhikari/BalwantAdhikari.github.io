@@ -6,6 +6,17 @@ import Align from '../lib/util/align.js'
 
 export default class Game extends Phaser.Scene {
 
+    count
+    mainCounter
+    flag
+
+    init()
+    {
+        this.count = 0
+        this.mainCounter = 0
+        this.flag = 0
+    }
+
     constructor()
     {
         super('game')
@@ -97,70 +108,60 @@ export default class Game extends Phaser.Scene {
         this.keys.y = (this.bgHeight / 3.6) + ((this.height - this.bgHeight) / 2)
 
         this.keysGlow.setPosition(this.keys.x, this.keys.y)
-        this.keysGlow.setVisible(false)
 
         // mask
         this.mask.x = this.bgWidth / 2.8
         this.mask.y = (this.bgHeight / 3.35) + ((this.height - this.bgHeight) / 2)
 
         this.maskGlow.setPosition(this.mask.x, this.mask.y)
-        this.maskGlow.setVisible(false)
 
         // sanitizer
         this.sanitizer.x = this.bgWidth / 6.5
         this.sanitizer.y = (this.bgHeight / 2.95) + ((this.height - this.bgHeight) / 2)
 
         this.sanitizerGlow.setPosition(this.sanitizer.x, this.sanitizer.y)
-        this.sanitizerGlow.setVisible(false)
 
         // shades
-        this.shades.x = this.bgWidth - this.bgWidth / 7
-        this.shades.y = (this.bgHeight / 2 + this.bgHeight / 6.5) + ((this.height - this.bgHeight) / 2)
+        this.shades.x = this.bgWidth / 4
+        this.shades.y = (this.bgHeight / 2 + this.bgHeight / 4.2) + ((this.height - this.bgHeight) / 2)
 
         this.shadesGlow.setPosition(this.shades.x, this.shades.y)
-        this.shadesGlow.setVisible(false)
 
         // lunch
         this.lunch.x = this.bgWidth - this.bgWidth / 4
         this.lunch.y = (this.bgHeight / 2 + this.bgHeight / 2.3)  + ((this.height - this.bgHeight) / 2)
 
         this.lunchGlow.setPosition(this.lunch.x, this.lunch.y)
-        this.lunchGlow.setVisible(false)
 
         // diary
         this.diary.x = this.bgWidth - this.bgWidth / 7
         this.diary.y = (this.bgHeight / 2 + this.bgHeight / 2.15) + ((this.height - this.bgHeight) / 2)
 
         this.diaryGlow.setPosition(this.diary.x, this.diary.y)
-        this.diaryGlow.setVisible(false)
 
         // headphones
         this.headphones.x = this.bgWidth - this.bgWidth / 7
         this.headphones.y = (this.bgHeight / 2 + this.bgHeight / 2.3) + ((this.height - this.bgHeight) / 2)
 
         this.headphonesGlow.setPosition(this.headphones.x, this.headphones.y)
-        this.headphonesGlow.setVisible(false)
 
         // wallet
         this.wallet.x = this.bgWidth / 3.5
         this.wallet.y = (this.bgHeight / 2 + this.bgHeight / 2.6) + ((this.height - this.bgHeight) / 2)
 
         this.walletGlow.setPosition(this.wallet.x, this.wallet.y)
-        this.walletGlow.setVisible(false)
 
         // phone
         this.phone.x = this.bgWidth / 5.4
         this.phone.y = (this.bgHeight / 2 + this.bgHeight / 4.4) + ((this.height - this.bgHeight) / 2)
 
         this.phoneGlow.setPosition(this.phone.x, this.phone.y)
-        this.phoneGlow.setVisible(false)
 
         // laptop
         this.laptop.x = this.bgWidth / 3.2
         this.laptop.y = (this.bgHeight / 2 + this.bgHeight / 4.6) + ((this.height - this.bgHeight) / 2)
 
         this.laptopGlow.setPosition(this.laptop.x, this.laptop.y)
-        this.laptopGlow.setVisible(false)
 
         // logo
         this.logo.x = this.bgWidth - this.bgWidth / 6
@@ -177,65 +178,109 @@ export default class Game extends Phaser.Scene {
 
         // disapper game object when clicked
         this.GameObjects = [
-            this.diary,
-            this.keys,
-            this.headphones,
-            this.laptop,
-            this.lunch,
             this.mask,
-            this.phone,
+            this.keys,
             this.sanitizer,
+            this.phone,
+            this.laptop,
             this.shades,
-            this.wallet
+            this.wallet,
+            this.lunch,
+            this.headphones,
+            this.diary
         ]
         this.clickableGameObjects = [
-            this.diaryGlow,
-            this.keysGlow,
-            this.headphonesGlow,
-            this.laptopGlow,
-            this.lunchGlow,
             this.maskGlow,
-            this.phoneGlow,
+            this.keysGlow,
             this.sanitizerGlow,
+            this.phoneGlow,
+            this.laptopGlow,
             this.shadesGlow,
-            this.walletGlow
+            this.walletGlow,
+            this.lunchGlow,
+            this.headphonesGlow,
+            this.diaryGlow
         ]
 
         this.clickableGameObjects.forEach(element => {
             element.visible = false
         });
 
+        // this.clickableGameObjects.forEach(element => {
+        //     element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
+
+        //         this.removeObject(element)
+
+        //         if (this.clickableGameObjects.indexOf(element) < this.clickableGameObjects.length - 1)
+        //         {
+        //             this.GameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(false)
+        //             this.clickableGameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(true)
+        //         }
+        //         else
+        //         {
+        //             // show winning screen
+        //             this.scene.launch('won-screen')
+        //             this.scene.pause()
+        //         }
+        //     }, this)
+        // });
+
         this.clickableGameObjects.forEach(element => {
             element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
+                this.input.disable(element)
+                this.removeObject(element, 'glow')
 
-                this.removeObject(element)
-
-                if (this.clickableGameObjects.indexOf(element) < this.clickableGameObjects.length - 1)
-                {
-                    this.GameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(false)
-                    this.clickableGameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(true)
-                }
-                else
-                {
-                    // show winning screen
-                    this.scene.launch('won-screen')
-                    this.scene.pause()
-                }
             }, this)
         });
 
-        this.time.delayedCall(50, () => {
-            this.diary.setVisible(false)
-            this.diaryGlow.setVisible(true)
-        }, [], this)
+        this.GameObjects.forEach(element => {
+            element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
+                this.input.disable(element)
+                this.removeObject(element, 'plain')
 
-        this.showSplashScreen()
+            }, this)
+        });
+
+        // this.time.delayedCall(50, () => {
+        //     this.diary.setVisible(false)
+        //     this.diaryGlow.setVisible(true)
+        // }, [], this)
+
+        // this.showSplashScreen()
         
     }
 
     update()
     {
         this.countdown.update()
+
+        this.mainCounter += 1
+    
+        if(this.mainCounter % 21 == 0)
+        {
+            // this.clickableGameObjects[this.GameObjects.indexOf(element)].visible = !this.clickableGameObjects[this.GameObjects.indexOf(element)].visible
+            // this.GameObjects[this.GameObjects.indexOf(element)].visible = !this.GameObjects[this.GameObjects.indexOf(element)].visible
+            if(this.GameObjects[this.flag].scale > 0)
+                this.GameObjects[this.flag].visible = false // !this.GameObjects[this.flag].visible
+            if(this.clickableGameObjects[this.flag].scale > 0)
+                this.clickableGameObjects[this.flag].visible = true // !this.clickableGameObjects[this.flag].visible
+        }
+
+        if(this.mainCounter % 40 == 0)
+        {
+            if(this.clickableGameObjects[this.flag].scale > 0)
+                this.clickableGameObjects[this.flag].visible = false // !this.clickableGameObjects[this.flag].visible
+            if(this.GameObjects[this.flag].scale > 0)
+                this.GameObjects[this.flag].visible = true // !this.GameObjects[this.flag].visible
+
+            if(this.flag < 9)
+            {
+                this.flag += 1
+            }
+            else
+                this.flag = 0
+        }
+
     }
 
     handleCountdownFinished()
@@ -245,14 +290,34 @@ export default class Game extends Phaser.Scene {
         this.scene.pause()
     }
 
-    showSplashScreen()
+    win()
     {
-        this.scene.launch('splash-screen')
+        // show winning screen
+        this.scene.launch('won-screen')
         this.scene.pause()
     }
 
-    removeObject(element)
+    // showSplashScreen()
+    // {
+    //     this.scene.launch('splash-screen')
+    //     this.scene.pause()
+    // }
+
+    removeObject(element, type)
     {
+        if(type == "glow")
+        {
+            this.GameObjects[this.clickableGameObjects.indexOf(element)].scale = 0
+            this.GameObjects[this.clickableGameObjects.indexOf(element)].setVisible(false)
+            // this.GameObjects.splice(this.clickableGameObjects.indexOf(element), this.clickableGameObjects.indexOf(element) + 1)
+        }
+        else if(type == "plain")
+        {
+            this.clickableGameObjects[this.GameObjects.indexOf(element)].scale = 0
+            this.clickableGameObjects[this.GameObjects.indexOf(element)].setVisible(false)
+            // this.clickableGameObjects.splice(this.GameObjects.indexOf(element), this.GameObjects.indexOf(element) + 1)
+        }
+
         this.tweens.add({
             targets: element,
             scale: element.scale + 0.1,
@@ -264,11 +329,18 @@ export default class Game extends Phaser.Scene {
                     duration: 300,
                     onComplete: () => {
                         element.visible = false
+                        if(this.count < 9)
+                            this.count += 1
+                        else
+                            this.win()
                     },
                     ease: 'Linear'
                 })
             },
             ease: 'Linear'
         })
+        
+        
+
     }
 }
