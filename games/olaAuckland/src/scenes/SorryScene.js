@@ -32,12 +32,19 @@ export default class SorryScreen extends Phaser.Scene
         Align.scaleToGameW(this.lines, 1)
 
         this.sorryMsg = this.add.image(this.scale.width/2, this.scale.height/2, "sorryMsg")
-        Align.scaleToGameW(this.sorryMsg, 1)
+        Align.scaleToGameW(this.sorryMsg, 0)
         this.tryagainBlack = this.add.image(this.scale.width/2, this.scale.height/2, "tryagainBlack")
         Align.scaleToGameW(this.tryagainBlack, 1)
         this.tryagainGreen = this.add.image(this.scale.width/2, this.scale.height/2, "tryagainGreen")
         Align.scaleToGameW(this.tryagainGreen, 1)
         this.tryagainGreen.setVisible(false)
+
+        this.tweens.add({
+            targets: this.sorryMsg,
+            scale: this.background.scale,
+            duration: 500,
+            ease: 'Linear'
+        })
 
         this.input.on('pointerup', function(pointer) {
             this.scene.start('game');

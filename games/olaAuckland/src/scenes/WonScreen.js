@@ -5,7 +5,7 @@ import Align from '../lib/util/align.js'
 export default class WonScreen extends Phaser.Scene
 {
     count = 0
-    
+
     constructor()
     {
         super('won-screen')
@@ -36,9 +36,18 @@ export default class WonScreen extends Phaser.Scene
         this.lines2.setVisible(false)
 
         this.wonImage = this.add.image(this.scale.width/2, this.scale.height/2, "wonImage")
-        Align.scaleToGameW(this.wonImage, 1)
+        Align.scaleToGameW(this.wonImage, 0)
         this.wonMsg = this.add.image(this.scale.width/2, this.scale.height/2, "wonMsg")
         Align.scaleToGameW(this.wonMsg, 1)
+
+        this.tweens.add({
+            targets: this.wonImage,
+            scale: this.background.scale,
+            duration: 500,
+            ease: 'Linear'
+        })
+
+
     }
 
     update()
