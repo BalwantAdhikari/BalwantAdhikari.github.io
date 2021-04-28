@@ -46,10 +46,13 @@ export default class Preload extends Phaser.Scene{
         this.load.image('tryagainBlack', 'assets/tryagainBlack.png')
         this.load.image('tryagainGreen', 'assets/tryagainGreen.png')
         this.load.image('wonImage', 'assets/congrateMsg.png')
-        this.load.image('wonMsg', 'assets/completedMsg.png')
+        // this.load.image('wonMsg', 'assets/completedMsg.png')
         this.load.image('lines', 'assets/Lines.png')
-        this.load.image('lines1', 'assets/Lines-1.png')
-        this.load.image('lines2', 'assets/Lines-2.png')
+        this.load.image('linesCongrate', 'assets/LinesCongrate.png')
+
+        this.load.audio('congratsSound', 'assets/applaude.mp3')
+        this.load.audio('tapSound', 'assets/tap-click.mp3')
+        this.load.audio('tryAgainSound', 'assets/Try-Again.mp3')
     }
 
     create()

@@ -13,6 +13,9 @@ export default class SorryScreen extends Phaser.Scene
 
     create()
     {
+        this.tryAgainSound = this.sound.add('tryAgainSound')
+        this.tapSound = this.sound.add('tapSound')
+
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, "background")
         Align.scaleToGameW(this.background, 1)
         this.background.setVisible(false)
@@ -39,6 +42,8 @@ export default class SorryScreen extends Phaser.Scene
         Align.scaleToGameW(this.tryagainGreen, 1)
         this.tryagainGreen.setVisible(false)
 
+        this.tryAgainSound.play()
+
         this.tweens.add({
             targets: this.sorryMsg,
             scale: this.background.scale,
@@ -47,6 +52,7 @@ export default class SorryScreen extends Phaser.Scene
         })
 
         this.input.on('pointerup', function(pointer) {
+            this.tapSound.play()
             this.scene.start('game');
             this.scene.stop();
         }, this)
