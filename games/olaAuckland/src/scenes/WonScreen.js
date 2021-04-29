@@ -42,6 +42,12 @@ export default class WonScreen extends Phaser.Scene
         // this.wonMsg = this.add.image(this.scale.width/2, this.scale.height/2, "wonMsg")
         // Align.scaleToGameW(this.wonMsg, 1)
 
+        // logo
+        this.logo = this.add.image(0, 0, "logo")
+        Align.scaleToGameW(this.logo, 0.19)
+        this.logo.x = this.bgWidth - this.bgWidth / 6.2
+        this.logo.y = (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2)
+
         this.congratsSound.play()
 
         this.tweens.add({
