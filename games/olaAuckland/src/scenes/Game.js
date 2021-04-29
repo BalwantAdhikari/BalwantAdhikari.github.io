@@ -76,7 +76,7 @@ export default class Game extends Phaser.Scene {
         this.walletGlow = this.add.image(0, 0, "walletGlow")
         Align.scaleToGameW(this.walletGlow, 0.12)
         this.logo = this.add.image(0, 0, "logo")
-        Align.scaleToGameW(this.logo, 0.19)
+        Align.scaleToGameW(this.logo, 0.207)
 
         this.tapSound = this.sound.add('tapSound')
 
@@ -166,14 +166,14 @@ export default class Game extends Phaser.Scene {
         this.laptopGlow.setPosition(this.laptop.x, this.laptop.y)
 
         // logo
-        this.logo.x = this.bgWidth - this.bgWidth / 6.2
-        this.logo.y = (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2)
+        this.logo.x = this.bgWidth - this.bgWidth / 7.2
+        this.logo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
 
         // progress bar
-        this.progressBarHeight = (this.logo.scaleY * this.logo.height) / 1.3 
-        this.progressBarY = (this.bgHeight / 30) + ((this.height - this.bgHeight) / 2) // this.logo.y - ((this.logo.scaleY * this.logo.height) / 2) 
+        this.progressBarHeight = this.bgHeight / 20 // (this.logo.scaleY * this.logo.height) / 1.3 
+        this.progressBarY =  (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2) // this.logo.y - ((this.logo.scaleY * this.logo.height) / 2) 
         this.progressBox.lineStyle(2, 0x000000, 1)
-        this.progressBox.strokeRect(this.scale.width/11.5, this.progressBarY, this.scale.width/1.8, this.progressBarHeight);
+        this.progressBox.strokeRect(this.scale.width/20, this.progressBarY, this.scale.width/1.75, this.progressBarHeight);
 
         this.countdown = new CountdownController(this, this.progressIndicator, this.progressBar, this.progressBarHeight, this.progressBarY)
         this.countdown.start(this.handleCountdownFinished.bind(this))

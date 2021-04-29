@@ -69,12 +69,12 @@ export default class CountdownController
         // else if(passedSeconds.toFixed(0) > 1)
         // {
             this.progressBar.fillStyle(0xD7DE1F, 1)
-            this.progressBar.fillRect(this.scene.width/11.5, this.progressBarY, this.scene.width/1.8 * (passedSeconds.toFixed(0)/10), this.progressBarHeight)
+            this.progressBar.fillRect(this.scene.width/20, this.progressBarY, this.scene.width/1.75 * (passedSeconds.toFixed(0)/10), this.progressBarHeight)
 
             if(passedSeconds.toFixed(0) != 10)
             {
                 this.progressIndicator.fillStyle(0x000000, 1)
-                this.progressIndicator.fillRect(this.scene.width/11.5 + this.scene.width/1.8 * (passedSeconds.toFixed(0)/10), this.progressBarY, 10 , this.progressBarHeight)
+                this.progressIndicator.fillRect(this.scene.width/20 + this.scene.width/1.75 * (passedSeconds.toFixed(0)/10), this.progressBarY, 10 , this.progressBarHeight)
 
             }
         // }
