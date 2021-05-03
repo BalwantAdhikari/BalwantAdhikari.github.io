@@ -77,15 +77,22 @@ export default class Game extends Phaser.Scene {
         Align.scaleToGameW(this.walletGlow, 0.12)
         this.logo = this.add.image(0, 0, "logo")
         Align.scaleToGameW(this.logo, 0.207)
+        this.cab = this.add.image(0, 0, "cab").setOrigin(0, 1)
+        Align.scaleToGameW(this.cab, 0.1)
+        this.locationPin = this.add.image(0, 0, "locationPin").setOrigin(0.5, 1)
+        Align.scaleToGameW(this.locationPin, 0.035)
 
         this.tapSound = this.sound.add('tapSound')
 
+        // this.graphics = this.add.graphics()
+        // this.graphics1 = this.add.graphics()
+        // this.graphics2 = this.add.graphics()
+        // this.progressBar = this.graphics
+        // this.progressBox = this.graphics1
+        // this.progressIndicator = this.graphics2
+
         this.graphics = this.add.graphics()
-        this.graphics1 = this.add.graphics()
-        this.graphics2 = this.add.graphics()
-        this.progressBar = this.graphics
-        this.progressBox = this.graphics1
-        this.progressIndicator = this.graphics2
+        this.timeLine = this.graphics
 
         // this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
         // this.aGrid.showNumbers()
@@ -169,13 +176,27 @@ export default class Game extends Phaser.Scene {
         this.logo.x = this.bgWidth - this.bgWidth / 7.2
         this.logo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
 
-        // progress bar
-        this.progressBarHeight = this.bgHeight / 20 // (this.logo.scaleY * this.logo.height) / 1.3 
-        this.progressBarY =  (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2) // this.logo.y - ((this.logo.scaleY * this.logo.height) / 2) 
-        this.progressBox.lineStyle(2, 0x000000, 1)
-        this.progressBox.strokeRect(this.scale.width/20, this.progressBarY, this.scale.width/1.75, this.progressBarHeight);
+        // cab
+        this.cab.x = this.scale.width / 25
+        this.cab.y = (this.bgHeight / 10) + ((this.height - this.bgHeight) / 2)
 
-        this.countdown = new CountdownController(this, this.progressIndicator, this.progressBar, this.progressBarHeight, this.progressBarY)
+        // locationPin
+        this.locationPin.x = this.scale.width/1.88
+        this.locationPin.y = (this.bgHeight / 10) + ((this.height - this.bgHeight) / 2)
+
+        // timeLine
+        this.timeLine.fillStyle(0x000000, 1)
+        this.timeLine.fillRect(this.scale.width / 25, (this.bgHeight / 10) + ((this.height - this.bgHeight) / 2), this.scale.width / 1.88 - this.scale.width / 35, 3)
+        // this.timeLine.fillRect(this.scale.width / 2, this.scale.height / 2, this.scale.width / 1.88, 5)
+
+        // progress bar
+        // this.progressBarHeight = this.bgHeight / 20 // (this.logo.scaleY * this.logo.height) / 1.3 
+        // this.progressBarY =  (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2) // this.logo.y - ((this.logo.scaleY * this.logo.height) / 2) 
+        // this.progressBox.lineStyle(2, 0x000000, 1)
+        // this.progressBox.strokeRect(this.scale.width/20, this.progressBarY, this.scale.width/1.75, this.progressBarHeight);
+
+        // this.countdown = new CountdownController(this, this.progressIndicator, this.progressBar, this.progressBarHeight, this.progressBarY)
+        this.countdown = new CountdownController(this, this.cab)
         this.countdown.start(this.handleCountdownFinished.bind(this))
 
         this.flagArr = [true, true, true, true, true, true, true, true, true, true]

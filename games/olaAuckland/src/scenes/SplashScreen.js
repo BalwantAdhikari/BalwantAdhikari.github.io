@@ -26,12 +26,12 @@ export default class SplashScreen extends Phaser.Scene
         this.splashImage = this.add.image(this.scale.width/2, this.scale.height/2, "openingMsg")
         Align.scaleToGameW(this.splashImage, 1)
 
-        this.TTPblack = this.add.image(this.scale.width/2, this.scale.height/2, "TTPblack")
-        Align.scaleToGameW(this.TTPblack, 1)
+        this.TTSblack = this.add.image(this.scale.width/2, this.scale.height/2, "TTSblack")
+        Align.scaleToGameW(this.TTSblack, 1)
 
-        this.TTPgreen = this.add.image(this.scale.width/2, this.scale.height/2, "TTPgreen")
-        Align.scaleToGameW(this.TTPgreen, 1)
-        this.TTPgreen.setVisible(false)
+        this.TTSgreen = this.add.image(this.scale.width/2, this.scale.height/2, "TTSgreen")
+        Align.scaleToGameW(this.TTSgreen, 1)
+        this.TTSgreen.setVisible(false)
 
         this.input.on('pointerup', function(pointer) {
             this.tapSound.play()
@@ -46,8 +46,8 @@ export default class SplashScreen extends Phaser.Scene
 
         if(this.count % 20 == 0)
         {
-            this.TTPblack.visible = !this.TTPblack.visible
-            this.TTPgreen.visible = !this.TTPgreen.visible
+            this.TTSblack.visible = !this.TTSblack.visible
+            this.TTSgreen.visible = !this.TTSgreen.visible
         }
     }
 
