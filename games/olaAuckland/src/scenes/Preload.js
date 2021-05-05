@@ -15,8 +15,8 @@ export default class Preload extends Phaser.Scene{
         this.platform = this;
         this.counter = 0;
 
-        this.load.image('background', 'assets/Background.jpg')
-        this.load.image('blurredBackground', 'assets/blurredBackground.jpg')
+        this.load.image('background', 'assets/Background.png')
+        this.load.image('blurredBackground', 'assets/blurredBackground.png')
         this.load.image('diary', 'assets/Diary.png')
         this.load.image('diaryGlow', 'assets/DiaryGlow.png')
         this.load.image('headphones', 'assets/Headphones.png')
@@ -48,6 +48,7 @@ export default class Preload extends Phaser.Scene{
         this.load.image('wonImage', 'assets/congrateMsg.png')
         this.load.image('cab', 'assets/Cab-icon.png')
         this.load.image('locationPin', 'assets/Location-icon.png')
+        // this.load.image('wonMsg', 'assets/completedMsg.png')
         this.load.image('lines', 'assets/Lines.png')
         this.load.image('linesCongrate', 'assets/LinesCongrate.png')
 

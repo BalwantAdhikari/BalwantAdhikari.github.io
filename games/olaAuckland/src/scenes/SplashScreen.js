@@ -13,6 +13,11 @@ export default class SplashScreen extends Phaser.Scene
 
     create()
     {
+        // this.controlBoard = this.add.graphics()
+        // const x = this.scale.width
+        // const y = this.scale.height
+        // this.controlBoard.fillStyle(0xF2F2F2, 0.2)
+        // this.controlBoard.fillRect(0, 0, x, y)
         this.tapSound = this.sound.add('tapSound')
 
         this.blurredBackground = this.add.image(this.scale.width/2, this.scale.height/2, "blurredBackground")
@@ -27,6 +32,20 @@ export default class SplashScreen extends Phaser.Scene
         this.TTSgreen = this.add.image(this.scale.width/2, this.scale.height/2, "TTSgreen")
         Align.scaleToGameW(this.TTSgreen, 1)
         this.TTSgreen.setVisible(false)
+
+        // screen width/height
+        this.width = this.scale.width
+        this.height = this.scale.height
+        // bgImage width/height
+        this.bgWidth = this.blurredBackground.scaleX * this.blurredBackground.width
+        this.bgHeight = this.blurredBackground.scaleX * this.blurredBackground.width
+
+
+        // logo
+        this.logo = this.add.image(0, 0, "logo")
+        Align.scaleToGameW(this.logo, 0.207)
+        this.logo.x = this.bgWidth - this.bgWidth / 7.2
+        this.logo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
 
         this.input.on('pointerup', function(pointer) {
             this.tapSound.play()
