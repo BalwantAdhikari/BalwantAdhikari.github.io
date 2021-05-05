@@ -42,6 +42,12 @@ export default class SorryScreen extends Phaser.Scene
         Align.scaleToGameW(this.tryagainGreen, 1)
         this.tryagainGreen.setVisible(false)
 
+        // logo
+        // this.logo = this.add.image(0, 0, "logo")
+        // Align.scaleToGameW(this.logo, 0.207)
+        // this.logo.x = this.bgWidth - this.bgWidth / 7.2
+        // this.logo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
+
         this.tryAgainSound.play()
 
         this.tweens.add({

@@ -84,8 +84,22 @@ export default class Game extends Phaser.Scene {
 
         this.tapSound = this.sound.add('tapSound')
 
+        // this.graphics = this.add.graphics()
+        // this.graphics1 = this.add.graphics()
+        // this.graphics2 = this.add.graphics()
+        // this.progressBar = this.graphics
+        // this.progressBox = this.graphics1
+        // this.progressIndicator = this.graphics2
+
         this.graphics = this.add.graphics()
         this.timeLine = this.graphics
+
+        // this.aGrid = new AlignGrid({scene:this, rows:16, cols:9})
+        // this.aGrid.showNumbers()
+
+        // this.aGrid.placeAtIndex(47, this.keyHolder)
+        // this.aGrid.placeAtIndex(46, this.keysGlow)
+        // this.aGrid.placeAtIndex(48, this.maskGlow)
 
         // screen width/height
         this.width = this.scale.width
@@ -173,10 +187,21 @@ export default class Game extends Phaser.Scene {
         // timeLine
         this.timeLine.fillStyle(0x000000, 1)
         this.timeLine.fillRect(this.scale.width / 25, (this.bgHeight / 10) + ((this.height - this.bgHeight) / 2), this.scale.width / 1.88 - this.scale.width / 35, 3)
+        // this.timeLine.fillRect(this.scale.width / 2, this.scale.height / 2, this.scale.width / 1.88, 5)
 
+        // progress bar
+        // this.progressBarHeight = this.bgHeight / 20 // (this.logo.scaleY * this.logo.height) / 1.3 
+        // this.progressBarY =  (this.bgHeight / 18) + ((this.height - this.bgHeight) / 2) // this.logo.y - ((this.logo.scaleY * this.logo.height) / 2) 
+        // this.progressBox.lineStyle(2, 0x000000, 1)
+        // this.progressBox.strokeRect(this.scale.width/20, this.progressBarY, this.scale.width/1.75, this.progressBarHeight);
+
+        // this.countdown = new CountdownController(this, this.progressIndicator, this.progressBar, this.progressBarHeight, this.progressBarY)
         this.countdown = new CountdownController(this, this.cab)
         this.countdown.start(this.handleCountdownFinished.bind(this))
 
+        this.flagArr = [true, true, true, true, true, true, true, true, true, true]
+
+        // disapper game object when clicked
         this.GameObjects = [
             this.mask,
             this.keys,
@@ -206,9 +231,50 @@ export default class Game extends Phaser.Scene {
             element.visible = false
         });
 
-        // disapper game object when clicked
-        this.clickable()
+        // this.clickableGameObjects.forEach(element => {
+        //     element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
 
+        //         this.removeObject(element)
+
+        //         if (this.clickableGameObjects.indexOf(element) < this.clickableGameObjects.length - 1)
+        //         {
+        //             this.GameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(false)
+        //             this.clickableGameObjects[this.clickableGameObjects.indexOf(element) + 1].setVisible(true)
+        //         }
+        //         else
+        //         {
+        //             // show winning screen
+        //             this.scene.launch('won-screen')
+        //             this.scene.pause()
+        //         }
+        //     }, this)
+        // });
+
+        this.clickableGameObjects.forEach(element => {
+            element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
+                this.tapSound.play()
+                this.input.disable(element)
+                this.removeObject(element, 'glow')
+
+            }, this)
+        });
+
+        this.GameObjects.forEach(element => {
+            element.setInteractive().on('pointerup', function(pointer, localX, localY, event){
+                this.tapSound.play()
+                this.input.disable(element)
+                this.removeObject(element, 'plain')
+
+            }, this)
+        });
+
+        // this.time.delayedCall(50, () => {
+        //     this.diary.setVisible(false)
+        //     this.diaryGlow.setVisible(true)
+        // }, [], this)
+
+        // this.showSplashScreen()
+        
     }
 
     update()
@@ -217,20 +283,35 @@ export default class Game extends Phaser.Scene {
 
         this.mainCounter += 1
     
-        if(this.mainCounter % 21 == 0 && this.flag < 10)
+        if(this.mainCounter % 21 == 0)
         {
+            // this.clickableGameObjects[this.GameObjects.indexOf(element)].visible = !this.clickableGameObjects[this.GameObjects.indexOf(element)].visible
+            // this.GameObjects[this.GameObjects.indexOf(element)].visible = !this.GameObjects[this.GameObjects.indexOf(element)].visible
             if(this.GameObjects[this.flag].scale > 0)
-                this.GameObjects[this.flag].visible = false 
+                this.GameObjects[this.flag].visible = false // !this.GameObjects[this.flag].visible
             if(this.clickableGameObjects[this.flag].scale > 0)
-                this.clickableGameObjects[this.flag].visible = true
+                this.clickableGameObjects[this.flag].visible = true // !this.clickableGameObjects[this.flag].visible
         }
 
-        if(this.mainCounter % 42 == 0 && this.flag < 10)
+        if(this.mainCounter % 40 == 0)
         {
             if(this.clickableGameObjects[this.flag].scale > 0)
-                this.clickableGameObjects[this.flag].visible = false
+                this.clickableGameObjects[this.flag].visible = false // !this.clickableGameObjects[this.flag].visible
             if(this.GameObjects[this.flag].scale > 0)
-                this.GameObjects[this.flag].visible = true
+                this.GameObjects[this.flag].visible = true // !this.GameObjects[this.flag].visible
+
+            
+            // this.increaseFlag()
+            // if(this.flag < 9)
+            //     this.flag += 1
+            // else
+            //     this.flag = 0
+
+            if(this.flagArr.includes(true))
+            {
+                this.flag = this.increaseFlag(this.flag)
+            }
+
         }
 
     }
@@ -251,26 +332,35 @@ export default class Game extends Phaser.Scene {
         this.scene.pause()
     }
 
-    clickable(element)
+    // showSplashScreen()
+    // {
+    //     this.scene.launch('splash-screen')
+    //     this.scene.pause()
+    // }
+
+    increaseFlag(flag)
     {
-        if(this.flag <= 9)
+        if(this.flag < 9)
         {
-            this.clickableGameObjects[this.flag].setInteractive().on('pointerup', function(pointer, localX, localY, event){
-                this.tapSound.play()
-                this.input.disable(this.clickableGameObjects[this.flag])
-                this.removeObject(this.clickableGameObjects[this.flag], 'glow')
-                this.flag += 1
-                this.clickable()
-            }, this)
-    
-            this.GameObjects[this.flag].setInteractive().on('pointerup', function(pointer, localX, localY, event){
-                this.tapSound.play()
-                this.input.disable(this.GameObjects[this.flag])
-                this.removeObject(this.GameObjects[this.flag], 'plain')
-                this.flag += 1
-                this.clickable()
-            }, this)
+            do
+            {
+                if(this.flagArr.includes(true))
+                {
+                    if(this.flag < 9)
+                    this.flag += 1
+                    else
+                        this.flag = 0
+                }
+                else
+                    break
+            }
+            while(!this.flagArr[this.flag])
+        
         }
+        else
+            this.flag = 0
+
+        return this.flag
     }
 
     removeObject(element, type)
@@ -279,11 +369,15 @@ export default class Game extends Phaser.Scene {
         {
             this.GameObjects[this.clickableGameObjects.indexOf(element)].scale = 0
             this.GameObjects[this.clickableGameObjects.indexOf(element)].setVisible(false)
+            this.flagArr[this.clickableGameObjects.indexOf(element)] = false
+            // this.GameObjects.splice(this.clickableGameObjects.indexOf(element), this.clickableGameObjects.indexOf(element) + 1)
         }
         else if(type == "plain")
         {
             this.clickableGameObjects[this.GameObjects.indexOf(element)].scale = 0
             this.clickableGameObjects[this.GameObjects.indexOf(element)].setVisible(false)
+            this.flagArr[this.GameObjects.indexOf(element)] = false
+            // this.clickableGameObjects.splice(this.GameObjects.indexOf(element), this.GameObjects.indexOf(element) + 1)
         }
 
         this.tweens.add({
