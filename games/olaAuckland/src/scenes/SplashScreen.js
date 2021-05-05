@@ -13,11 +13,6 @@ export default class SplashScreen extends Phaser.Scene
 
     create()
     {
-        // this.controlBoard = this.add.graphics()
-        // const x = this.scale.width
-        // const y = this.scale.height
-        // this.controlBoard.fillStyle(0xF2F2F2, 0.2)
-        // this.controlBoard.fillRect(0, 0, x, y)
         this.tapSound = this.sound.add('tapSound')
 
         this.blurredBackground = this.add.image(this.scale.width/2, this.scale.height/2, "blurredBackground")
