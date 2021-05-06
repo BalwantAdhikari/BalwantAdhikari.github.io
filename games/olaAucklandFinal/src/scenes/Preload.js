@@ -101,7 +101,6 @@ export default class Preload extends Phaser.Scene{
         
         this.platform.textures.on('onload', function() {
             this.counter += 1;
-            console.log(this.counter)
         }, this);
 
         // Timer check when all based64 assets have been loaded
