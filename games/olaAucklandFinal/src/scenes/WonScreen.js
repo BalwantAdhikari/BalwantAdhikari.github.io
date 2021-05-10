@@ -43,6 +43,10 @@ export default class WonScreen extends Phaser.Scene
             ease: 'Linear'
         })
 
+        this.input.on('pointerup', function(pointer) {
+            FbPlayableAd.onCTAClick()
+        }, this)
+
 
     }
 
