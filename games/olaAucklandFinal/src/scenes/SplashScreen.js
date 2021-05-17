@@ -47,6 +47,7 @@ export default class SplashScreen extends Phaser.Scene
             this.scene.start('game');
             this.scene.stop();
         }, this)
+
     }
 
     update()

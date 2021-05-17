@@ -4,6 +4,8 @@ import Align from '../lib/util/align.js'
 
 export default class WonScreen extends Phaser.Scene
 {
+    count = 0
+
     constructor()
     {
         super('won-screen')
@@ -33,6 +35,16 @@ export default class WonScreen extends Phaser.Scene
 
         this.wonImage = this.add.image(this.scale.width/2, this.scale.height/2, "wonImage")
         Align.scaleToGameW(this.wonImage, 0)
+        this.installNowBlack = this.add.image(0, 0, "installNowBlack")
+        Align.scaleToGameW(this.installNowBlack, 0.4)
+        this.installNowGreen = this.add.image(0, 0, "installNowGreen")
+        Align.scaleToGameW(this.installNowGreen, 0.4)
+        this.installNowGreen.setVisible(false)
+
+        this.installNowBlack.x = this.scale.width/2
+        this.installNowBlack.y = this.scale.height/2 + this.bgHeight * 2/5
+        this.installNowGreen.x = this.scale.width/2
+        this.installNowGreen.y = this.scale.height/2 + this.bgHeight * 2/5
 
         this.congratsSound.play()
 
@@ -43,11 +55,24 @@ export default class WonScreen extends Phaser.Scene
             ease: 'Linear'
         })
 
-        this.input.on('pointerup', function(pointer) {
+        this.installNowBlack.setInteractive().on('pointerup', function(pointer) {
+            FbPlayableAd.onCTAClick()
+        }, this)
+        this.installNowGreen.setInteractive().on('pointerup', function(pointer) {
             FbPlayableAd.onCTAClick()
         }, this)
 
 
+    }
+    update()
+    {
+        this.count += 1
+
+        if(this.count % 20 == 0)
+        {
+            this.installNowBlack.visible = !this.installNowBlack.visible
+            this.installNowGreen.visible = !this.installNowGreen.visible
+        }
     }
 
 }
