@@ -10,6 +10,7 @@ let game = new Phaser.Game({
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
+    resolution: window.devicePixelRatio,
     physics: {
         default: 'arcade',
         arcade: {
