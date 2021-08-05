@@ -25,7 +25,7 @@ export default class LoadingScene extends Phaser.Scene
         this.load.image('loading-car2miniSelected', 'assets/frame1-car2miniSelected.webp')
         this.load.image('loading-car3miniSelected', 'assets/frame1-car3miniSelected.webp')
         this.load.image('loading-car4miniSelected', 'assets/frame1-car4miniSelected.webp')
-        this.load.image('loading-text', 'assets/frame1-text.webp')
+        this.load.image('loading-text', 'assets/frame1-text.png')
         this.load.image('loading-sun', 'assets/frame1-sun.webp')
         this.load.image('loading-logo', 'assets/frame1-logo.webp')
         this.load.image('loading-startButton', 'assets/frame1-startButton.webp')
@@ -43,8 +43,7 @@ export default class LoadingScene extends Phaser.Scene
     {
         // background
         this.loadingBackground = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-background')
-        // Align.scaleToGameW(this.loadingBackground, 1)
-        this.loadingBackground.scale = 1/window.devicePixelRatio
+        Align.scaleToGameW(this.loadingBackground, 1)
 
         // car
         // this.loadingcar1 = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-car1')
@@ -82,7 +81,6 @@ export default class LoadingScene extends Phaser.Scene
         this.loadingcar2miniSelected.setVisible(false)
         this.loadingcar3miniSelected = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-car3miniSelected')
         Align.scaleToGameW(this.loadingcar3miniSelected, 0.3)
-        this.loadingcar3miniSelected.scale = 1/window.devicePixelRatio
         this.loadingcar4miniSelected = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-car4miniSelected')
         Align.scaleToGameW(this.loadingcar4miniSelected, 0.3)
         this.loadingcar4miniSelected.setVisible(false)
@@ -94,12 +92,10 @@ export default class LoadingScene extends Phaser.Scene
         // text
         this.loadingtext = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-text')
         Align.scaleToGameW(this.loadingtext, 1)
-        this.loadingtext.scale = 1/window.devicePixelRatio
 
         // logo
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
-        // Align.scaleToGameW(this.loadinglogo, 0.25)
-        this.loadinglogo.scale = 1/window.devicePixelRatio
+        Align.scaleToGameW(this.loadinglogo, 0.25)
 
         // start Button
         this.loadingstartButton = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-startButton')
