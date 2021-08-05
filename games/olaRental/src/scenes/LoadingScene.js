@@ -43,7 +43,8 @@ export default class LoadingScene extends Phaser.Scene
     {
         // background
         this.loadingBackground = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-background')
-        Align.scaleToGameW(this.loadingBackground, 1)
+        // Align.scaleToGameW(this.loadingBackground, 1)
+        this.loadingBackground.scale = 1/window.devicePixelRatio
 
         // car
         // this.loadingcar1 = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-car1')
@@ -81,6 +82,7 @@ export default class LoadingScene extends Phaser.Scene
         this.loadingcar2miniSelected.setVisible(false)
         this.loadingcar3miniSelected = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-car3miniSelected')
         Align.scaleToGameW(this.loadingcar3miniSelected, 0.3)
+        this.loadingcar3miniSelected.scale = 1/window.devicePixelRatio
         this.loadingcar4miniSelected = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-car4miniSelected')
         Align.scaleToGameW(this.loadingcar4miniSelected, 0.3)
         this.loadingcar4miniSelected.setVisible(false)
@@ -92,10 +94,12 @@ export default class LoadingScene extends Phaser.Scene
         // text
         this.loadingtext = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-text')
         Align.scaleToGameW(this.loadingtext, 1)
+        this.loadingtext.scale = 1/window.devicePixelRatio
 
         // logo
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
-        Align.scaleToGameW(this.loadinglogo, 0.25)
+        // Align.scaleToGameW(this.loadinglogo, 0.25)
+        this.loadinglogo.scale = 1/window.devicePixelRatio
 
         // start Button
         this.loadingstartButton = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-startButton')
