@@ -22,4 +22,9 @@ let game = new Phaser.Game({
     },
     // scene: [LoadingScene, Game, SplashScreen, GameOver],
     scene: [LoadingScene, SplashScreen, Game],
+    scale: {
+        zoom: 1 / window.devicePixelRatio,
+        mode: Phaser.Scale.ScaleModes.FIT,
+        autoCenter: Phaser.Scale.Center.CENTER_BOTH,
+    }
 })
