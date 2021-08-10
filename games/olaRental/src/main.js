@@ -17,7 +17,7 @@ let game = new Phaser.Game({
             gravity: {
                 y: 200
             },
-            debug: true
+            debug: false
         }
     },
     // scene: [LoadingScene, Game, SplashScreen, GameOver],
