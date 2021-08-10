@@ -27,7 +27,7 @@ export default class LoadingScene extends Phaser.Scene
         this.load.image('loading-car4miniSelected', 'assets/frame1-car4miniSelected.webp')
         this.load.image('loading-text', 'assets/frame1-text.webp')
         this.load.image('loading-sun', 'assets/frame1-sun.webp')
-        this.load.image('loading-logo', 'assets/frame1-logo@3x.png')
+        this.load.image('loading-logo', 'assets/frame1-logo.webp')
         this.load.image('loading-startButton', 'assets/frame1-startButton.webp')
 
         // frame 2
@@ -35,6 +35,16 @@ export default class LoadingScene extends Phaser.Scene
         this.load.image("get", "assets/frame2-get.webp")
         this.load.image("set", "assets/frame2-set.webp")
         this.load.image("go", "assets/frame2-go.webp")
+
+        // frame 3
+        this.load.image("game-background", "assets/frame3-background.png")
+        this.load.image("game-car1", "assets/frame3-car1.png")
+        this.load.image("game-car2", "assets/frame3-car2.png")
+        this.load.image("game-car3", "assets/frame3-car3.png")
+        this.load.image("game-car4", "assets/frame3-car4.png")
+        this.load.image("game-divider", "assets/frame3-roadDivider.png")
+        this.load.image("game-progress", "assets/frame3-progress.png")
+        this.load.image("game-timer", "assets/frame3-timer.png")
 
         
     }
@@ -177,7 +187,7 @@ export default class LoadingScene extends Phaser.Scene
             this.loadingtext.destroy()
             this.loadingstartButton.destroy()
             this.scene.pause();
-            this.scene.launch('splash-screen', this.carSelected);
+            this.scene.launch('splash-screen', {'car' : this.carSelected});
         }, this)
         
         

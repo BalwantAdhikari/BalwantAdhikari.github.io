@@ -4,10 +4,16 @@ import Align from '../lib/util/align.js'
 
 export default class SplashScreen extends Phaser.Scene
 {
+    carSelected = ''
 
     constructor()
     {
         super('splash-screen')
+    }
+
+    init(data)
+    {
+        this.carSelected = data.car
     }
 
     preload()
@@ -31,6 +37,12 @@ export default class SplashScreen extends Phaser.Scene
         Align.scaleToGameW(this.goScreen, 1)
         this.goScreen.setVisible(false)
 
+        this.getsetgo()
+        
+    }
+
+    getsetgo()
+    {
         this.tweens.add({
             targets: this.getScreen,
             onStart: function () {
@@ -73,10 +85,14 @@ export default class SplashScreen extends Phaser.Scene
             duration: 500,
             onComplete: function () {
                 this.parent.scene.goScreen.setVisible(false)
+                this.parent.scene.scene.stop()
+                this.parent.scene.scene.stop('loading-scene')
+                this.parent.scene.scene.launch('game', {'car' : this.parent.scene.carSelected});                
             }
             
         })
         }, [], this);
+
     }
 
 }
