@@ -34,6 +34,9 @@ export default class Game extends Phaser.Scene
         this.progress = this.add.image(this.scale.width/2, this.scale.height/2, 'game-progress')
         Align.scaleToGameW(this.progress, 1)
 
+        this.minicar = this.add.image(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}mini`)
+        Align.scaleToGameW(this.minicar, 1)
+
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
         Align.scaleToGameW(this.loadinglogo, 0.25)
 
