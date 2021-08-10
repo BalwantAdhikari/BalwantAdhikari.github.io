@@ -54,6 +54,9 @@ export default class Game extends Phaser.Scene
         this.stering = this.add.image(this.scale.width/2, this.scale.height/2, 'game-stering')
         Align.scaleToGameW(this.stering, 0.15)
 
+        this.clouds = this.add.image(this.scale.width/2, this.scale.height/2, 'game-clouds')
+        Align.scaleToGameW(this.clouds, 1)
+
         // screen width/height
         this.width = this.scale.width
         this.height = this.scale.height
