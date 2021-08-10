@@ -44,6 +44,12 @@ export default class Game extends Phaser.Scene
         Align.scaleToGameW(this.car, 0.6)
         this.car.setSize(this.car.width * 0.5, this.car.height * 0.5)
 
+        this.arrows = this.add.image(this.scale.width/2, this.scale.height/2, 'game-arrows')
+        Align.scaleToGameW(this.arrows, 1)
+
+        this.stering = this.add.image(this.scale.width/2, this.scale.height/2, 'game-stering')
+        Align.scaleToGameW(this.stering, 0.15)
+
         // screen width/height
         this.width = this.scale.width
         this.height = this.scale.height
@@ -60,6 +66,9 @@ export default class Game extends Phaser.Scene
 
         // car
         this.car.y = (this.bgHeight * 2.5/4) + ((this.height - this.bgHeight) / 2)
+
+        // stering
+        this.stering.y = (this.bgHeight * 3.55/4) + ((this.height - this.bgHeight) / 2)
 
 
         // set bounds 
@@ -94,6 +103,14 @@ export default class Game extends Phaser.Scene
                         if(this.car.x > this.physics.world.bounds.width * 1.5/4)
                         {
                             this.car.x -= this.physics.world.bounds.width/7
+                            // rotate stering
+                            this.tweens.add({
+                                targets: this.stering,
+                                angle: { from: 0, to: -50 },
+                                ease: 'Linear',
+                                duration: 300,
+                                yoyo: true
+                            }, this)
                         }
                         this.flipflop = true
                     }
@@ -102,6 +119,14 @@ export default class Game extends Phaser.Scene
                         if(this.car.x < this.physics.world.bounds.width * 2.5/4)
                         {
                             this.car.x += this.physics.world.bounds.width/7
+                            // rotate stering
+                            this.tweens.add({
+                                targets: this.stering,
+                                angle: { from: 0, to: 50 },
+                                ease: 'Linear',
+                                duration: 300,
+                                yoyo: true
+                            }, this)
                         }
                         this.flipflop = true
                     }

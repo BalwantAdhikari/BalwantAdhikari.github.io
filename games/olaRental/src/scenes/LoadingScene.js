@@ -49,6 +49,8 @@ export default class LoadingScene extends Phaser.Scene
         this.load.image("game-car2mini", "assets/frame3-car2mini.png")
         this.load.image("game-car3mini", "assets/frame3-car3mini.png")
         this.load.image("game-car4mini", "assets/frame3-car4mini.png")
+        this.load.image("game-stering", "assets/frame3-stering.png")
+        this.load.image("game-arrows", "assets/frame3-arrows.png")
 
         
     }
