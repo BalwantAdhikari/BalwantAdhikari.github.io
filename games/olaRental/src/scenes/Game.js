@@ -31,8 +31,14 @@ export default class Game extends Phaser.Scene
         // this.divider = this.add.image(this.scale.width/2, this.scale.height/2, 'game-divider')
         // Align.scaleToGameW(this.divider, 1)
 
-        // this.divider = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
-        // Align.scaleToGameW(this.divider, 0.001)
+        this.divider1 = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
+        Align.scaleToGameW(this.divider1, 0.001)
+        this.divider2 = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
+        Align.scaleToGameW(this.divider2, 0.001)
+        this.divider3 = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
+        Align.scaleToGameW(this.divider3, 0.001)
+        this.divider4 = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
+        Align.scaleToGameW(this.divider4, 0.001)
 
         this.progress = this.add.image(this.scale.width/2, this.scale.height/2, 'game-progress')
         Align.scaleToGameW(this.progress, 1)
@@ -43,16 +49,8 @@ export default class Game extends Phaser.Scene
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
         Align.scaleToGameW(this.loadinglogo, 0.25)
 
-        this.car = this.physics.add.sprite(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}`)
-        Align.scaleToGameW(this.car, 0.6)
-        this.car.setSize(this.car.width * 0.5, this.car.height * 0.5)
-        this.car.setVisible(false)
-
         this.arrows = this.add.image(this.scale.width/2, this.scale.height/2, 'game-arrows')
         Align.scaleToGameW(this.arrows, 1)
-
-        this.stering = this.add.image(this.scale.width/2, this.scale.height/2, 'game-stering')
-        Align.scaleToGameW(this.stering, 0.15)
 
         this.clouds = this.add.image(this.scale.width/2, this.scale.height/2, 'game-clouds')
         Align.scaleToGameW(this.clouds, 1)
@@ -71,24 +69,92 @@ export default class Game extends Phaser.Scene
         this.loadinglogo.x = this.bgWidth - this.bgWidth / 6.5
         this.loadinglogo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
 
+        // divider
+        this.divider1.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+        this.divider2.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+        this.divider3.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+        this.divider4.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+
+        // this.dividerArray = []
+        // for (let index = 0; index < 1; index++) {
+        //     this.dividerArray[index] = this.add.image(0, 0, "game-dividerSingle")
+        //     this.dividerArray[index].x = this.scale.width / 2
+        //     this.dividerArray[index].y = (this.bgHeight / (3.4 - (index * 0.5))) + ((this.height - this.bgHeight) / 2)
+        //     this.scaleValue = 0.005 + (index * 0.0057)
+        //     Align.scaleToGameW(this.dividerArray[index], this.scaleValue)
+        // }
+
+        this.tweens.add({
+            targets: this.divider1,
+            scale: 0.5,
+            y : {from: this.divider1.y, to: this.divider1.y + this.bgHeight},
+            duration: 2000,
+            repeat: -1,
+            yoyo: false
+        }, this)
+
+        this.time.delayedCall(500, () => {
+            this.tweens.add({
+                targets: this.divider2,
+                scale: 0.5,
+                y : {from: this.divider2.y, to: this.divider2.y + this.bgHeight},
+                duration: 2000,
+                repeat: -1,
+                yoyo: false,
+                onComplete: () => {
+                    this.divider2.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(1000, () => {
+            this.tweens.add({
+                targets: this.divider3,
+                scale: 0.5,
+                y : {from: this.divider3.y, to: this.divider3.y + this.bgHeight},
+                duration: 2000,
+                repeat: -1,
+                yoyo: false,
+                onComplete: () => {
+                    this.divider3.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(1500, () => {
+            this.tweens.add({
+                targets: this.divider4,
+                scale: 0.5,
+                y : {from: this.divider4.y, to: this.divider4.y + this.bgHeight},
+                duration: 2000,
+                repeat: -1,
+                yoyo: false,
+                onComplete: () => {
+                    this.divider4.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+                }
+            }, this)
+        }, [], this);
+        
+
+        this.car = this.physics.add.sprite(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}`)
+        Align.scaleToGameW(this.car, 0.6)
+        this.car.setSize(this.car.width * 0.5, this.car.height * 0.5)
+        // this.car.setVisible(false)
+
         // car
         this.car.y = (this.bgHeight * 2.5/4) + ((this.height - this.bgHeight) / 2)
-
-        // divider
-        // this.divider.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
-
-        this.dividerArray = []
-        for (let index = 0; index < 10; index++) {
-            this.dividerArray[index] = this.add.image(0, 0, "game-dividerSingle")
-            this.dividerArray[index].x = this.scale.width / 2
-            this.dividerArray[index].y = (this.bgHeight / (3.5 - (index * 0.45))) + ((this.height - this.bgHeight) / 2)
-            this.scaleValue = 0.005 + (index * 0.005)
-            Align.scaleToGameW(this.dividerArray[index], this.scaleValue)
-        }
+        this.tweens.add({
+            targets: this.car,
+            y: {from: this.car.y, to: this.car.y + 1},
+            duration: 200,
+            repeat: -1,
+            yoyo: true
+        })
 
         // stering
+        this.stering = this.add.image(this.scale.width/2, this.scale.height/2, 'game-stering')
+        Align.scaleToGameW(this.stering, 0.15)
         this.stering.y = (this.bgHeight * 3.55/4) + ((this.height - this.bgHeight) / 2)
-
 
         // set bounds 
         this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
@@ -183,5 +249,20 @@ export default class Game extends Phaser.Scene
         {
             this.car.x += 2
         }
+
+        // divider 
+        // this.dividerArray.forEach((item) =>{
+        //     item.scale += 0.0005
+        //     item.y += 2
+        // })
+
+        // this.dividerArray.forEach((item) => {
+        //     const bgBottomPoint = ((this.height - this.bgHeight) / 2) + this.bgHeight
+        //     if((item.y + ((item.scaleY * item.height) / 2)) > bgBottomPoint)
+        //     {
+        //         item.y = (this.bgHeight / (3.4)) + ((this.height - this.bgHeight) / 2)
+        //         item.scale = 0.005
+        //     }
+        // })
     }
 }
