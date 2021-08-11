@@ -145,7 +145,7 @@ export default class Game extends Phaser.Scene
         this.car.y = (this.bgHeight * 2.5/4) + ((this.height - this.bgHeight) / 2)
         this.tweens.add({
             targets: this.car,
-            y: {from: this.car.y, to: this.car.y + 1},
+            y: {from: this.car.y, to: this.car.y + (2 * window.devicePixelRatio)},
             duration: 200,
             repeat: -1,
             yoyo: true
