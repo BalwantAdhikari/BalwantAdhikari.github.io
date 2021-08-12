@@ -4,6 +4,8 @@ import Game from './scenes/Game.js'
 import Dummy from './scenes/Dummy.js'
 import SplashScreen from './scenes/SplashScreen.js'
 import LoadingScene from './scenes/LoadingScene.js'
+import WonScene from './scenes/Won.js'
+import LostScene from './scenes/Lost.js'
 // import GameOver from './scenes/GameOver.js'
 
 // create a new game
@@ -22,5 +24,5 @@ let game = new Phaser.Game({
         }
     },
     // scene: [LoadingScene, Game, SplashScreen, GameOver],
-    scene: [LoadingScene, SplashScreen, Game, Dummy],
+    scene: [LoadingScene, SplashScreen, Game, Dummy, WonScene, LostScene],
 })
