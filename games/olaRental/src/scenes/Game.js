@@ -1,5 +1,7 @@
 import Phaser from '../lib/phaser.js'
 
+import CountdownController from './CountdownController.js'
+
 import Align from '../lib/util/align.js'
 
 export default class Game extends Phaser.Scene 
@@ -87,7 +89,7 @@ export default class Game extends Phaser.Scene
         Align.scaleToGameW(this.progress, 1)
 
         this.minicar = this.add.image(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}mini`)
-        Align.scaleToGameW(this.minicar, 1)
+        Align.scaleToGameW(this.minicar, 0.03)
 
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
         Align.scaleToGameW(this.loadinglogo, 0.25)
@@ -119,6 +121,29 @@ export default class Game extends Phaser.Scene
         this.r3 = this.add.rectangle(this.bgWidth / 4.95, this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.bgWidth/3.15, this.bgHeight/45);
         this.r3.setStrokeStyle(1, 0x000000);
 
+        this.rchild1 = this.add.rectangle(this.r3.x - this.r3.width/2 + (this.r3.width*0.04), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild2 = this.add.rectangle(this.rchild1.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild3 = this.add.rectangle(this.rchild2.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild4 = this.add.rectangle(this.rchild3.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild5 = this.add.rectangle(this.rchild4.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild6 = this.add.rectangle(this.rchild5.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild7 = this.add.rectangle(this.rchild6.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild8 = this.add.rectangle(this.rchild7.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild9 = this.add.rectangle(this.rchild8.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild10 = this.add.rectangle(this.rchild9.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild11 = this.add.rectangle(this.rchild10.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild12 = this.add.rectangle(this.rchild11.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild13 = this.add.rectangle(this.rchild12.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild14 = this.add.rectangle(this.rchild13.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild15 = this.add.rectangle(this.rchild14.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild16 = this.add.rectangle(this.rchild15.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild17 = this.add.rectangle(this.rchild16.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild18 = this.add.rectangle(this.rchild17.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild19 = this.add.rectangle(this.rchild18.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        this.rchild20 = this.add.rectangle(this.rchild19.x + this.rchild1.width + (this.r3.width*0.0145), this.bgHeight/14 +((this.height - this.bgHeight) / 2), this.r3.width/30, this.bgHeight/100, 0xffffff);
+        
+        this.rArray = [this.rchild1, this.rchild2, this.rchild3, this.rchild4, this.rchild5, this.rchild6, this.rchild7, this.rchild8, this.rchild9, this.rchild10, this.rchild11, this.rchild12, this.rchild13, this.rchild14, this.rchild15, this.rchild16, this.rchild17, this.rchild18, this.rchild19, this.rchild20]
+
         // logo
         this.loadinglogo.x = this.bgWidth - this.bgWidth / 6.5
         this.loadinglogo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
@@ -146,6 +171,12 @@ export default class Game extends Phaser.Scene
         this.coin5.y = dividerY
         this.coin6.y = dividerY
         this.coin7.y = dividerY
+
+        // minicar
+        const minicarInitial = (this.bgHeight / 1.1) + ((this.height - this.bgHeight) / 2)
+        const minicarDestination = (this.bgHeight / 1.68) + ((this.height - this.bgHeight) / 2)
+        this.minicar.x = this.bgWidth / 10
+        this.minicar.y = minicarInitial
 
 
         // this.dividerArray = []
@@ -360,6 +391,9 @@ export default class Game extends Phaser.Scene
 
         // this.group.getChildren().forEach(this.layDivider, this);
 
+        this.countdown = new CountdownController(this, this.rArray, this.minicar, minicarInitial, minicarDestination)
+        this.countdown.start(this.handleCountdownFinished.bind(this))
+
         this.physics.add.collider(
             this.car,
             this.coin1,
@@ -420,6 +454,11 @@ export default class Game extends Phaser.Scene
         this.scene.launch('dummy', {'car' : gameObject1, 'coin' : gameObject2, 'coinName': gameObject2.name})
     }
 
+    handleCountdownFinished()
+    {
+
+    }
+
     // layDivider(item, index) {
     //     // this.scaleValue = 0.005 + (index * 0.005)
     //     // console.log(this.scaleValue)
@@ -436,6 +475,8 @@ export default class Game extends Phaser.Scene
 
     update()
     {
+        this.countdown.update()
+
         // left and right input logic
         if(!this.input.pointer1.isDown)
         {
@@ -484,14 +525,14 @@ export default class Game extends Phaser.Scene
             }
         }
 
-        else if (this.cursors.left.isDown)
-        {
-            this.car.x -= 2
-        }
-        else if (this.cursors.right.isDown)
-        {
-            this.car.x += 2
-        }
+        // else if (this.cursors.left.isDown)
+        // {
+        //     this.car.x -= 2
+        // }
+        // else if (this.cursors.right.isDown)
+        // {
+        //     this.car.x += 2
+        // }
 
         // divider 
         // this.dividerArray.forEach((item) =>{
