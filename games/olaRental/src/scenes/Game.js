@@ -46,6 +46,10 @@ export default class Game extends Phaser.Scene
         this.coinCollected = this.add.image(0, 0, 'game-coin')
         Align.scaleToGameW(this.coinCollected, 0.04)
 
+        // remove
+        this.DPR = this.add.text(50, 50, window.devicePixelRatio)
+        // remove
+
         this.coinCollectedTxt = this.add.text(0, 0, '0', {
             fontFamily: 'Helvetica',
             fontSize: '16px',
@@ -456,7 +460,16 @@ export default class Game extends Phaser.Scene
 
     handleCountdownFinished()
     {
-
+        if(this.count === 7)
+        {
+            this.scene.stop()
+            this.scene.launch('won-screen', {'car' : this.carSelected})
+        }
+        else
+        {
+            this.scene.stop()
+            this.scene.launch('lost-screen', {'car' : this.carSelected})
+        }
     }
 
     // layDivider(item, index) {
