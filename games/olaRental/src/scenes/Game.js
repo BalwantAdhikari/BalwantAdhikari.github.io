@@ -6,6 +6,7 @@ export default class Game extends Phaser.Scene
 {
     carSelected = ''
     flipflop
+    count = 0
 
     constructor(car)
     {
@@ -43,14 +44,14 @@ export default class Game extends Phaser.Scene
         this.coinCollected = this.add.image(0, 0, 'game-coin')
         Align.scaleToGameW(this.coinCollected, 0.04)
 
-        this.coinCollectedTxt = this.add.text(0, 0, '7', {
+        this.coinCollectedTxt = this.add.text(0, 0, '0', {
             fontFamily: 'Helvetica',
             fontSize: '16px',
             color: '#000',
             fontStyle: 'Bold',
             strokeThickness: 0,
         });
-        this.coinCollectedTxt.setStroke('#000', 1.7);
+        this.coinCollectedTxt.setStroke('#000', 1.5);
         this.coinCollectedTxt.setOrigin(0.5)
 
         this.coin1 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
@@ -413,6 +414,8 @@ export default class Game extends Phaser.Scene
 
     handleOverlap(gameObject1, gameObject2)
     {
+        this.count += 1
+        this.coinCollectedTxt.setText(this.count)
         this.scene.pause()
         this.scene.launch('dummy', {'car' : gameObject1, 'coin' : gameObject2, 'coinName': gameObject2.name})
     }
