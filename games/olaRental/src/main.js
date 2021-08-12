@@ -1,6 +1,7 @@
 import Phaser from './lib/phaser.js'
 
 import Game from './scenes/Game.js'
+import Dummy from './scenes/Dummy.js'
 import SplashScreen from './scenes/SplashScreen.js'
 import LoadingScene from './scenes/LoadingScene.js'
 // import GameOver from './scenes/GameOver.js'
@@ -21,5 +22,5 @@ let game = new Phaser.Game({
         }
     },
     // scene: [LoadingScene, Game, SplashScreen, GameOver],
-    scene: [LoadingScene, SplashScreen, Game],
+    scene: [LoadingScene, SplashScreen, Game, Dummy],
 })
