@@ -40,6 +40,35 @@ export default class Game extends Phaser.Scene
         this.divider4 = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
         Align.scaleToGameW(this.divider4, 0.001)
 
+        this.coin1 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin1, 0.05)
+        this.coin1.name = "coin1"
+        this.coin1.setVisible(false)
+        this.coin2 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin2, 0.05)
+        this.coin2.name = "coin2"
+        this.coin2.setVisible(false)
+        this.coin3 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin3, 0.05)
+        this.coin3.name = "coin3"
+        this.coin3.setVisible(false)
+        this.coin4 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin4, 0.05)
+        this.coin4.name = "coin4"
+        this.coin4.setVisible(false)
+        this.coin5 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin5, 0.05)
+        this.coin5.name = "coin5"
+        this.coin5.setVisible(false)
+        this.coin6 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin6, 0.05)
+        this.coin6.name = "coin6"
+        this.coin6.setVisible(false)
+        this.coin7 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
+        Align.scaleToGameW(this.coin7, 0.05)
+        this.coin7.name = "coin7"
+        this.coin7.setVisible(false)
+
         this.progress = this.add.image(this.scale.width/2, this.scale.height/2, 'game-progress')
         Align.scaleToGameW(this.progress, 1)
 
@@ -54,6 +83,17 @@ export default class Game extends Phaser.Scene
 
         this.clouds = this.add.image(this.scale.width/2, this.scale.height/2, 'game-clouds')
         Align.scaleToGameW(this.clouds, 1)
+
+        // crash anim
+        this.crashAnim1 = this.add.image(0, 0, 'frame3-crashAnim1')
+        Align.scaleToGameW(this.crashAnim1, 0.5)
+        this.crashAnim1.setVisible(false)
+        this.crashAnim2 = this.add.image(0, 0, 'frame3-crashAnim1')
+        Align.scaleToGameW(this.crashAnim2, 0.5)
+        this.crashAnim2.setVisible(false)
+        this.crashAnim3 = this.add.image(0, 0, 'frame3-crashAnim1')
+        Align.scaleToGameW(this.crashAnim3, 0.5)
+        this.crashAnim3.setVisible(false)
 
         // screen width/height
         this.width = this.scale.width
@@ -70,10 +110,21 @@ export default class Game extends Phaser.Scene
         this.loadinglogo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
 
         // divider
-        this.divider1.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
-        this.divider2.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
-        this.divider3.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
-        this.divider4.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+        const dividerY = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
+        this.divider1.y = dividerY
+        this.divider2.y = dividerY
+        this.divider3.y = dividerY
+        this.divider4.y = dividerY
+
+        // coins
+        this.coin1.y = dividerY
+        this.coin2.y = dividerY
+        this.coin3.y = dividerY
+        this.coin4.y = dividerY
+        this.coin5.y = dividerY
+        this.coin6.y = dividerY
+        this.coin7.y = dividerY
+
 
         // this.dividerArray = []
         // for (let index = 0; index < 1; index++) {
@@ -134,18 +185,130 @@ export default class Game extends Phaser.Scene
                 }
             }, this)
         }, [], this);
-        
+
+
+        this.time.delayedCall(1000, () => {
+            this.tweens.add({
+                targets: this.coin1,
+                onStart: () =>{
+                    this.coin1.setVisible(true)
+                },
+                x: {from: this.coin1.x, to: this.coin1.x + this.scale.width/1.65},
+                y: {from: this.coin1.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin1.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin1.destroy()
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(4000, () => {
+            this.tweens.add({
+                targets: this.coin2,
+                onStart: () =>{
+                    this.coin2.setVisible(true)
+                },
+                x: {from: this.coin2.x, to: this.coin2.x - this.scale.width/1.65},
+                y: {from: this.coin2.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin2.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin2.destroy()
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(6000, () => {
+            this.tweens.add({
+                targets: this.coin3,
+                onStart: () =>{
+                    this.coin3.setVisible(true)
+                },
+                x: {from: this.coin3.x, to: this.coin3.x + this.scale.width/1.65},
+                y: {from: this.coin3.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin3.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin3.destroy()
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(8000, () => {
+            this.tweens.add({
+                targets: this.coin4,
+                onStart: () =>{
+                    this.coin4.setVisible(true)
+                },
+                x: {from: this.coin4.x, to: this.coin4.x - this.scale.width/1.65},
+                y: {from: this.coin4.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin4.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin4.destroy()
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(10000, () => {
+            this.tweens.add({
+                targets: this.coin5,
+                onStart: () =>{
+                    this.coin5.setVisible(true)
+                },
+                x: {from: this.coin5.x, to: this.coin5.x + this.scale.width/1.65},
+                y: {from: this.coin5.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin5.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin5.destroy()
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(12000, () => {
+            this.tweens.add({
+                targets: this.coin6,
+                onStart: () =>{
+                    this.coin6.setVisible(true)
+                },
+                x: {from: this.coin6.x, to: this.coin6.x - this.scale.width/1.65},
+                y: {from: this.coin6.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin6.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin6.destroy()
+                }
+            }, this)
+        }, [], this);
+
+        this.time.delayedCall(14000, () => {
+            this.tweens.add({
+                targets: this.coin7,
+                onStart: () =>{
+                    this.coin7.setVisible(true)
+                },
+                x: {from: this.coin7.x, to: this.coin7.x + this.scale.width/1.65},
+                y: {from: this.coin7.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
+                scale: this.coin7.scaleX + 0.2,
+                duration: 2000,
+                onComplete: () =>{
+                    this.coin7.destroy()
+                }
+            }, this)
+        }, [], this);
 
         this.car = this.physics.add.sprite(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}`)
         Align.scaleToGameW(this.car, 0.6)
-        this.car.setSize(this.car.width * 0.5, this.car.height * 0.5)
+        this.car.setSize(this.car.width * 0.3, this.car.height * 0.4)
         // this.car.setVisible(false)
 
         // car
         this.car.y = (this.bgHeight * 2.5/4) + ((this.height - this.bgHeight) / 2)
         this.tweens.add({
             targets: this.car,
-            y: {from: this.car.y, to: this.car.y + (2 * window.devicePixelRatio)},
+            y: {from: this.car.y, to: this.car.y + 2},
             duration: 200,
             repeat: -1,
             yoyo: true
@@ -175,6 +338,62 @@ export default class Game extends Phaser.Scene
 
         // this.group.getChildren().forEach(this.layDivider, this);
 
+        this.physics.add.collider(
+            this.car,
+            this.coin1,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+        this.physics.add.collider(
+            this.car,
+            this.coin2,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+        this.physics.add.collider(
+            this.car,
+            this.coin3,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+        this.physics.add.collider(
+            this.car,
+            this.coin4,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+        this.physics.add.collider(
+            this.car,
+            this.coin5,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+        this.physics.add.collider(
+            this.car,
+            this.coin6,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+        this.physics.add.collider(
+            this.car,
+            this.coin7,
+            this.handleOverlap,
+            undefined,
+            this
+        )
+
+    }
+
+    handleOverlap(gameObject1, gameObject2)
+    {
+        this.scene.pause()
+        this.scene.launch('dummy', {'car' : gameObject1, 'coin' : gameObject2, 'coinName': gameObject2.name})
     }
 
     // layDivider(item, index) {
