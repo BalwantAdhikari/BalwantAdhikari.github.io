@@ -40,6 +40,19 @@ export default class Game extends Phaser.Scene
         this.divider4 = this.add.image(this.scale.width/2, this.scale.height/2, 'game-dividerSingle')
         Align.scaleToGameW(this.divider4, 0.001)
 
+        this.coinCollected = this.add.image(0, 0, 'game-coin')
+        Align.scaleToGameW(this.coinCollected, 0.04)
+
+        this.coinCollectedTxt = this.add.text(0, 0, '7', {
+            fontFamily: 'Helvetica',
+            fontSize: '16px',
+            color: '#000',
+            fontStyle: 'Bold',
+            strokeThickness: 0,
+        });
+        this.coinCollectedTxt.setStroke('#000', 1.7);
+        this.coinCollectedTxt.setOrigin(0.5)
+
         this.coin1 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
         Align.scaleToGameW(this.coin1, 0.05)
         this.coin1.name = "coin1"
@@ -115,6 +128,14 @@ export default class Game extends Phaser.Scene
         this.divider2.y = dividerY
         this.divider3.y = dividerY
         this.divider4.y = dividerY
+
+        // coinCollected
+        this.coinCollected.x = this.r3.x + this.r3.width/1.8 + (this.coinCollected.width * this.coinCollected.scale)
+        this.coinCollected.y = this.r3.y
+
+        // coinCollectedTxt
+        this.coinCollectedTxt.x = this.coinCollected.x + (this.coinCollected.width * this.coinCollected.scale)
+        this.coinCollectedTxt.y = this.coinCollected.y
 
         // coins
         this.coin1.y = dividerY
