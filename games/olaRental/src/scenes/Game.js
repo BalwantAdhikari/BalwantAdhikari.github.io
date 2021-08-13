@@ -358,7 +358,7 @@ export default class Game extends Phaser.Scene
 
         this.car = this.physics.add.sprite(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}`)
         Align.scaleToGameW(this.car, 0.6)
-        this.car.setSize(this.car.width * 0.3, this.car.height * 0.4)
+        this.car.setSize(this.car.width * 0.6, this.car.height * this.car.scale * 0.4)
         // this.car.setVisible(false)
 
         // car
