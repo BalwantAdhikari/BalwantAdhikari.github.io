@@ -80,7 +80,8 @@ export default class LoadingScene extends Phaser.Scene
     {
         // background
         this.loadingBackground = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-background')
-        Align.scaleToGameW(this.loadingBackground, 1)
+        // this.loadingBackground.scale = window.devicePixelRatio
+        // Align.scaleToGameW(this.loadingBackground, 1)
 
         this.clouds = this.add.image(this.scale.width/2, this.scale.height/2, 'game-clouds')
         Align.scaleToGameW(this.clouds, 1)
