@@ -1,8 +1,8 @@
 export default class Align
 {
-	// cocanvas = document.querySelector('canvas')
 	static scaleToGameW(obj,per)
 	{
+		// obj.displayWidth=window.innerWidth*per;
 		obj.displayWidth=document.querySelector('canvas').width*per;
 		obj.scaleY=obj.scaleX;
 	}

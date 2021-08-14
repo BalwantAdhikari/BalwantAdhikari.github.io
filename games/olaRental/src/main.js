@@ -19,13 +19,12 @@ let game = new Phaser.Game({
             gravity: {
                 y: 200
             },
-            debug: true
+            debug: false
         }
     },
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    // scene: [LoadingScene, Game, SplashScreen, GameOver],
     scene: [LoadingScene, SplashScreen, Game, Dummy, WonScene, LostScene],
 })

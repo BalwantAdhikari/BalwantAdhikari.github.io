@@ -40,13 +40,13 @@ export default class Dummy extends Phaser.Scene
         })
         this.tweens.add({
             targets: this.crashAnim2,
-            scale: 0.5,
+            scale: 1,
             angle: 90,  
             duration: 1500,
         })
         this.tweens.add({
             targets: this.crashAnim3,
-            scale: 0.5,
+            scale: 1,
             angle: -180,
             duration: 1500,
         })

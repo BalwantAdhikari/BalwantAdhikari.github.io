@@ -225,9 +225,9 @@ export default class LoadingScene extends Phaser.Scene
         this.buttonScale = this.loadingstartButton.scale
         this.tweens.add({
             targets: this.loadingstartButton,
-            scale: { from: this.buttonScale, to: this.buttonScale + 0.02 },
+            scale: { from: this.buttonScale, to: this.buttonScale + 0.1 },
             ease: 'Linear',
-            duration: 400,
+            duration: 500,
             repeat: -1,
             yoyo: true
         }, this)

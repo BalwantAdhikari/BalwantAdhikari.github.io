@@ -46,13 +46,9 @@ export default class Game extends Phaser.Scene
         this.coinCollected = this.add.image(0, 0, 'game-coin')
         Align.scaleToGameW(this.coinCollected, 0.04)
 
-        // remove
-        this.DPR = this.add.text(50, 50, window.devicePixelRatio)
-        // remove
-
-        this.coinCollectedTxt = this.add.text(0, 0, '0', {
+        this.coinCollectedTxt = this.add.text(0, 0, this.count, {
             fontFamily: 'Helvetica',
-            fontSize: '16px',
+            fontSize: `${window.devicePixelRatio * 14}px`,
             color: '#000',
             fontStyle: 'Bold',
             strokeThickness: 0,
@@ -244,6 +240,8 @@ export default class Game extends Phaser.Scene
         }, [], this);
 
 
+        // coins animation
+
         this.time.delayedCall(1000, () => {
             this.tweens.add({
                 targets: this.coin1,
@@ -253,7 +251,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin1.x, to: this.coin1.x + this.scale.width/1.65},
                 y: {from: this.coin1.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin1.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin1.destroy()
                 }
@@ -269,7 +267,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin2.x, to: this.coin2.x - this.scale.width/1.65},
                 y: {from: this.coin2.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin2.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin2.destroy()
                 }
@@ -285,7 +283,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin3.x, to: this.coin3.x + this.scale.width/1.65},
                 y: {from: this.coin3.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin3.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin3.destroy()
                 }
@@ -301,7 +299,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin4.x, to: this.coin4.x - this.scale.width/1.65},
                 y: {from: this.coin4.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin4.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin4.destroy()
                 }
@@ -317,7 +315,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin5.x, to: this.coin5.x + this.scale.width/1.65},
                 y: {from: this.coin5.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin5.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin5.destroy()
                 }
@@ -333,7 +331,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin6.x, to: this.coin6.x - this.scale.width/1.65},
                 y: {from: this.coin6.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin6.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin6.destroy()
                 }
@@ -349,7 +347,7 @@ export default class Game extends Phaser.Scene
                 x: {from: this.coin7.x, to: this.coin7.x + this.scale.width/1.65},
                 y: {from: this.coin7.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
                 scale: this.coin7.scaleX + 0.2,
-                duration: 2000,
+                duration: 3000,
                 onComplete: () =>{
                     this.coin7.destroy()
                 }
@@ -358,7 +356,7 @@ export default class Game extends Phaser.Scene
 
         this.car = this.physics.add.sprite(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}`)
         Align.scaleToGameW(this.car, 0.6)
-        this.car.setSize(this.car.width * 0.6, this.car.height * this.car.scale * 0.4)
+        this.car.setSize(this.car.width * this.car.scale * 0.35, this.car.height * this.car.scale * 0.4)
         // this.car.setVisible(false)
 
         // car
@@ -398,49 +396,49 @@ export default class Game extends Phaser.Scene
         this.countdown = new CountdownController(this, this.rArray, this.minicar, minicarInitial, minicarDestination)
         this.countdown.start(this.handleCountdownFinished.bind(this))
 
-        this.physics.add.collider(
+        this.collider1 = this.physics.add.collider(
             this.car,
             this.coin1,
             this.handleOverlap,
             undefined,
             this
         )
-        this.physics.add.collider(
+        this.collider2 = this.physics.add.collider(
             this.car,
             this.coin2,
             this.handleOverlap,
             undefined,
             this
         )
-        this.physics.add.collider(
+        this.collider3 = this.physics.add.collider(
             this.car,
             this.coin3,
             this.handleOverlap,
             undefined,
             this
         )
-        this.physics.add.collider(
+        this.collider4 = this.physics.add.collider(
             this.car,
             this.coin4,
             this.handleOverlap,
             undefined,
             this
         )
-        this.physics.add.collider(
+        this.collider5 = this.physics.add.collider(
             this.car,
             this.coin5,
             this.handleOverlap,
             undefined,
             this
         )
-        this.physics.add.collider(
+        this.collider6 = this.physics.add.collider(
             this.car,
             this.coin6,
             this.handleOverlap,
             undefined,
             this
         )
-        this.physics.add.collider(
+        this.collider7 = this.physics.add.collider(
             this.car,
             this.coin7,
             this.handleOverlap,
@@ -452,15 +450,22 @@ export default class Game extends Phaser.Scene
 
     handleOverlap(gameObject1, gameObject2)
     {
+        eval('this.collider' + gameObject2.name.charAt(gameObject2.name.length - 1) + '.active = false')
         this.count += 1
         this.coinCollectedTxt.setText(this.count)
         this.scene.pause()
-        this.scene.launch('dummy', {'car' : gameObject1, 'coin' : gameObject2, 'coinName': gameObject2.name})
+        this.scene.launch('dummy', {
+            'car' : gameObject1, 
+            'coin' : gameObject2, 
+            'coinName': gameObject2.name,
+            // 'count': this.count,
+            // 'txt': this.coinCollectedTxt
+        })
     }
 
     handleCountdownFinished()
     {
-        if(this.count === 7)
+        if(this.count >= 7)
         {
             this.scene.stop()
             this.scene.launch('won-screen', {'car' : this.carSelected})
