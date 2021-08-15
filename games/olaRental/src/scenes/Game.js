@@ -57,31 +57,31 @@ export default class Game extends Phaser.Scene
         this.coinCollectedTxt.setOrigin(0.5)
 
         this.coin1 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin1, 0.05)
+        Align.scaleToGameW(this.coin1, 0.025)
         this.coin1.name = "coin1"
         this.coin1.setVisible(false)
         this.coin2 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin2, 0.05)
+        Align.scaleToGameW(this.coin2, 0.025)
         this.coin2.name = "coin2"
         this.coin2.setVisible(false)
         this.coin3 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin3, 0.05)
+        Align.scaleToGameW(this.coin3, 0.025)
         this.coin3.name = "coin3"
         this.coin3.setVisible(false)
         this.coin4 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin4, 0.05)
+        Align.scaleToGameW(this.coin4, 0.025)
         this.coin4.name = "coin4"
         this.coin4.setVisible(false)
         this.coin5 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin5, 0.05)
+        Align.scaleToGameW(this.coin5, 0.025)
         this.coin5.name = "coin5"
         this.coin5.setVisible(false)
         this.coin6 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin6, 0.05)
+        Align.scaleToGameW(this.coin6, 0.025)
         this.coin6.name = "coin6"
         this.coin6.setVisible(false)
         this.coin7 = this.physics.add.sprite(this.scale.width/2, 0, 'game-coin')
-        Align.scaleToGameW(this.coin7, 0.05)
+        Align.scaleToGameW(this.coin7, 0.025)
         this.coin7.name = "coin7"
         this.coin7.setVisible(false)
 
@@ -99,6 +99,14 @@ export default class Game extends Phaser.Scene
 
         this.clouds = this.add.image(this.scale.width/2, this.scale.height/2, 'game-clouds')
         Align.scaleToGameW(this.clouds, 1)
+
+        this.serviceCenter = this.add.image(0, 0, 'game-serviceCenter')
+        Align.scaleToGameW(this.serviceCenter, 0.07)
+        this.serviceCenter.setVisible(false)
+
+        this.finishLine = this.add.image(0, 0, 'game-finishLine')
+        Align.scaleToGameW(this.finishLine, 1)
+        this.finishLine.setVisible(false)
 
         // crash anim
         this.crashAnim1 = this.add.image(0, 0, 'frame3-crashAnim1')
@@ -178,6 +186,10 @@ export default class Game extends Phaser.Scene
         this.minicar.x = this.bgWidth / 10
         this.minicar.y = minicarInitial
 
+        // service center
+        this.serviceCenter.x = this.scale.width / 2.5
+        this.serviceCenter.y = (this.bgHeight / 3.6) + ((this.height - this.bgHeight) / 2)
+
 
         // this.dividerArray = []
         // for (let index = 0; index < 1; index++) {
@@ -188,7 +200,7 @@ export default class Game extends Phaser.Scene
         //     Align.scaleToGameW(this.dividerArray[index], this.scaleValue)
         // }
 
-        this.tweens.add({
+        this.divider1Tween = this.tweens.add({
             targets: this.divider1,
             scale: 0.5,
             y : {from: this.divider1.y, to: this.divider1.y + this.bgHeight},
@@ -198,7 +210,7 @@ export default class Game extends Phaser.Scene
         }, this)
 
         this.time.delayedCall(500, () => {
-            this.tweens.add({
+            this.divider2Tween = this.tweens.add({
                 targets: this.divider2,
                 scale: 0.5,
                 y : {from: this.divider2.y, to: this.divider2.y + this.bgHeight},
@@ -212,7 +224,7 @@ export default class Game extends Phaser.Scene
         }, [], this);
 
         this.time.delayedCall(1000, () => {
-            this.tweens.add({
+            this.divider3Tween = this.tweens.add({
                 targets: this.divider3,
                 scale: 0.5,
                 y : {from: this.divider3.y, to: this.divider3.y + this.bgHeight},
@@ -226,7 +238,7 @@ export default class Game extends Phaser.Scene
         }, [], this);
 
         this.time.delayedCall(1500, () => {
-            this.tweens.add({
+            this.divider4Tween = this.tweens.add({
                 targets: this.divider4,
                 scale: 0.5,
                 y : {from: this.divider4.y, to: this.divider4.y + this.bgHeight},
@@ -250,8 +262,8 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin1.x, to: this.coin1.x + this.scale.width/1.65},
                 y: {from: this.coin1.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin1.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin1.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin1.destroy()
                 }
@@ -266,8 +278,8 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin2.x, to: this.coin2.x - this.scale.width/1.65},
                 y: {from: this.coin2.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin2.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin2.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin2.destroy()
                 }
@@ -282,8 +294,8 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin3.x, to: this.coin3.x + this.scale.width/1.65},
                 y: {from: this.coin3.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin3.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin3.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin3.destroy()
                 }
@@ -298,8 +310,8 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin4.x, to: this.coin4.x - this.scale.width/1.65},
                 y: {from: this.coin4.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin4.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin4.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin4.destroy()
                 }
@@ -314,8 +326,8 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin5.x, to: this.coin5.x + this.scale.width/1.65},
                 y: {from: this.coin5.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin5.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin5.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin5.destroy()
                 }
@@ -330,8 +342,8 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin6.x, to: this.coin6.x - this.scale.width/1.65},
                 y: {from: this.coin6.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin6.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin6.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin6.destroy()
                 }
@@ -346,11 +358,25 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin7.x, to: this.coin7.x + this.scale.width/1.65},
                 y: {from: this.coin7.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin7.scaleX + 0.2,
-                duration: 3000,
+                scale: this.coin7.scaleX * 4,
+                duration: 4000,
                 onComplete: () =>{
                     this.coin7.destroy()
                 }
+            }, this)
+        }, [], this);
+
+        // serviceCenter
+        this.time.delayedCall(15000, () => {
+            this.tweens.add({
+                targets: this.serviceCenter,
+                onStart: () =>{
+                    this.serviceCenter.setVisible(true)
+                },
+                x: {from: this.serviceCenter.x, to: this.serviceCenter.x - this.scale.width/3.5},
+                y: {from: this.serviceCenter.y, to: (this.bgHeight / 3.1) + ((this.height - this.bgHeight) / 2)},
+                scale: this.serviceCenter.scaleX * 3.7,
+                duration: 4000
             }, this)
         }, [], this);
 
@@ -361,7 +387,7 @@ export default class Game extends Phaser.Scene
 
         // car
         this.car.y = (this.bgHeight * 2.5/4) + ((this.height - this.bgHeight) / 2)
-        this.tweens.add({
+        this.carTween = this.tweens.add({
             targets: this.car,
             y: {from: this.car.y, to: this.car.y + 2},
             duration: 200,
@@ -445,6 +471,14 @@ export default class Game extends Phaser.Scene
             undefined,
             this
         )
+
+        this.time.delayedCall(18500, () => {
+            this.carTween.pause()
+            this.divider1Tween.pause()
+            this.divider2Tween.pause()
+            this.divider3Tween.pause()
+            this.divider4Tween.pause()
+        }, [], this);
 
     }
 
