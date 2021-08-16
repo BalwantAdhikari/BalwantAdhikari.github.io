@@ -7,7 +7,6 @@ export default class Dummy extends Phaser.Scene
     car
     coin
     coinName
-    audio
 
     constructor()
     {
@@ -19,7 +18,6 @@ export default class Dummy extends Phaser.Scene
         this.car = data.car
         this.coin = data.coin
         this.coinName = data.coinName
-        this.audio = data.audio
     }
 
     create()
@@ -64,7 +62,6 @@ export default class Dummy extends Phaser.Scene
         this.time.delayedCall(1500, () => {
             this.coin.destroy()
             this.crashSign.destroy()
-            this.audio.resume()
             this.scene.stop()
             this.scene.resume('game')
         }, [], this)

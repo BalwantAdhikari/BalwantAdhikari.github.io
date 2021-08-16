@@ -511,7 +511,6 @@ export default class Game extends Phaser.Scene
 
     handleOverlap(gameObject1, gameObject2)
     {
-        this.backgroundAudio.pause()
         eval('this.collider' + gameObject2.name.charAt(gameObject2.name.length - 1) + '.active = false')
         this.count += 1
         this.coinCollectedTxt.setText(this.count)
@@ -520,7 +519,6 @@ export default class Game extends Phaser.Scene
             'car' : gameObject1, 
             'coin' : gameObject2, 
             'coinName': gameObject2.name,
-            'audio': this.backgroundAudio
             // 'count': this.count,
             // 'txt': this.coinCollectedTxt
         })

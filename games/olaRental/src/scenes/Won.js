@@ -25,7 +25,7 @@ export default class WonScene extends Phaser.Scene
     {
         // wonAudio
         this.wonAudio = this.sound.add('won', {
-            volume: 0.2
+            volume: 0.1
         })
 
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, 'final-background')
