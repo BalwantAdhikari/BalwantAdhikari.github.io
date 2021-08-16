@@ -25,7 +25,7 @@ export default class LostScene extends Phaser.Scene
     {
         // lostAudio
         this.lostAudio = this.sound.add('lost', {
-            volume: 0.4
+            volume: 0.2
         })
         
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, 'final-background')
