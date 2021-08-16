@@ -39,7 +39,7 @@ export default class WonScene extends Phaser.Scene
         this.road = this.add.image(this.scale.width/2, this.scale.height/2, 'final-road')
         Align.scaleToGameW(this.road, 1)
 
-        this.car = this.add.image(this.scale.width/2, this.scale.height/1.6, `loading-car${this.carSelected}`)
+        this.car = this.add.image(this.scale.width/2, 0, `loading-car${this.carSelected}`)
         Align.scaleToGameW(this.car, 1)
 
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
@@ -51,6 +51,9 @@ export default class WonScene extends Phaser.Scene
         // bgImage width/height
         this.bgWidth = this.background.scaleX * this.background.width
         this.bgHeight = this.background.scaleX * this.background.width
+
+        // car
+        this.car.y = (this.bgHeight / 1.45) + ((this.height - this.bgHeight) / 2)
 
         // logo
         this.loadinglogo.x = this.bgWidth - this.bgWidth / 6.5

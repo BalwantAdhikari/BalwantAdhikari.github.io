@@ -266,7 +266,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin1.x, to: this.coin1.x + this.scale.width/1.65},
                 y: {from: this.coin1.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin1.scaleX * 4,
+                scale: this.coin1.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin1.destroy()
@@ -282,7 +282,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin2.x, to: this.coin2.x - this.scale.width/1.65},
                 y: {from: this.coin2.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin2.scaleX * 4,
+                scale: this.coin2.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin2.destroy()
@@ -298,7 +298,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin3.x, to: this.coin3.x + this.scale.width/1.65},
                 y: {from: this.coin3.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin3.scaleX * 4,
+                scale: this.coin3.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin3.destroy()
@@ -314,7 +314,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin4.x, to: this.coin4.x - this.scale.width/1.65},
                 y: {from: this.coin4.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin4.scaleX * 4,
+                scale: this.coin4.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin4.destroy()
@@ -330,7 +330,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin5.x, to: this.coin5.x + this.scale.width/1.65},
                 y: {from: this.coin5.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin5.scaleX * 4,
+                scale: this.coin5.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin5.destroy()
@@ -346,7 +346,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin6.x, to: this.coin6.x - this.scale.width/1.65},
                 y: {from: this.coin6.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin6.scaleX * 4,
+                scale: this.coin6.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin6.destroy()
@@ -362,7 +362,7 @@ export default class Game extends Phaser.Scene
                 },
                 x: {from: this.coin7.x, to: this.coin7.x + this.scale.width/1.65},
                 y: {from: this.coin7.y, to: ((this.height - this.bgHeight) / 2) + (this.bgHeight)},
-                scale: this.coin7.scaleX * 4,
+                scale: this.coin7.scaleX * 5,
                 duration: 4000,
                 onComplete: () =>{
                     this.coin7.destroy()
@@ -519,8 +519,20 @@ export default class Game extends Phaser.Scene
     {
         if(this.count >= 7)
         {
-            this.scene.stop()
-            this.scene.launch('won-screen', {'car' : this.carSelected})
+            this.tweens.add({
+                targets: this.car,
+                x: this.scale.width / 2,
+                y: (this.bgHeight / 3) + ((this.height - this.bgHeight) / 2),
+                scale: this.car.scale * 0.2,
+                ease: 'Linear',
+                duration: 1500,
+            }, this)
+
+            this.time.delayedCall(1800, () => {
+                this.scene.stop()
+                this.scene.launch('won-screen', {'car' : this.carSelected})
+            }, [], this);
+            
         }
         else
         {
@@ -563,7 +575,14 @@ export default class Game extends Phaser.Scene
                     {
                         if(this.car.x > this.physics.world.bounds.width * 1.5/4)
                         {
-                            this.car.x -= this.physics.world.bounds.width/7
+                            // this.car.x -= this.physics.world.bounds.width/7
+                            this.tweens.add({
+                                targets: this.car,
+                                x: this.car.x - this.physics.world.bounds.width/7,
+                                ease: 'Linear',
+                                duration: 300,
+                                // yoyo: true
+                            }, this)
                             // rotate stering
                             this.tweens.add({
                                 targets: this.stering,
@@ -579,7 +598,14 @@ export default class Game extends Phaser.Scene
                     {
                         if(this.car.x < this.physics.world.bounds.width * 2.5/4)
                         {
-                            this.car.x += this.physics.world.bounds.width/7
+                            // this.car.x += this.physics.world.bounds.width/7 
+                            this.tweens.add({
+                                targets: this.car,
+                                x: this.car.x + this.physics.world.bounds.width/7,
+                                ease: 'Linear',
+                                duration: 300,
+                                // yoyo: true
+                            }, this)
                             // rotate stering
                             this.tweens.add({
                                 targets: this.stering,
