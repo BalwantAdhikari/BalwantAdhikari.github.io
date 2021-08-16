@@ -105,7 +105,7 @@ export default class Game extends Phaser.Scene
         this.serviceCenter.setVisible(false)
 
         this.finishLine = this.add.image(0, 0, 'game-finishLine')
-        Align.scaleToGameW(this.finishLine, 1)
+        Align.scaleToGameW(this.finishLine, 0.07)
         this.finishLine.setVisible(false)
 
         // crash anim
@@ -189,6 +189,10 @@ export default class Game extends Phaser.Scene
         // service center
         this.serviceCenter.x = this.scale.width / 2.5
         this.serviceCenter.y = (this.bgHeight / 3.6) + ((this.height - this.bgHeight) / 2)
+
+        // finish line
+        this.finishLine.x = this.scale.width / 2
+        this.finishLine.y = (this.bgHeight / 3.5) + ((this.height - this.bgHeight) / 2)
 
 
         // this.dividerArray = []
@@ -373,9 +377,23 @@ export default class Game extends Phaser.Scene
                 onStart: () =>{
                     this.serviceCenter.setVisible(true)
                 },
-                x: {from: this.serviceCenter.x, to: this.serviceCenter.x - this.scale.width/3.5},
-                y: {from: this.serviceCenter.y, to: (this.bgHeight / 3.1) + ((this.height - this.bgHeight) / 2)},
-                scale: this.serviceCenter.scaleX * 3.7,
+                x: {from: this.serviceCenter.x, to: this.serviceCenter.x - this.scale.width/3.8},
+                y: {from: this.serviceCenter.y, to: (this.bgHeight / 3.3) + ((this.height - this.bgHeight) / 2)},
+                scale: this.serviceCenter.scaleX * 4.5,
+                duration: 4000
+            }, this)
+        }, [], this);
+
+        // finish Line
+        this.time.delayedCall(15000, () => {
+            this.tweens.add({
+                targets: this.finishLine,
+                onStart: () =>{
+                    this.finishLine.setVisible(true)
+                },
+                // x: {from: this.finishLine.x, to: this.finishLine.x - this.scale.width/3.5},
+                y: {from: this.finishLine.y, to: (this.bgHeight / 4.3) + ((this.height - this.bgHeight) / 2)},
+                scale: this.finishLine.scaleX * 4.7,
                 duration: 4000
             }, this)
         }, [], this);
