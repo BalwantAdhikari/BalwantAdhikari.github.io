@@ -77,6 +77,7 @@ export default class LoadingScene extends Phaser.Scene
         this.load.image("final-lostMsg", "assets/frame5-msg.png")
 
         // audio
+        this.load.audio("background", "assets/audio/background.mp3")
         this.load.audio("carSelected", "assets/audio/carSelected.mp3")
         this.load.audio("click", "assets/audio/click.mp3")
         this.load.audio("coinCollected", "assets/audio/coinCollected.mp3")

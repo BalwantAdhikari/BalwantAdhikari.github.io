@@ -27,6 +27,13 @@ export default class Game extends Phaser.Scene
 
     create()
     {
+        // backgroundAudio
+        this.backgroundAudio = this.sound.add('background', {
+            volume: 0.05
+        })
+
+        this.backgroundAudio.play()
+
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, 'game-background')
         Align.scaleToGameW(this.background, 1)
 
