@@ -23,6 +23,11 @@ export default class WonScene extends Phaser.Scene
 
     create()
     {
+        // wonAudio
+        this.wonAudio = this.sound.add('won', {
+            volume: 0.4
+        })
+
         this.background = this.add.image(this.scale.width/2, this.scale.height/2, 'final-background')
         Align.scaleToGameW(this.background, 1)
 
@@ -58,6 +63,8 @@ export default class WonScene extends Phaser.Scene
         // logo
         this.loadinglogo.x = this.bgWidth - this.bgWidth / 6.5
         this.loadinglogo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
+
+        this.wonAudio.play()
 
         this.tweens.add({
             targets: this.msg,

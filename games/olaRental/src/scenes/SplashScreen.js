@@ -23,6 +23,11 @@ export default class SplashScreen extends Phaser.Scene
 
     create()
     {
+        // getSetGoAudio
+        this.getSetGoAudio = this.sound.add('getSetGo', {
+            volume: 0.2
+        })
+
         this.blueScreen = this.add.image(this.scale.width/2, this.scale.height/2, 'blueScreen')
         Align.scaleToGameW(this.blueScreen, 1)
         this.blueScreen.setAlpha(0.8)
@@ -46,6 +51,7 @@ export default class SplashScreen extends Phaser.Scene
         this.tweens.add({
             targets: this.getScreen,
             onStart: function () {
+                this.getSetGoAudio.play()
                 this.getScreen.setVisible(true)
             },
             visible: true,
@@ -61,6 +67,7 @@ export default class SplashScreen extends Phaser.Scene
         this.tweens.add({
             targets: this.setScreen,
             onStart: function () {
+                this.getSetGoAudio.play()
                 this.setScreen.setVisible(true)
             },
             visible: true,
@@ -78,6 +85,7 @@ export default class SplashScreen extends Phaser.Scene
         this.tweens.add({
             targets: this.goScreen,
             onStart: function () {
+                this.getSetGoAudio.play()
                 this.goScreen.setVisible(true)
             },
             visible: true,

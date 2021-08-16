@@ -10,10 +10,9 @@ export default class Game extends Phaser.Scene
     flipflop
     count = 0
 
-    constructor(car)
+    constructor()
     {
         super('game')
-        this.car = car
     }
 
     init(data)
@@ -87,9 +86,6 @@ export default class Game extends Phaser.Scene
 
         this.progress = this.add.image(this.scale.width/2, this.scale.height/2, 'game-progress')
         Align.scaleToGameW(this.progress, 1)
-
-        this.minicar = this.add.image(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}mini`)
-        Align.scaleToGameW(this.minicar, 0.03)
 
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
         Align.scaleToGameW(this.loadinglogo, 0.25)
@@ -179,12 +175,6 @@ export default class Game extends Phaser.Scene
         this.coin5.y = dividerY
         this.coin6.y = dividerY
         this.coin7.y = dividerY
-
-        // minicar
-        const minicarInitial = (this.bgHeight / 1.1) + ((this.height - this.bgHeight) / 2)
-        const minicarDestination = (this.bgHeight / 1.68) + ((this.height - this.bgHeight) / 2)
-        this.minicar.x = this.bgWidth / 10
-        this.minicar.y = minicarInitial
 
         // service center
         this.serviceCenter.x = this.scale.width / 2.5
@@ -402,6 +392,15 @@ export default class Game extends Phaser.Scene
         Align.scaleToGameW(this.car, 0.6)
         this.car.setSize(this.car.width * this.car.scale * 0.35, this.car.height * this.car.scale * 0.4)
         // this.car.setVisible(false)
+
+        this.minicar = this.add.image(this.scale.width/2, this.scale.height/2, `game-car${this.carSelected}mini`)
+        Align.scaleToGameW(this.minicar, 0.03)
+
+        // minicar
+        const minicarInitial = (this.bgHeight / 1.1) + ((this.height - this.bgHeight) / 2)
+        const minicarDestination = (this.bgHeight / 1.68) + ((this.height - this.bgHeight) / 2)
+        this.minicar.x = this.bgWidth / 10
+        this.minicar.y = minicarInitial
 
         // car
         this.car.y = (this.bgHeight * 2.5/4) + ((this.height - this.bgHeight) / 2)

@@ -22,6 +22,11 @@ export default class Dummy extends Phaser.Scene
 
     create()
     {
+        // coinCollectedAudio
+        this.coinCollectedAudio = this.sound.add('coinCollected', {
+            volume: 0.1
+        })
+
         this.animationY = this.car.y - ((this.car.height * this.car.scale))
         this.crashAnim1 = this.add.image(this.car.x, this.animationY, 'game-crashAnim1')
         Align.scaleToGameW(this.crashAnim1, 0.5)
@@ -32,6 +37,8 @@ export default class Dummy extends Phaser.Scene
 
         this.crashSign = this.add.image(this.car.x, this.animationY, `game-msg${this.coinName.charAt(this.coinName.length - 1)}`)
         Align.scaleToGameW(this.crashSign, 0.5)
+
+        this.coinCollectedAudio.play()
 
         this.tweens.add({
             targets: this.crashAnim1,

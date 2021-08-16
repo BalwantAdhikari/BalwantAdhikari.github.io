@@ -76,11 +76,28 @@ export default class LoadingScene extends Phaser.Scene
         // frame5
         this.load.image("final-lostMsg", "assets/frame5-msg.png")
 
+        // audio
+        this.load.audio("carSelected", "assets/audio/carSelected.mp3")
+        this.load.audio("click", "assets/audio/click.mp3")
+        this.load.audio("coinCollected", "assets/audio/coinCollected.mp3")
+        this.load.audio("getSetGo", "assets/audio/getSetGo.mp3")
+        this.load.audio("lost", "assets/audio/lost.mp3")
+        this.load.audio("won", "assets/audio/won.mp3")
         
     }
 
     create()
     {
+        // carSelectedAudio
+        this.carSelectedAudio = this.sound.add('carSelected', {
+            volume: 0.04
+        })
+
+        // click
+        this.clickAudio = this.sound.add('click', {
+            volume: 0.1
+        })
+
         // background
         this.loadingBackground = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-background')
         Align.scaleToGameW(this.loadingBackground, 1)
@@ -184,6 +201,7 @@ export default class LoadingScene extends Phaser.Scene
 
         // onclick events
         this.loadingcar1mini.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            this.carSelectedAudio.play()
             this.loadingcar.setTexture('loading-car1')
             this.loadingcar1mini.setVisible(false)
             this.loadingcar1miniSelected.setVisible(true)
@@ -192,6 +210,7 @@ export default class LoadingScene extends Phaser.Scene
         }, this);
 
         this.loadingcar2mini.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            this.carSelectedAudio.play()
             this.loadingcar.setTexture('loading-car2')
             this.loadingcar2mini.setVisible(false)
             this.loadingcar2miniSelected.setVisible(true)
@@ -200,6 +219,7 @@ export default class LoadingScene extends Phaser.Scene
         }, this);
         
         this.loadingcar3mini.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            this.carSelectedAudio.play()
             this.loadingcar.setTexture('loading-car3')
             this.loadingcar3mini.setVisible(false)
             this.loadingcar3miniSelected.setVisible(true)
@@ -208,6 +228,7 @@ export default class LoadingScene extends Phaser.Scene
         }, this);
 
         this.loadingcar4mini.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            this.carSelectedAudio.play()
             this.loadingcar.setTexture('loading-car4')
             this.loadingcar4mini.setVisible(false)
             this.loadingcar4miniSelected.setVisible(true)
@@ -216,6 +237,7 @@ export default class LoadingScene extends Phaser.Scene
         }, this);
 
         this.loadingstartButton.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            this.clickAudio.play()
             // start next scene
             this.loadingtext.destroy()
             this.loadingstartButton.destroy()
