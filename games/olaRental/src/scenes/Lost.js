@@ -69,7 +69,7 @@ export default class LostScene extends Phaser.Scene
 
         // tryAgain
         this.tryAgain.x = this.bgWidth / 2
-        this.tryAgain.y = (this.bgHeight / 1.83) + ((this.height - this.bgHeight) / 2)
+        this.tryAgain.y = (this.bgHeight / 1.82) + ((this.height - this.bgHeight) / 2)
 
         this.tryAgain.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
             // start loading scene

@@ -52,6 +52,7 @@ export default class WonScene extends Phaser.Scene
 
         this.bookNow = this.add.image(0, 0, 'final-bookNow')
         Align.scaleToGameW(this.bookNow, 0.35)
+        this.bookNow.setVisible(false)
 
         // screen width/height
         this.width = this.scale.width
@@ -69,13 +70,21 @@ export default class WonScene extends Phaser.Scene
 
         // bookNow
         this.bookNow.x = this.bgWidth / 2
-        this.bookNow.y = (this.bgHeight / 1.83) + ((this.height - this.bgHeight) / 2)
+        this.bookNow.y = (this.bgHeight / 1.82) + ((this.height - this.bgHeight) / 2)
+
+        this.bookNow.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            // facebook CTA
+            
+        }, this)
 
         this.wonAudio.play()
 
         this.tweens.add({
             targets: this.msg,
             scale: {start: 0.3, to: this.msg.scale},
+            onComplete: () => {
+                this.bookNow.setVisible(true)
+            },
             duration: 1500
         })
         

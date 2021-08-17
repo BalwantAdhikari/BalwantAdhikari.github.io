@@ -18,6 +18,7 @@ export default class Game extends Phaser.Scene
     init(data)
     {
         this.carSelected = data.car
+        this.count = 0
     }
 
     preload()
