@@ -72,9 +72,11 @@ export default class LoadingScene extends Phaser.Scene
         this.load.image("final-background", "assets/frame4-background.png")
         this.load.image("final-road", "assets/frame4-road.png")
         this.load.image("final-wonMsg", "assets/frame4-msg.png")
+        this.load.image("final-bookNow", "assets/frame4-bookNow.png")
 
         // frame5
         this.load.image("final-lostMsg", "assets/frame5-msg.png")
+        this.load.image("final-tryAgain", "assets/frame5-tryAgain.png")
 
         // audio
         this.load.audio("background", "assets/audio/background.mp3")

@@ -50,6 +50,9 @@ export default class LostScene extends Phaser.Scene
         this.loadinglogo = this.add.image(this.scale.width/2, this.scale.height/2, 'loading-logo')
         Align.scaleToGameW(this.loadinglogo, 0.25)
 
+        this.tryAgain = this.add.image(0, 0, 'final-tryAgain')
+        Align.scaleToGameW(this.tryAgain, 0.35)
+
         // screen width/height
         this.width = this.scale.width
         this.height = this.scale.height
@@ -63,6 +66,16 @@ export default class LostScene extends Phaser.Scene
         // logo
         this.loadinglogo.x = this.bgWidth - this.bgWidth / 6.5
         this.loadinglogo.y = (this.bgHeight / 13.2) + ((this.height - this.bgHeight) / 2)
+
+        // tryAgain
+        this.tryAgain.x = this.bgWidth / 2
+        this.tryAgain.y = (this.bgHeight / 1.83) + ((this.height - this.bgHeight) / 2)
+
+        this.tryAgain.setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            // start loading scene
+            this.scene.stop();
+            this.scene.launch('loading-scene');
+        }, this)
 
         this.lostAudio.play()
         
