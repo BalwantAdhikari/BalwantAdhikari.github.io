@@ -1,5 +1,4 @@
 import Phaser from './lib/Phaser.js'
-
 import Preload from './scenes/Preload.js'
 import Game from './scenes/Game.js'
 
