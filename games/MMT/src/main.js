@@ -5,8 +5,9 @@ import Game from './scenes/Game.js'
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: window.innerWidth * window.devicePixelRatio,
+    height: window.innerHeight * window.devicePixelRatio,
+    resolution: window.devicePixelRatio,
     physics: {
         default: 'arcade',
         arcade: {
@@ -15,6 +16,10 @@ export default new Phaser.Game({
             },
             debug: false
         }
+    },
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [Preload, Game]
 })
