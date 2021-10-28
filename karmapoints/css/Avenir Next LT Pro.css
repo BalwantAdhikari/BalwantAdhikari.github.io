@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Avenir Next LT Pro';
+    src: url('fonts/AvenirNextLTPro-Regular.eot');
+    src: url('fonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype'),
+         url('fonts/AvenirNextLTPro-Regular.woff2') format('woff2'),
+         url('fonts/AvenirNextLTPro-Regular.woff') format('woff'),
+         url('fonts/AvenirNextLTPro-Regular.ttf')  format('truetype'),
+         url('fonts/AvenirNextLTPro-Regular.svg#Avenir Next LT Pro') format('svg');
+}
