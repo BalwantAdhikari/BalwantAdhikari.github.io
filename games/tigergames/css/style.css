@@ -188,7 +188,8 @@ p {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     padding: 0.9rem;
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
     font-size: 0.8rem;
     height: 2em;
     line-height: 0em;
@@ -784,6 +785,54 @@ hr {
     align-items: center;
     cursor: pointer;
 }
+
+.border-dark {
+    border-color: #000
+}
+
+.border-light-dark {
+    border-color: hsla(0, 0%, 100%, .3137254902)
+}
+
+.green-info {
+    background-color: #39875f;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.info-text-big {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.info-text-small {
+    font-size: 10px !important;
+    text-align: left;
+}
+
+.info-image {
+    height: 47px;
+}
+
+@media only screen and (max-width: 450px) {
+    .green-info {
+        padding: 8px;
+    }
+
+    .info-text-big {
+        font-size: 10px;
+    }
+
+    .info-text-small {
+        font-size: 8px !important;
+    }
+
+    .info-image {
+        height: 30px;
+    }
+}
+
 
 @media only screen and (max-width: 767px) {
     .ballebaazi_play .header .head_r h2 {
