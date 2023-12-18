@@ -815,6 +815,35 @@ hr {
     height: 47px;
 }
 
+.download-app-button_animation {
+    -webkit-animation: button-shine 45s linear infinite;
+    animation: button-shine 45s linear infinite
+}
+
+.download-app-button_animation {
+    background: linear-gradient(121.19deg, rgba(133, 239, 49, 0) 25.73%, hsla(0, 0%, 100%, .37) 45.27%, rgba(133, 239, 49, 0) 62.27%), #009c4d
+}
+
+@-webkit-keyframes button-shine {
+    0% {
+        background-position: -5000px 0
+    }
+
+    to {
+        background-position: 5000px 0
+    }
+}
+
+@keyframes button-shine {
+    0% {
+        background-position: -5000px 0
+    }
+
+    to {
+        background-position: 5000px 0
+    }
+}
+
 @media only screen and (max-width: 450px) {
     .green-info {
         padding: 8px;
